@@ -33,7 +33,7 @@ namespace SheduleEditorV6
         public static void VisualizeRow(this DataGridView dataGrid, int ind)
         {
             ind -= ind % 2;
-            switch (RowType)
+            switch (RowType)// я думаю, надо передавать ScheduleData и в цикле "визуализировать" каждую строку
             {
                 case RowTypes.Simple:
                     ToSimpleView(dataGrid, ind);

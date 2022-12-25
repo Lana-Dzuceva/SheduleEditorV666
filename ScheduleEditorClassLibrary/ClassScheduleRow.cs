@@ -5,9 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
-namespace SheduleEditorV6
+namespace ScheduleEditorClassLibrary
 {
     public enum RowTypes
     {
@@ -16,7 +15,7 @@ namespace SheduleEditorV6
         TwoWeeks,
         TwoGroupsAndTwoWeeks
     }
-
+    #region 
     //public class RowItem
     //{
     //    public string Subject;
@@ -29,8 +28,8 @@ namespace SheduleEditorV6
     //        Audience = audience;
     //    }
     //}
-
-    class ClassScheduleRow
+    #endregion
+    public class ClassScheduleRow
     {
         RowTypes rowType;
         Dictionary<string, ScheduleAcademicClass> items;
@@ -55,6 +54,7 @@ namespace SheduleEditorV6
                 return items;
             }
         }
+
 
         public ClassScheduleRow(RowTypes rowType, ScheduleAcademicClass group1week1 =null, ScheduleAcademicClass group1week2 = null, ScheduleAcademicClass group2week1 = null, ScheduleAcademicClass group2week2 = null)
         {

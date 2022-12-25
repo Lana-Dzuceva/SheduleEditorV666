@@ -120,15 +120,7 @@ namespace ScheduleEditorClassLibrary
     }
 
 
-    public class ScheduleData
-    {
-        public List<ScheduleAcademicClass> data;
-
-        public ScheduleData()
-        {
-
-        }
-    }
+    
     public class Teacher
     {
         public string Name { get; set; }

@@ -41,8 +41,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClassScheduleData.cs" />
+    <Compile Include="ClassScheduleRow.cs" />
     <Compile Include="FacultyGroups.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SpannedDataGridView\SpannedDataGridView2010.csproj">
+      <Project>{c2f0b723-17d0-4c11-8847-119d35f5da8f}</Project>
+      <Name>SpannedDataGridView2010</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
