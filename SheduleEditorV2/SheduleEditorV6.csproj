@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{10F65E2B-C6F4-4356-B5F5-486DC50DF578}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>SheduleEditorV2</RootNamespace>
-    <AssemblyName>SheduleEditorV2</AssemblyName>
+    <RootNamespace>SheduleEditorV6</RootNamespace>
+    <AssemblyName>SheduleEditorV6</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class1.cs" />
     <Compile Include="ClassScheduleRow.cs" />
     <Compile Include="ClassScheduleError.cs" />
     <Compile Include="FormMain.cs">
@@ -76,6 +77,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">

@@ -22,7 +22,7 @@ namespace ScheduleEditorClassLibrary
         {
             Groups.Add(group);
         }
-       
+
     }
 
     public class Group
@@ -56,6 +56,15 @@ namespace ScheduleEditorClassLibrary
         first,
         second
     }
+    public enum WeekDay
+    {
+        Monday,
+        Tuesday,
+        Wednesday,
+        Thursday,
+        Friday,
+        Saturday
+    }
 
     public class AcademicClass
     {
@@ -73,30 +82,36 @@ namespace ScheduleEditorClassLibrary
             this.Type = type;
             this.SubGroup = subGroup;
         }
+        public AcademicClass(AcademicClass @class)
+        {
+            ClassTitle = @class.ClassTitle;
+            Teacher = @class.Teacher;
+            Hours = @class.Hours;
+            Type = @class.Type;
+            SubGroup = @class.SubGroup;
+        }
         public AcademicClass()
         {
 
         }
     }
 
-    public enum WeekDay
-    {
-        Monday,
-        Tuesday,
-        Wednesday,
-        Thursday,
-        Friday,
-        Saturday
-    }
+
 
     public class ScheduleAcademicClass : AcademicClass
     {
         public int Audience { get; set; }
         WeekDay WeekDay { get; set; }
-        int ClassNumber { get; set; }
+        int ClassNumber { get; set; } // номер пары
 
-        public ScheduleAcademicClass(int audience, WeekDay weekDay, int classNumber, AcademicClass academicClass)
-            : base(academicClass.ClassTitle, academicClass.Teacher, academicClass.Hours, academicClass.Type, academicClass.SubGroup)
+        //public ScheduleAcademicClass(int audience, WeekDay weekDay, int classNumber, AcademicClass academicClass)
+        //    : base(academicClass.ClassTitle, academicClass.Teacher, academicClass.Hours, academicClass.Type, academicClass.SubGroup)
+        //{
+        //    Audience = audience;
+        //    WeekDay = weekDay;
+        //    ClassNumber = classNumber;
+        //}
+        public ScheduleAcademicClass(int audience, WeekDay weekDay, int classNumber, AcademicClass academicClass) : base(academicClass)
         {
             Audience = audience;
             WeekDay = weekDay;
@@ -104,6 +119,16 @@ namespace ScheduleEditorClassLibrary
         }
     }
 
+
+    public class ScheduleData
+    {
+        public List<ScheduleAcademicClass> data;
+
+        public ScheduleData()
+        {
+
+        }
+    }
     public class Teacher
     {
         public string Name { get; set; }

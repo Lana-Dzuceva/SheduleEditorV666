@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using SpannedDataGridView;
 using ScheduleEditorClassLibrary;
 
-namespace SheduleEditorV2
+namespace SheduleEditorV6
 {
     public partial class FormMain : Form
     {

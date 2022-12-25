@@ -1,4 +1,4 @@
-﻿namespace SheduleEditorV2
+﻿namespace SheduleEditorV6
 {
     partial class FormTeacherPreferences
     {
