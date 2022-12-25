@@ -3,8 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using ScheduleEditorClassLibrary;
+using System.Runtime.CompilerServices;
 
 namespace SheduleEditorV6
 {
@@ -26,14 +27,14 @@ namespace SheduleEditorV6
             }
         }
         /// <summary>
-        /// Делает внешне датагрид таким каким надо
+        /// приводит строку расписания к нужному виду в зависимости от типа
         /// </summary>
         /// <param name="dataGrid"></param>
         /// <param name="ind">номер строки</param>
-        public static void VisualizeRow(this DataGridView dataGrid, int ind)
+        public static void VisualizeRow(this DataGridView dataGrid, int ind, RowTypes RowType)
         {
             ind -= ind % 2;
-            switch (RowType)// я думаю, надо передавать ScheduleData и в цикле "визуализировать" каждую строку
+            switch (RowType)
             {
                 case RowTypes.Simple:
                     ToSimpleView(dataGrid, ind);
@@ -63,6 +64,28 @@ namespace SheduleEditorV6
                     break;
             }
         }
+        /// <summary>
+        /// переносит текстовую информацию из ScheduleRow
+        /// </summary>
+        /// <param name="dataGrid"></param>
+        /// <param name="ind"></param>
+        /// <param name="scheduleRow"></param>
+        public static void FillRow(this DataGridView dataGrid, int ind, ScheduleRow scheduleRow)
+        {
+            dataGrid[1, ind].Value = scheduleRow.Group1week1;
+            dataGrid[2, ind].Value = scheduleRow.Group2week1;
+            dataGrid[1, ind + 1].Value = scheduleRow.Group1week1;
+            dataGrid[2, ind + 1].Value = scheduleRow.Group2week1;
         }
+
+        public static void UpdateDataGrid(this DataGridView dataGrid, ScheduleData data)
+        {
+            for (int i = 0; i < data.Count(); i++)
+            {
+                dataGrid.FillRow(i * 2, data[i]);
+                dataGrid.VisualizeRow(i * 2, data[i].RowType);
+            }
+        }
+    }
 
 }

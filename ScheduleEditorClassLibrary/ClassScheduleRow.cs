@@ -29,10 +29,14 @@ namespace ScheduleEditorClassLibrary
     //    }
     //}
     #endregion
-    public class ClassScheduleRow
+    public class ScheduleRow
     {
         RowTypes rowType;
-        Dictionary<string, ScheduleAcademicClass> items;
+        //Dictionary<string, ScheduleAcademicClass> items;
+        public ScheduleAcademicClass Group1week1;
+        public ScheduleAcademicClass Group1week2;
+        public ScheduleAcademicClass Group2week1;
+        public ScheduleAcademicClass Group2week2;
         //List<List<ScheduleAcademicClass>> items;
         public int CountOfWeeks { get; private set; }
         public int CountOfGroups { get; private set; }
@@ -47,25 +51,27 @@ namespace ScheduleEditorClassLibrary
             }
         }
 
-        public Dictionary<string, ScheduleAcademicClass> Items
-        {
-            get
-            {
-                return items;
-            }
-        }
+        //public Dictionary<string, ScheduleAcademicClass> Items
+        //{
+        //    get
+        //    {
+        //        return items;
+        //    }
+        //}
 
 
-        public ClassScheduleRow(RowTypes rowType, ScheduleAcademicClass group1week1 =null, ScheduleAcademicClass group1week2 = null, ScheduleAcademicClass group2week1 = null, ScheduleAcademicClass group2week2 = null)
+        public ScheduleRow(RowTypes rowType, ScheduleAcademicClass group1week1 = null, ScheduleAcademicClass group1week2 = null, ScheduleAcademicClass group2week1 = null, ScheduleAcademicClass group2week2 = null)
         {
             RowType = rowType;
-            items["group1week1"] = group1week1;
-            items["group1week2"] = group1week2;
-            items["group2week1"] = group2week1;
-            items["group2week2"] = group2week2;
+            Group1week1 = group1week1;
+            Group1week2 = group1week2;
+            Group2week1 = group2week1;
+            Group2week2 = group2week2;
+            //items["group1week1"] = group1week1;
+            //items["group1week2"] = group1week2;
+            //items["group2week1"] = group2week1;
+            //items["group2week2"] = group2week2;
         }
-
-        
     }
 }
 
