@@ -68,6 +68,9 @@ namespace ScheduleEditorClassLibrary
 
     public class AcademicClass
     {
+        /// <summary>
+        /// название пары
+        /// </summary>
         public string ClassTitle { get; set; }
         public Teacher Teacher { get; set; }
         public int Hours { get; set; }
@@ -97,7 +100,7 @@ namespace ScheduleEditorClassLibrary
     }
 
 
-
+    
     public class ScheduleAcademicClass : AcademicClass
     {
         public int Audience { get; set; }
