@@ -104,21 +104,27 @@ namespace ScheduleEditorClassLibrary
     public class ScheduleAcademicClass : AcademicClass
     {
         public int Audience { get; set; }
-        WeekDay WeekDay { get; set; }
-        int ClassNumber { get; set; } // номер пары
+        public WeekDay WeekDay { get; set; }
+        public int ClassNumber { get; set; } // номер пары
 
-        //public ScheduleAcademicClass(int audience, WeekDay weekDay, int classNumber, AcademicClass academicClass)
-        //    : base(academicClass.ClassTitle, academicClass.Teacher, academicClass.Hours, academicClass.Type, academicClass.SubGroup)
-        //{
-        //    Audience = audience;
-        //    WeekDay = weekDay;
-        //    ClassNumber = classNumber;
-        //}
         public ScheduleAcademicClass(int audience, WeekDay weekDay, int classNumber, AcademicClass academicClass) : base(academicClass)
         {
             Audience = audience;
             WeekDay = weekDay;
             ClassNumber = classNumber;
+        }
+
+        public string GetTitleAndTeacher()
+        {
+            return $"{this.ClassTitle} {this.Teacher}";
+        }
+        public string GetAudience()
+        {
+            return Audience.ToString();
+        }
+        public override string ToString()
+        {
+            return $"{this.ClassTitle} {this.Teacher}";
         }
     }
 
