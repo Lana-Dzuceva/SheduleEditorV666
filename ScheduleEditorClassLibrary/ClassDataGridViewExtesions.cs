@@ -72,7 +72,14 @@ namespace SheduleEditorV6
         /// <param name="scheduleRow"></param>
         public static void FillRow(this DataGridView dataGrid, int ind, ScheduleRow scheduleRow)
         {
-            
+            dataGrid[1, ind].Value = scheduleRow.Group1week1.GetTitleAndTeacher();
+            dataGrid[2, ind].Value = scheduleRow.Group2week1.GetTitleAndTeacher();
+            dataGrid[1, ind + 1].Value = scheduleRow.Group1week1.GetTitleAndTeacher();
+            dataGrid[2, ind + 1].Value = scheduleRow.Group2week1.GetTitleAndTeacher();
+            dataGrid[0, ind].Value = scheduleRow.Group1week1.GetAudience();
+            dataGrid[3, ind].Value = scheduleRow.Group2week1.GetAudience();
+            dataGrid[0, ind + 1].Value = scheduleRow.Group1week1.GetAudience();
+            dataGrid[3, ind + 1].Value = scheduleRow.Group2week1.GetAudience();
         }
 
         public static void UpdateDataGrid(this DataGridView dataGrid, ScheduleData data)
