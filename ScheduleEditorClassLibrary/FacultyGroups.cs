@@ -93,14 +93,10 @@ namespace ScheduleEditorClassLibrary
             Type = @class.Type;
             SubGroup = @class.SubGroup;
         }
-        public AcademicClass()
-        {
-
-        }
     }
 
 
-    
+
     public class ScheduleAcademicClass : AcademicClass
     {
         public int Audience { get; set; }
@@ -113,23 +109,8 @@ namespace ScheduleEditorClassLibrary
             WeekDay = weekDay;
             ClassNumber = classNumber;
         }
-
-        public string GetTitleAndTeacher()
-        {
-            return $"{this.ClassTitle} {this.Teacher}";
-        }
-        public string GetAudience()
-        {
-            return Audience.ToString();
-        }
-        public override string ToString()
-        {
-            return $"{this.ClassTitle} {this.Teacher}";
-        }
     }
 
-
-    
     public class Teacher
     {
         public string Name { get; set; }
