@@ -45,7 +45,8 @@
     <Compile Include="ClassDataGridViewExtesions.cs" />
     <Compile Include="ClassScheduleData.cs" />
     <Compile Include="ClassScheduleRow.cs" />
-    <Compile Include="FacultyGroups.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="ClassFacultyGroups.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
