@@ -109,6 +109,14 @@ namespace ScheduleEditorClassLibrary
             WeekDay = weekDay;
             ClassNumber = classNumber;
         }
+        public string GetTitleAndTeacher()
+        {
+            return $"{this.ClassTitle} {this.Teacher}";
+        }
+        public string GetAudience()
+        {
+            return Audience.ToString();
+        }
     }
 
     public class Teacher
