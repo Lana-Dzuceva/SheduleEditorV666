@@ -133,7 +133,6 @@ namespace SheduleEditorV6
 
         private void TeacherPreferencesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("hmm");
             var f = new FormTeacherPreferences();
             f.Show();
         }

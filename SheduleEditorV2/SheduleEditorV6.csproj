@@ -46,7 +46,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="ClassScheduleRow.cs" />
     <Compile Include="ClassScheduleError.cs" />
     <Compile Include="FormMain.cs">

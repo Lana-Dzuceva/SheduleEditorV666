@@ -68,6 +68,9 @@ namespace ScheduleEditorClassLibrary
 
     public class AcademicClass
     {
+        /// <summary>
+        /// название пары
+        /// </summary>
         public string ClassTitle { get; set; }
         public Teacher Teacher { get; set; }
         public int Hours { get; set; }
@@ -90,10 +93,6 @@ namespace ScheduleEditorClassLibrary
             Type = @class.Type;
             SubGroup = @class.SubGroup;
         }
-        public AcademicClass()
-        {
-
-        }
     }
 
 
@@ -101,16 +100,9 @@ namespace ScheduleEditorClassLibrary
     public class ScheduleAcademicClass : AcademicClass
     {
         public int Audience { get; set; }
-        WeekDay WeekDay { get; set; }
-        int ClassNumber { get; set; } // номер пары
+        public WeekDay WeekDay { get; set; }
+        public int ClassNumber { get; set; } // номер пары
 
-        //public ScheduleAcademicClass(int audience, WeekDay weekDay, int classNumber, AcademicClass academicClass)
-        //    : base(academicClass.ClassTitle, academicClass.Teacher, academicClass.Hours, academicClass.Type, academicClass.SubGroup)
-        //{
-        //    Audience = audience;
-        //    WeekDay = weekDay;
-        //    ClassNumber = classNumber;
-        //}
         public ScheduleAcademicClass(int audience, WeekDay weekDay, int classNumber, AcademicClass academicClass) : base(academicClass)
         {
             Audience = audience;
@@ -119,8 +111,6 @@ namespace ScheduleEditorClassLibrary
         }
     }
 
-
-    
     public class Teacher
     {
         public string Name { get; set; }
