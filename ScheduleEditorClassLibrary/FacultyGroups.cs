@@ -30,6 +30,12 @@ namespace ScheduleEditorClassLibrary
             var answer = httpClient.GetStringAsync("http://math.nosu.ru/api/asdas4s5d1r45rd4h21hj45k/SELECT name, collation_name FROM sys.databases");
             return answer.ToString();
         }
+
+        void ParseAPIAnswer()
+        {
+            string answer = GetAnsFromAPI();
+            //...
+        }
     }
 
     public class Group
