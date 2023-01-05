@@ -119,5 +119,9 @@ namespace ScheduleEditorClassLibrary
         {
             Name = name;
         }
+        public override string ToString()
+        {
+            return Name; 
+        }
     }
 }
