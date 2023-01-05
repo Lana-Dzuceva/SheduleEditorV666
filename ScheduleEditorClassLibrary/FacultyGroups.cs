@@ -15,10 +15,12 @@ namespace ScheduleEditorClassLibrary
         {
             Groups = new List<Group>();
         }
+
         public FacultyGroups(List<Group> groups)
         {
             Groups = groups;
         }
+
         public void Add(Group group)
         {
             Groups.Add(group);
@@ -76,6 +78,7 @@ namespace ScheduleEditorClassLibrary
         first,
         second
     }
+
     public enum WeekDay
     {
         Monday,
@@ -116,8 +119,6 @@ namespace ScheduleEditorClassLibrary
         }
     }
 
-
-
     public class ScheduleAcademicClass : AcademicClass
     {
         public int Audience { get; set; }
@@ -138,8 +139,6 @@ namespace ScheduleEditorClassLibrary
             ClassNumber = classNumber;
         }
     }
-
-
     
     public class Teacher
     {
