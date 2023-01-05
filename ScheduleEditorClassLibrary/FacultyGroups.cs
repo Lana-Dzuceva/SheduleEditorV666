@@ -36,6 +36,13 @@ namespace ScheduleEditorClassLibrary
             string answer = GetAnsFromAPI();
             //...
         }
+
+        void SendScheduleToBd()
+        {
+            HttpClient httpClient = new HttpClient();
+            HttpContent content;
+            httpClient.PostAsync("http://math.nosu.ru/api/asdas4s5d1r45rd4h21hj45k/", content);
+        }
     }
 
     public class Group
