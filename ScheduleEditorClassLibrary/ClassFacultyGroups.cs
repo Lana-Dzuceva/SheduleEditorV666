@@ -45,27 +45,6 @@ namespace ScheduleEditorClassLibrary
         }
     }
 
-    public enum ClassType
-    {
-        Lecture,
-        Practice
-    }
-
-    public enum SubGroup
-    {
-        first,
-        second
-    }
-    public enum WeekDay
-    {
-        Monday,
-        Tuesday,
-        Wednesday,
-        Thursday,
-        Friday,
-        Saturday
-    }
-
     public class AcademicClass
     {
         /// <summary>

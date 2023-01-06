@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SheduleEditorV6
 {
-    public class ClassScheduleError
+    public class ScheduleError
     {
 
     }

@@ -30,7 +30,7 @@ namespace SheduleEditorV6
     //    }
     //}
 
-    class ClassScheduleRow
+    class ScheduleRow
     {
         RowTypes rowType;
         Dictionary<string, ScheduleAcademicClass> items;
@@ -56,7 +56,7 @@ namespace SheduleEditorV6
             }
         }
 
-        public ClassScheduleRow(RowTypes rowType, ScheduleAcademicClass group1week1 =null, ScheduleAcademicClass group1week2 = null, ScheduleAcademicClass group2week1 = null, ScheduleAcademicClass group2week2 = null)
+        public ScheduleRow(RowTypes rowType, ScheduleAcademicClass group1week1 =null, ScheduleAcademicClass group1week2 = null, ScheduleAcademicClass group2week1 = null, ScheduleAcademicClass group2week2 = null)
         {
             RowType = rowType;
             items["group1week1"] = group1week1;
