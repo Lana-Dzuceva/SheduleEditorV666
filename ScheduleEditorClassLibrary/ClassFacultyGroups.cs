@@ -53,10 +53,10 @@ namespace ScheduleEditorClassLibrary
         public string ClassTitle { get; set; }
         public Teacher Teacher { get; set; }
         public int Hours { get; set; }
-        public ClassType Type { get; set; }
-        public SubGroup SubGroup { get; set; }
+        public ClassTypes Type { get; set; }
+        public SubGroups SubGroup { get; set; }
 
-        public AcademicClass(string classTitle, Teacher teacher, int hours, ClassType type, SubGroup subGroup)
+        public AcademicClass(string classTitle, Teacher teacher, int hours, ClassTypes type, SubGroups subGroup)
         {
             this.ClassTitle = classTitle;
             this.Teacher = teacher;
@@ -75,14 +75,16 @@ namespace ScheduleEditorClassLibrary
     }
 
 
-
+    /// <summary>
+    /// Пара которая меет в расписании конкретное место
+    /// </summary>
     public class ScheduleAcademicClass : AcademicClass
     {
         public int Audience { get; set; }
-        public WeekDay WeekDay { get; set; }
+        public WeekDays WeekDay { get; set; }
         public int ClassNumber { get; set; } // номер пары
 
-        public ScheduleAcademicClass(int audience, WeekDay weekDay, int classNumber, AcademicClass academicClass) : base(academicClass)
+        public ScheduleAcademicClass(int audience, WeekDays weekDay, int classNumber, AcademicClass academicClass) : base(academicClass)
         {
             Audience = audience;
             WeekDay = weekDay;

@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace ScheduleEditorClassLibrary
 {
-    public enum ClassType
+    public enum ClassTypes
     {
         Lecture,
         Practice
     }
 
-    public enum SubGroup
+    public enum SubGroups
     {
         first,
         second
     }
-    public enum WeekDay
+    public enum WeekDays
     {
         Monday,
         Tuesday,
