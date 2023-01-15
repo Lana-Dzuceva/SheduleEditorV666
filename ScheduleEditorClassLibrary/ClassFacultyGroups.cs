@@ -3,8 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace ScheduleEditorClassLibrary
 {
@@ -25,13 +23,6 @@ namespace ScheduleEditorClassLibrary
         {
             Groups.Add(group);
         }
-
-        string GetAnsFromAPI()
-        {
-            HttpClient httpClient = new HttpClient();
-            var answer = httpClient.GetStringAsync("http://math.nosu.ru/api/asdas4s5d1r45rd4h21hj45k/SELECT name, collation_name FROM sys.databases");
-            return answer.ToString();
-        }
     }
 
     public class Group
@@ -50,7 +41,6 @@ namespace ScheduleEditorClassLibrary
             Classes = classes;
             Title = title;
         }
-
         public void Add(AcademicClass academicClass)
         {
             Classes.Add(academicClass);
