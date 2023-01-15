@@ -14,8 +14,8 @@ namespace ScheduleEditorClassLibrary
 
     public enum SubGroups
     {
-        first,
-        second
+        First,
+        Second
     }
     public enum WeekDays
     {

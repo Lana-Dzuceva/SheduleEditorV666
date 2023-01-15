@@ -9,15 +9,21 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using SpannedDataGridView;
 using ScheduleEditorClassLibrary;
+using Newtonsoft.Json;
+using System.IO;
 
 namespace SheduleEditorV6
 {
     public partial class FormMain : Form
     {
+        ScheduleData scheduleData;
+        FacultyGroups facultyGroups;
         public FormMain()
         {
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
+            scheduleData = new ScheduleData();
+            facultyGroups = JsonConvert.DeserializeObject<FacultyGroups>(File.ReadAllText("qqq.json"));
         }
 
         private void FormMain_Load(object sender, EventArgs e)
@@ -33,16 +39,12 @@ namespace SheduleEditorV6
             }
 
 
-
-
             BuildSchedule();
-            DrawSchedule();
-            BuildLessonsTabPages();
+            //dataGridViewSchedule.UpdateDataGrid();
+            //BuildLessonsTabPages();
             DrawLessons();
             DrawErrors();
-            
-
-
+            //GenerateData();
         }
 
         public void BuildSchedule()
@@ -71,48 +73,71 @@ namespace SheduleEditorV6
             {
                 dataGridViewSchedule.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
             }
-            
         }
-        public void DrawSchedule()
-        {
+        #region
+        //public void BuildLessonsTabPages()
+        //{
+        //    TabPage tabPage;
+        //    for (int i = 0; i < 5; i++)
+        //    {
+        //        tabPage = new TabPage("hmm");
+        //        tabControlGroups.Controls.Add(tabPage);
+        //    }
 
-        }
-        public void BuildLessonsTabPages()
-        {
-            TabPage tabPage;
-            for (int i = 0; i < 5; i++)
-            {
-                tabPage = new TabPage("hmm");
-                tabControlGroups.Controls.Add(tabPage);
-            }
+        //    for (int i = 0; i < tabControlGroups.Controls.Count; i++)
+        //    {
+        //        ListView listViewSubjects = new ListView();
+        //        listViewSubjects.View = View.Details;
+        //        //listViewSubjects.BackColor = Color.Red;
+        //        tabControlGroups.Controls[i].Controls.Add(listViewSubjects);
+        //        listViewSubjects.Dock = DockStyle.Fill;
+        //        listViewSubjects.Columns.Add("Дисциплина");
+        //        listViewSubjects.Columns.Add("Преподователь");
+        //        listViewSubjects.Columns.Add("Тип занятия");
+        //        listViewSubjects.Columns.Add("Кол-во часов");
+        //        listViewSubjects.Columns[0].Width = 220;
+        //        listViewSubjects.Columns[1].Width = 150;
+        //        listViewSubjects.Columns[2].Width = 150;
+        //        listViewSubjects.Columns[3].Width = 150;
+        //        listViewSubjects.Font = new Font(FontFamily.GenericSansSerif, 12);
 
-            for (int i = 0; i < tabControlGroups.Controls.Count; i++)
-            {
-                ListView listViewSubjects = new ListView();
-                listViewSubjects.View = View.Details;
-                //listViewSubjects.BackColor = Color.Red;
-                tabControlGroups.Controls[i].Controls.Add(listViewSubjects);
-                listViewSubjects.Dock = DockStyle.Fill;
-                listViewSubjects.Columns.Add("Дисциплина");
-                listViewSubjects.Columns.Add("Преподователь");
-                listViewSubjects.Columns.Add("Тип занятия");
-                listViewSubjects.Columns.Add("Кол-во часов");
-                listViewSubjects.Columns[0].Width = 220;
-                listViewSubjects.Columns[1].Width = 150;
-                listViewSubjects.Columns[2].Width = 150;
-                listViewSubjects.Columns[3].Width = 150;
-                listViewSubjects.Font = new Font(FontFamily.GenericSansSerif, 12);
-                ListViewItem lvi = new ListViewItem("q");
-                lvi.SubItems.Add("w");
-                lvi.SubItems.Add("e");
-                lvi.SubItems.Add(i.ToString());
-                listViewSubjects.Items.Add(lvi);
-            }
-            
+        //    }
+        //}
+        #endregion
+        public TabPage MakeClassesTabPage(string title="")
+        {
+            TabPage tabPage = new TabPage(title);
+            ListView listViewSubjects = new ListView();
+            listViewSubjects.View = View.Details;
+            tabPage.Controls.Add(listViewSubjects);
+            listViewSubjects.Dock = DockStyle.Fill;
+            listViewSubjects.Columns.Add("Дисциплина");
+            listViewSubjects.Columns.Add("Преподователь");
+            listViewSubjects.Columns.Add("Тип занятия");
+            listViewSubjects.Columns.Add("Кол-во часов");
+            listViewSubjects.Columns[0].Width = 220;
+            listViewSubjects.Columns[1].Width = 150;
+            listViewSubjects.Columns[2].Width = 150;
+            listViewSubjects.Columns[3].Width = 150;
+            listViewSubjects.Font = new Font(FontFamily.GenericSansSerif, 12);
+            return tabPage;
         }
         public void DrawLessons()
         {
-            
+            TabPage tabPage;
+            foreach (var group in facultyGroups.Groups)
+            {
+                tabPage = MakeClassesTabPage(group.Title);
+                foreach (var acadClass in group.Classes)
+                {
+                    ListViewItem lvi = new ListViewItem(acadClass.ClassTitle);
+                    lvi.SubItems.Add(acadClass.Teacher.ToString());
+                    lvi.SubItems.Add(acadClass.Type.ToString());
+                    lvi.SubItems.Add(acadClass.Hours.ToString());
+                    (tabPage.Controls[0] as ListView).Items.Add(lvi);
+                }
+                tabControlGroups.Controls.Add(tabPage);
+            }
         }
 
         public void DrawErrors()
@@ -125,11 +150,38 @@ namespace SheduleEditorV6
                 lvi.SubItems.Add("bad");
                 lvi.SubItems.Add(i.ToString());
                 listViewErrors.Items.Add(lvi);
-                
             }
         }
 
-       
+       public void GenerateData()
+       {
+            var facultyGroups = new FacultyGroups();
+            Teacher teacher;
+            AcademicClass academClass; ;
+            for (int i = 0; i < 20; i++)
+            {
+                var group = new Group($"Группа {i + 1}");    
+
+                for (int r = 0; r < 5; r++)
+                {
+                    teacher = new Teacher($"Учитель{i}{r}");
+                    academClass = new AcademicClass($"Пара{r}", teacher, 72, ClassTypes.Practice, SubGroups.First);
+                    group.Add(academClass);
+                }
+                for (int r = 0; r < 5; r++)
+                {
+                    teacher = new Teacher($"Учитель{i}{r + 5}");
+                    academClass = new AcademicClass($"Пара{r + 5}", teacher, 72, ClassTypes.Lecture, SubGroups.Second);
+                    group.Add(academClass);
+                }
+                teacher = new Teacher($"Учитель{i}{11}");
+                academClass = new AcademicClass($"Пара{12}", teacher, 36, ClassTypes.Lecture, SubGroups.Second);
+                group.Add(academClass);
+                facultyGroups.Add(group);
+            }
+            
+            File.WriteAllText("qqq.json", JsonConvert.SerializeObject(facultyGroups));
+        }
 
         private void TeacherPreferencesToolStripMenuItem_Click(object sender, EventArgs e)
         {

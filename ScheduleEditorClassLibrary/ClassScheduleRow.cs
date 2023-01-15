@@ -37,9 +37,12 @@ namespace ScheduleEditorClassLibrary
         public ScheduleAcademicClass Group1week2;
         public ScheduleAcademicClass Group2week1;
         public ScheduleAcademicClass Group2week2;
+        public WeekDays WeekDay { get; set; }
+        public int ClassNumber { get; set; } // номер пары
         //List<List<ScheduleAcademicClass>> items;
         public int CountOfWeeks { get; private set; }
         public int CountOfGroups { get; private set; }
+
         public RowTypes RowType
         {
             get { return rowType; }
@@ -59,7 +62,9 @@ namespace ScheduleEditorClassLibrary
         //    }
         //}
 
-
+        public ScheduleRow()
+        {
+        }
         public ScheduleRow(RowTypes rowType, ScheduleAcademicClass group1week1 = null, ScheduleAcademicClass group1week2 = null, ScheduleAcademicClass group2week1 = null, ScheduleAcademicClass group2week2 = null)
         {
             RowType = rowType;

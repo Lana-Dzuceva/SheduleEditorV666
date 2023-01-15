@@ -1,0 +1,2064 @@
+{
+    "Groups": [
+        {
+            "Classes": [
+                {
+                    "ClassTitle": "Пара0",
+                    "Teacher": {
+                        "Name": "Учитель00"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара1",
+                    "Teacher": {
+                        "Name": "Учитель01"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара2",
+                    "Teacher": {
+                        "Name": "Учитель02"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара3",
+                    "Teacher": {
+                        "Name": "Учитель03"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара4",
+                    "Teacher": {
+                        "Name": "Учитель04"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара5",
+                    "Teacher": {
+                        "Name": "Учитель05"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара6",
+                    "Teacher": {
+                        "Name": "Учитель06"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара7",
+                    "Teacher": {
+                        "Name": "Учитель07"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара8",
+                    "Teacher": {
+                        "Name": "Учитель08"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара9",
+                    "Teacher": {
+                        "Name": "Учитель09"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара12",
+                    "Teacher": {
+                        "Name": "Учитель011"
+                    },
+                    "Hours": 36,
+                    "Type": 0,
+                    "SubGroup": 1
+                }
+            ]
+        },
+        {
+            "Classes": [
+                {
+                    "ClassTitle": "Пара0",
+                    "Teacher": {
+                        "Name": "Учитель10"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара1",
+                    "Teacher": {
+                        "Name": "Учитель11"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара2",
+                    "Teacher": {
+                        "Name": "Учитель12"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара3",
+                    "Teacher": {
+                        "Name": "Учитель13"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара4",
+                    "Teacher": {
+                        "Name": "Учитель14"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара5",
+                    "Teacher": {
+                        "Name": "Учитель15"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара6",
+                    "Teacher": {
+                        "Name": "Учитель16"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара7",
+                    "Teacher": {
+                        "Name": "Учитель17"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара8",
+                    "Teacher": {
+                        "Name": "Учитель18"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара9",
+                    "Teacher": {
+                        "Name": "Учитель19"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара12",
+                    "Teacher": {
+                        "Name": "Учитель111"
+                    },
+                    "Hours": 36,
+                    "Type": 0,
+                    "SubGroup": 1
+                }
+            ]
+        },
+        {
+            "Classes": [
+                {
+                    "ClassTitle": "Пара0",
+                    "Teacher": {
+                        "Name": "Учитель20"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара1",
+                    "Teacher": {
+                        "Name": "Учитель21"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара2",
+                    "Teacher": {
+                        "Name": "Учитель22"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара3",
+                    "Teacher": {
+                        "Name": "Учитель23"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара4",
+                    "Teacher": {
+                        "Name": "Учитель24"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара5",
+                    "Teacher": {
+                        "Name": "Учитель25"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара6",
+                    "Teacher": {
+                        "Name": "Учитель26"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара7",
+                    "Teacher": {
+                        "Name": "Учитель27"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара8",
+                    "Teacher": {
+                        "Name": "Учитель28"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара9",
+                    "Teacher": {
+                        "Name": "Учитель29"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара12",
+                    "Teacher": {
+                        "Name": "Учитель211"
+                    },
+                    "Hours": 36,
+                    "Type": 0,
+                    "SubGroup": 1
+                }
+            ]
+        },
+        {
+            "Classes": [
+                {
+                    "ClassTitle": "Пара0",
+                    "Teacher": {
+                        "Name": "Учитель30"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара1",
+                    "Teacher": {
+                        "Name": "Учитель31"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара2",
+                    "Teacher": {
+                        "Name": "Учитель32"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара3",
+                    "Teacher": {
+                        "Name": "Учитель33"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара4",
+                    "Teacher": {
+                        "Name": "Учитель34"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара5",
+                    "Teacher": {
+                        "Name": "Учитель35"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара6",
+                    "Teacher": {
+                        "Name": "Учитель36"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара7",
+                    "Teacher": {
+                        "Name": "Учитель37"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара8",
+                    "Teacher": {
+                        "Name": "Учитель38"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара9",
+                    "Teacher": {
+                        "Name": "Учитель39"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара12",
+                    "Teacher": {
+                        "Name": "Учитель311"
+                    },
+                    "Hours": 36,
+                    "Type": 0,
+                    "SubGroup": 1
+                }
+            ]
+        },
+        {
+            "Classes": [
+                {
+                    "ClassTitle": "Пара0",
+                    "Teacher": {
+                        "Name": "Учитель40"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара1",
+                    "Teacher": {
+                        "Name": "Учитель41"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара2",
+                    "Teacher": {
+                        "Name": "Учитель42"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара3",
+                    "Teacher": {
+                        "Name": "Учитель43"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара4",
+                    "Teacher": {
+                        "Name": "Учитель44"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара5",
+                    "Teacher": {
+                        "Name": "Учитель45"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара6",
+                    "Teacher": {
+                        "Name": "Учитель46"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара7",
+                    "Teacher": {
+                        "Name": "Учитель47"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара8",
+                    "Teacher": {
+                        "Name": "Учитель48"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара9",
+                    "Teacher": {
+                        "Name": "Учитель49"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара12",
+                    "Teacher": {
+                        "Name": "Учитель411"
+                    },
+                    "Hours": 36,
+                    "Type": 0,
+                    "SubGroup": 1
+                }
+            ]
+        },
+        {
+            "Classes": [
+                {
+                    "ClassTitle": "Пара0",
+                    "Teacher": {
+                        "Name": "Учитель50"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара1",
+                    "Teacher": {
+                        "Name": "Учитель51"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара2",
+                    "Teacher": {
+                        "Name": "Учитель52"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара3",
+                    "Teacher": {
+                        "Name": "Учитель53"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара4",
+                    "Teacher": {
+                        "Name": "Учитель54"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара5",
+                    "Teacher": {
+                        "Name": "Учитель55"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара6",
+                    "Teacher": {
+                        "Name": "Учитель56"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара7",
+                    "Teacher": {
+                        "Name": "Учитель57"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара8",
+                    "Teacher": {
+                        "Name": "Учитель58"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара9",
+                    "Teacher": {
+                        "Name": "Учитель59"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара12",
+                    "Teacher": {
+                        "Name": "Учитель511"
+                    },
+                    "Hours": 36,
+                    "Type": 0,
+                    "SubGroup": 1
+                }
+            ]
+        },
+        {
+            "Classes": [
+                {
+                    "ClassTitle": "Пара0",
+                    "Teacher": {
+                        "Name": "Учитель60"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара1",
+                    "Teacher": {
+                        "Name": "Учитель61"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара2",
+                    "Teacher": {
+                        "Name": "Учитель62"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара3",
+                    "Teacher": {
+                        "Name": "Учитель63"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара4",
+                    "Teacher": {
+                        "Name": "Учитель64"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара5",
+                    "Teacher": {
+                        "Name": "Учитель65"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара6",
+                    "Teacher": {
+                        "Name": "Учитель66"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара7",
+                    "Teacher": {
+                        "Name": "Учитель67"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара8",
+                    "Teacher": {
+                        "Name": "Учитель68"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара9",
+                    "Teacher": {
+                        "Name": "Учитель69"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара12",
+                    "Teacher": {
+                        "Name": "Учитель611"
+                    },
+                    "Hours": 36,
+                    "Type": 0,
+                    "SubGroup": 1
+                }
+            ]
+        },
+        {
+            "Classes": [
+                {
+                    "ClassTitle": "Пара0",
+                    "Teacher": {
+                        "Name": "Учитель70"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара1",
+                    "Teacher": {
+                        "Name": "Учитель71"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара2",
+                    "Teacher": {
+                        "Name": "Учитель72"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара3",
+                    "Teacher": {
+                        "Name": "Учитель73"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара4",
+                    "Teacher": {
+                        "Name": "Учитель74"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара5",
+                    "Teacher": {
+                        "Name": "Учитель75"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара6",
+                    "Teacher": {
+                        "Name": "Учитель76"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара7",
+                    "Teacher": {
+                        "Name": "Учитель77"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара8",
+                    "Teacher": {
+                        "Name": "Учитель78"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара9",
+                    "Teacher": {
+                        "Name": "Учитель79"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара12",
+                    "Teacher": {
+                        "Name": "Учитель711"
+                    },
+                    "Hours": 36,
+                    "Type": 0,
+                    "SubGroup": 1
+                }
+            ]
+        },
+        {
+            "Classes": [
+                {
+                    "ClassTitle": "Пара0",
+                    "Teacher": {
+                        "Name": "Учитель80"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара1",
+                    "Teacher": {
+                        "Name": "Учитель81"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара2",
+                    "Teacher": {
+                        "Name": "Учитель82"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара3",
+                    "Teacher": {
+                        "Name": "Учитель83"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара4",
+                    "Teacher": {
+                        "Name": "Учитель84"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара5",
+                    "Teacher": {
+                        "Name": "Учитель85"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара6",
+                    "Teacher": {
+                        "Name": "Учитель86"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара7",
+                    "Teacher": {
+                        "Name": "Учитель87"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара8",
+                    "Teacher": {
+                        "Name": "Учитель88"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара9",
+                    "Teacher": {
+                        "Name": "Учитель89"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара12",
+                    "Teacher": {
+                        "Name": "Учитель811"
+                    },
+                    "Hours": 36,
+                    "Type": 0,
+                    "SubGroup": 1
+                }
+            ]
+        },
+        {
+            "Classes": [
+                {
+                    "ClassTitle": "Пара0",
+                    "Teacher": {
+                        "Name": "Учитель90"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара1",
+                    "Teacher": {
+                        "Name": "Учитель91"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара2",
+                    "Teacher": {
+                        "Name": "Учитель92"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара3",
+                    "Teacher": {
+                        "Name": "Учитель93"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара4",
+                    "Teacher": {
+                        "Name": "Учитель94"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара5",
+                    "Teacher": {
+                        "Name": "Учитель95"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара6",
+                    "Teacher": {
+                        "Name": "Учитель96"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара7",
+                    "Teacher": {
+                        "Name": "Учитель97"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара8",
+                    "Teacher": {
+                        "Name": "Учитель98"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара9",
+                    "Teacher": {
+                        "Name": "Учитель99"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара12",
+                    "Teacher": {
+                        "Name": "Учитель911"
+                    },
+                    "Hours": 36,
+                    "Type": 0,
+                    "SubGroup": 1
+                }
+            ]
+        },
+        {
+            "Classes": [
+                {
+                    "ClassTitle": "Пара0",
+                    "Teacher": {
+                        "Name": "Учитель100"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара1",
+                    "Teacher": {
+                        "Name": "Учитель101"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара2",
+                    "Teacher": {
+                        "Name": "Учитель102"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара3",
+                    "Teacher": {
+                        "Name": "Учитель103"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара4",
+                    "Teacher": {
+                        "Name": "Учитель104"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара5",
+                    "Teacher": {
+                        "Name": "Учитель105"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара6",
+                    "Teacher": {
+                        "Name": "Учитель106"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара7",
+                    "Teacher": {
+                        "Name": "Учитель107"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара8",
+                    "Teacher": {
+                        "Name": "Учитель108"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара9",
+                    "Teacher": {
+                        "Name": "Учитель109"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара12",
+                    "Teacher": {
+                        "Name": "Учитель1011"
+                    },
+                    "Hours": 36,
+                    "Type": 0,
+                    "SubGroup": 1
+                }
+            ]
+        },
+        {
+            "Classes": [
+                {
+                    "ClassTitle": "Пара0",
+                    "Teacher": {
+                        "Name": "Учитель110"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара1",
+                    "Teacher": {
+                        "Name": "Учитель111"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара2",
+                    "Teacher": {
+                        "Name": "Учитель112"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара3",
+                    "Teacher": {
+                        "Name": "Учитель113"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара4",
+                    "Teacher": {
+                        "Name": "Учитель114"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара5",
+                    "Teacher": {
+                        "Name": "Учитель115"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара6",
+                    "Teacher": {
+                        "Name": "Учитель116"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара7",
+                    "Teacher": {
+                        "Name": "Учитель117"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара8",
+                    "Teacher": {
+                        "Name": "Учитель118"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара9",
+                    "Teacher": {
+                        "Name": "Учитель119"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара12",
+                    "Teacher": {
+                        "Name": "Учитель1111"
+                    },
+                    "Hours": 36,
+                    "Type": 0,
+                    "SubGroup": 1
+                }
+            ]
+        },
+        {
+            "Classes": [
+                {
+                    "ClassTitle": "Пара0",
+                    "Teacher": {
+                        "Name": "Учитель120"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара1",
+                    "Teacher": {
+                        "Name": "Учитель121"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара2",
+                    "Teacher": {
+                        "Name": "Учитель122"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара3",
+                    "Teacher": {
+                        "Name": "Учитель123"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара4",
+                    "Teacher": {
+                        "Name": "Учитель124"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара5",
+                    "Teacher": {
+                        "Name": "Учитель125"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара6",
+                    "Teacher": {
+                        "Name": "Учитель126"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара7",
+                    "Teacher": {
+                        "Name": "Учитель127"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара8",
+                    "Teacher": {
+                        "Name": "Учитель128"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара9",
+                    "Teacher": {
+                        "Name": "Учитель129"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара12",
+                    "Teacher": {
+                        "Name": "Учитель1211"
+                    },
+                    "Hours": 36,
+                    "Type": 0,
+                    "SubGroup": 1
+                }
+            ]
+        },
+        {
+            "Classes": [
+                {
+                    "ClassTitle": "Пара0",
+                    "Teacher": {
+                        "Name": "Учитель130"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара1",
+                    "Teacher": {
+                        "Name": "Учитель131"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара2",
+                    "Teacher": {
+                        "Name": "Учитель132"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара3",
+                    "Teacher": {
+                        "Name": "Учитель133"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара4",
+                    "Teacher": {
+                        "Name": "Учитель134"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара5",
+                    "Teacher": {
+                        "Name": "Учитель135"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара6",
+                    "Teacher": {
+                        "Name": "Учитель136"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара7",
+                    "Teacher": {
+                        "Name": "Учитель137"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара8",
+                    "Teacher": {
+                        "Name": "Учитель138"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара9",
+                    "Teacher": {
+                        "Name": "Учитель139"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара12",
+                    "Teacher": {
+                        "Name": "Учитель1311"
+                    },
+                    "Hours": 36,
+                    "Type": 0,
+                    "SubGroup": 1
+                }
+            ]
+        },
+        {
+            "Classes": [
+                {
+                    "ClassTitle": "Пара0",
+                    "Teacher": {
+                        "Name": "Учитель140"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара1",
+                    "Teacher": {
+                        "Name": "Учитель141"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара2",
+                    "Teacher": {
+                        "Name": "Учитель142"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара3",
+                    "Teacher": {
+                        "Name": "Учитель143"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара4",
+                    "Teacher": {
+                        "Name": "Учитель144"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара5",
+                    "Teacher": {
+                        "Name": "Учитель145"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара6",
+                    "Teacher": {
+                        "Name": "Учитель146"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара7",
+                    "Teacher": {
+                        "Name": "Учитель147"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара8",
+                    "Teacher": {
+                        "Name": "Учитель148"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара9",
+                    "Teacher": {
+                        "Name": "Учитель149"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара12",
+                    "Teacher": {
+                        "Name": "Учитель1411"
+                    },
+                    "Hours": 36,
+                    "Type": 0,
+                    "SubGroup": 1
+                }
+            ]
+        },
+        {
+            "Classes": [
+                {
+                    "ClassTitle": "Пара0",
+                    "Teacher": {
+                        "Name": "Учитель150"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара1",
+                    "Teacher": {
+                        "Name": "Учитель151"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара2",
+                    "Teacher": {
+                        "Name": "Учитель152"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара3",
+                    "Teacher": {
+                        "Name": "Учитель153"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара4",
+                    "Teacher": {
+                        "Name": "Учитель154"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара5",
+                    "Teacher": {
+                        "Name": "Учитель155"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара6",
+                    "Teacher": {
+                        "Name": "Учитель156"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара7",
+                    "Teacher": {
+                        "Name": "Учитель157"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара8",
+                    "Teacher": {
+                        "Name": "Учитель158"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара9",
+                    "Teacher": {
+                        "Name": "Учитель159"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара12",
+                    "Teacher": {
+                        "Name": "Учитель1511"
+                    },
+                    "Hours": 36,
+                    "Type": 0,
+                    "SubGroup": 1
+                }
+            ]
+        },
+        {
+            "Classes": [
+                {
+                    "ClassTitle": "Пара0",
+                    "Teacher": {
+                        "Name": "Учитель160"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара1",
+                    "Teacher": {
+                        "Name": "Учитель161"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара2",
+                    "Teacher": {
+                        "Name": "Учитель162"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара3",
+                    "Teacher": {
+                        "Name": "Учитель163"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара4",
+                    "Teacher": {
+                        "Name": "Учитель164"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара5",
+                    "Teacher": {
+                        "Name": "Учитель165"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара6",
+                    "Teacher": {
+                        "Name": "Учитель166"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара7",
+                    "Teacher": {
+                        "Name": "Учитель167"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара8",
+                    "Teacher": {
+                        "Name": "Учитель168"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара9",
+                    "Teacher": {
+                        "Name": "Учитель169"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара12",
+                    "Teacher": {
+                        "Name": "Учитель1611"
+                    },
+                    "Hours": 36,
+                    "Type": 0,
+                    "SubGroup": 1
+                }
+            ]
+        },
+        {
+            "Classes": [
+                {
+                    "ClassTitle": "Пара0",
+                    "Teacher": {
+                        "Name": "Учитель170"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара1",
+                    "Teacher": {
+                        "Name": "Учитель171"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара2",
+                    "Teacher": {
+                        "Name": "Учитель172"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара3",
+                    "Teacher": {
+                        "Name": "Учитель173"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара4",
+                    "Teacher": {
+                        "Name": "Учитель174"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара5",
+                    "Teacher": {
+                        "Name": "Учитель175"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара6",
+                    "Teacher": {
+                        "Name": "Учитель176"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара7",
+                    "Teacher": {
+                        "Name": "Учитель177"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара8",
+                    "Teacher": {
+                        "Name": "Учитель178"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара9",
+                    "Teacher": {
+                        "Name": "Учитель179"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара12",
+                    "Teacher": {
+                        "Name": "Учитель1711"
+                    },
+                    "Hours": 36,
+                    "Type": 0,
+                    "SubGroup": 1
+                }
+            ]
+        },
+        {
+            "Classes": [
+                {
+                    "ClassTitle": "Пара0",
+                    "Teacher": {
+                        "Name": "Учитель180"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара1",
+                    "Teacher": {
+                        "Name": "Учитель181"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара2",
+                    "Teacher": {
+                        "Name": "Учитель182"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара3",
+                    "Teacher": {
+                        "Name": "Учитель183"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара4",
+                    "Teacher": {
+                        "Name": "Учитель184"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара5",
+                    "Teacher": {
+                        "Name": "Учитель185"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара6",
+                    "Teacher": {
+                        "Name": "Учитель186"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара7",
+                    "Teacher": {
+                        "Name": "Учитель187"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара8",
+                    "Teacher": {
+                        "Name": "Учитель188"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара9",
+                    "Teacher": {
+                        "Name": "Учитель189"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара12",
+                    "Teacher": {
+                        "Name": "Учитель1811"
+                    },
+                    "Hours": 36,
+                    "Type": 0,
+                    "SubGroup": 1
+                }
+            ]
+        },
+        {
+            "Classes": [
+                {
+                    "ClassTitle": "Пара0",
+                    "Teacher": {
+                        "Name": "Учитель190"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара1",
+                    "Teacher": {
+                        "Name": "Учитель191"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара2",
+                    "Teacher": {
+                        "Name": "Учитель192"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара3",
+                    "Teacher": {
+                        "Name": "Учитель193"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара4",
+                    "Teacher": {
+                        "Name": "Учитель194"
+                    },
+                    "Hours": 72,
+                    "Type": 1,
+                    "SubGroup": 0
+                },
+                {
+                    "ClassTitle": "Пара5",
+                    "Teacher": {
+                        "Name": "Учитель195"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара6",
+                    "Teacher": {
+                        "Name": "Учитель196"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара7",
+                    "Teacher": {
+                        "Name": "Учитель197"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара8",
+                    "Teacher": {
+                        "Name": "Учитель198"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара9",
+                    "Teacher": {
+                        "Name": "Учитель199"
+                    },
+                    "Hours": 72,
+                    "Type": 0,
+                    "SubGroup": 1
+                },
+                {
+                    "ClassTitle": "Пара12",
+                    "Teacher": {
+                        "Name": "Учитель1911"
+                    },
+                    "Hours": 36,
+                    "Type": 0,
+                    "SubGroup": 1
+                }
+            ]
+        }
+    ]
+}

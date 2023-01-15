@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,7 @@ namespace ScheduleEditorClassLibrary
         {
             Groups = new List<Group>();
         }
+        [JsonConstructor]
         public FacultyGroups(List<Group> groups)
         {
             Groups = groups;
@@ -27,16 +29,19 @@ namespace ScheduleEditorClassLibrary
 
     public class Group
     {
+        public string Title;
         public List<AcademicClass> Classes { get; set; } // ScheduleAcademicClass
 
-        public Group()
+        public Group(string title)
         {
             Classes = new List<AcademicClass>();
+            Title = title;
         }
-
-        public Group(List<AcademicClass> classes)
+        [JsonConstructor]
+        public Group(string title, List<AcademicClass> classes)
         {
             Classes = classes;
+            Title = title;
         }
 
         public void Add(AcademicClass academicClass)
@@ -55,7 +60,7 @@ namespace ScheduleEditorClassLibrary
         public int Hours { get; set; }
         public ClassTypes Type { get; set; }
         public SubGroups SubGroup { get; set; }
-
+        [JsonConstructor]
         public AcademicClass(string classTitle, Teacher teacher, int hours, ClassTypes type, SubGroups subGroup)
         {
             this.ClassTitle = classTitle;
