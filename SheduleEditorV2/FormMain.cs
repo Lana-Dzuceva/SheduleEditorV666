@@ -16,13 +16,13 @@ namespace SheduleEditorV6
 {
     public partial class FormMain : Form
     {
-        ScheduleData scheduleData;
+        ScheduleOne scheduleData;
         FacultyGroups facultyGroups;
         public FormMain()
         {
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
-            scheduleData = new ScheduleData();
+            scheduleData = new ScheduleOne();
             facultyGroups = JsonConvert.DeserializeObject<FacultyGroups>(File.ReadAllText("qqq.json"));
         }
 
@@ -40,7 +40,7 @@ namespace SheduleEditorV6
 
 
             BuildSchedule();
-            //dataGridViewSchedule.UpdateDataGrid();
+            dataGridViewSchedule.UpdateDataGrid(scheduleData);
             //BuildLessonsTabPages();
             DrawLessons();
             DrawErrors();
@@ -58,6 +58,7 @@ namespace SheduleEditorV6
             }
             dataGridViewSchedule.RowCount = 40;
             dataGridViewSchedule.ColumnHeadersHeight = 40;
+            dataGridViewSchedule.RowHeadersWidth = 60;
 
             int w = dataGridViewSchedule.Width - dataGridViewSchedule.RowHeadersWidth;
             dataGridViewSchedule.Columns[0].Width = (int)(0.1 * w);
@@ -65,9 +66,9 @@ namespace SheduleEditorV6
             dataGridViewSchedule.Columns[2].Width = (int)(0.4 * w);
             dataGridViewSchedule.Columns[3].Width = (int)(0.1 * w);
             string[] weekDays = { "Пн", "Вт", "Ср", "Чт", "Пт" };
-            for (int i = 0; i < 20; i += 4)
+            for (int i = 0; i < 5; i++)
             {
-                dataGridViewSchedule.Rows[i].HeaderCell.Value = weekDays[i / 4];
+                dataGridViewSchedule.Rows[i * 8].HeaderCell.Value = weekDays[i];
             }
             for (int i = 0; i < dataGridViewSchedule.Columns.Count; i++)
             {
@@ -104,7 +105,7 @@ namespace SheduleEditorV6
         //    }
         //}
         #endregion
-        public TabPage MakeClassesTabPage(string title="")
+        public TabPage MakeClassesTabPage(string title = "")
         {
             TabPage tabPage = new TabPage(title);
             ListView listViewSubjects = new ListView();
@@ -152,15 +153,18 @@ namespace SheduleEditorV6
                 listViewErrors.Items.Add(lvi);
             }
         }
+        public void DrawSchedule()
+        {
 
-       public void GenerateData()
-       {
+        }
+        public void GenerateData()
+        {
             var facultyGroups = new FacultyGroups();
             Teacher teacher;
             AcademicClass academClass; ;
             for (int i = 0; i < 20; i++)
             {
-                var group = new Group($"Группа {i + 1}");    
+                var group = new Group($"Группа {i + 1}");
 
                 for (int r = 0; r < 5; r++)
                 {
@@ -179,7 +183,7 @@ namespace SheduleEditorV6
                 group.Add(academClass);
                 facultyGroups.Add(group);
             }
-            
+
             File.WriteAllText("qqq.json", JsonConvert.SerializeObject(facultyGroups));
         }
 
@@ -187,6 +191,41 @@ namespace SheduleEditorV6
         {
             var f = new FormTeacherPreferences();
             f.Show();
+        }
+
+        private void ListViewItem_MouseDown(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                //DataGridView.HitTestInfo info = .HitTest(e.X, e.Y);
+                //string aud = dataGridViewAudience[info.ColumnIndex, info.RowIndex].Value.ToString();
+                //ShowAudienceDescription(aud);
+                //dataGridViewShedule.DoDragDrop(aud, DragDropEffects.Copy);
+                var lv = (tabControlGroups.SelectedTab.Controls[0] as ListView);
+                var lvi = lv.CheckedItems[0];
+                lv.DoDragDrop(lvi, DragDropEffects.Move);
+                //int indexSource = listView.Items.IndexOf(listViewSubjects.GetItemAt(e.X, e.Y));
+                //string s = ListViewItemToString(listViewSubjects.Items[indexSource]);
+                //listViewSubjects.DoDragDrop(s, DragDropEffects.Copy);
+            }
+            catch (Exception)
+            { }
+        }
+
+        private void dataGridViewSchedule_DragEnter(object sender, DragEventArgs e)
+        {
+            //if (e.Data.GetDataPresent(DataFormats.Text))
+            //    e.Effect = DragDropEffects.Copy;
+            //else
+            //    e.Effect = DragDropEffects.None;
+            e.Effect = DragDropEffects.Move;
+        }
+
+        private void dataGridViewSchedule_DragDrop(object sender, DragEventArgs e)
+        {
+            var li = e.Data.GetData(DataFormats.FileDrop) as ListViewItem;
+
+            //dataGridViewSchedule
         }
     }
 }

@@ -68,6 +68,7 @@
             // 
             // dataGridViewSchedule
             // 
+            this.dataGridViewSchedule.AllowDrop = true;
             this.dataGridViewSchedule.AllowUserToAddRows = false;
             this.dataGridViewSchedule.AllowUserToDeleteRows = false;
             this.dataGridViewSchedule.AllowUserToResizeColumns = false;
@@ -80,6 +81,8 @@
             this.dataGridViewSchedule.ReadOnly = true;
             this.dataGridViewSchedule.Size = new System.Drawing.Size(443, 426);
             this.dataGridViewSchedule.TabIndex = 0;
+            this.dataGridViewSchedule.DragDrop += new System.Windows.Forms.DragEventHandler(this.dataGridViewSchedule_DragDrop);
+            this.dataGridViewSchedule.DragEnter += new System.Windows.Forms.DragEventHandler(this.dataGridViewSchedule_DragEnter);
             // 
             // splitContainer2
             // 

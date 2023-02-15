@@ -46,7 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClassDataGridViewExtesions.cs" />
-    <Compile Include="ClassScheduleData.cs" />
+    <Compile Include="ClassScheduleOne.cs" />
     <Compile Include="ClassScheduleRow.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="ClassFacultyGroups.cs" />
