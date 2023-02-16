@@ -79,18 +79,18 @@ namespace SheduleEditorV6
         //public void BuildLessonsTabPages()
         //{
         //    TabPage tabPage;
-        //    for (int i = 0; i < 5; i++)
+        //    for (int r = 0; r < 5; r++)
         //    {
         //        tabPage = new TabPage("hmm");
         //        tabControlGroups.Controls.Add(tabPage);
         //    }
 
-        //    for (int i = 0; i < tabControlGroups.Controls.Count; i++)
+        //    for (int r = 0; r < tabControlGroups.Controls.Count; r++)
         //    {
         //        ListView listViewSubjects = new ListView();
         //        listViewSubjects.View = View.Details;
         //        //listViewSubjects.BackColor = Color.Red;
-        //        tabControlGroups.Controls[i].Controls.Add(listViewSubjects);
+        //        tabControlGroups.Controls[r].Controls.Add(listViewSubjects);
         //        listViewSubjects.Dock = DockStyle.Fill;
         //        listViewSubjects.Columns.Add("Дисциплина");
         //        listViewSubjects.Columns.Add("Преподователь");
@@ -136,7 +136,10 @@ namespace SheduleEditorV6
                     lvi.SubItems.Add(acadClass.Type.ToString());
                     lvi.SubItems.Add(acadClass.Hours.ToString());
                     (tabPage.Controls[0] as ListView).Items.Add(lvi);
+                    
                 }
+                (tabPage.Controls[0] as ListView).MouseDown += new System.Windows.Forms.MouseEventHandler(ListViewItem_MouseDown);
+                (tabPage.Controls[0] as ListView).MultiSelect = false;
                 tabControlGroups.Controls.Add(tabPage);
             }
         }
@@ -186,9 +189,27 @@ namespace SheduleEditorV6
 
             File.WriteAllText("qqq.json", JsonConvert.SerializeObject(facultyGroups));
         }
+        public void GenerateTeachers()
+        {
+            Random random = new Random();
+            var prefs = new List<TeacherPreference>();
+            for (int i = 0; i < 30; i++)
+            {
+                var pref = new TeacherPreference($"Teacher {i}");
+                for (int r = 0; r < 3; r++)
+                {
+                    pref.Preferences.Add(new Preference((WeekDays)random.Next(7), random.Next(1, 5)));
+                    
+                }
+                prefs.Add(pref);
+            }
+            File.WriteAllText("teachers2.json", JsonConvert.SerializeObject(prefs));
+            
+        }
 
         private void TeacherPreferencesToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            GenerateTeachers();
             var f = new FormTeacherPreferences();
             f.Show();
         }
@@ -202,8 +223,8 @@ namespace SheduleEditorV6
                 //ShowAudienceDescription(aud);
                 //dataGridViewShedule.DoDragDrop(aud, DragDropEffects.Copy);
                 var lv = (tabControlGroups.SelectedTab.Controls[0] as ListView);
-                var lvi = lv.CheckedItems[0];
-                lv.DoDragDrop(lvi, DragDropEffects.Move);
+                var lvi = (sender as ListView).Items.IndexOf((sender as ListView).GetItemAt(e.X, e.Y)); ;
+                (sender as ListView).DoDragDrop(lvi, DragDropEffects.Move);
                 //int indexSource = listView.Items.IndexOf(listViewSubjects.GetItemAt(e.X, e.Y));
                 //string s = ListViewItemToString(listViewSubjects.Items[indexSource]);
                 //listViewSubjects.DoDragDrop(s, DragDropEffects.Copy);
@@ -223,9 +244,14 @@ namespace SheduleEditorV6
 
         private void dataGridViewSchedule_DragDrop(object sender, DragEventArgs e)
         {
-            var li = e.Data.GetData(DataFormats.FileDrop) as ListViewItem;
-
+            var li = e.Data.GetData(typeof(ListViewItem)) as ListViewItem;
+            int a = 0;
             //dataGridViewSchedule
+        }
+
+        private void listViewErrors_MouseDown(object sender, MouseEventArgs e)
+        {
+
         }
     }
 }

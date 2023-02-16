@@ -48,6 +48,7 @@
     <Compile Include="ClassDataGridViewExtesions.cs" />
     <Compile Include="ClassScheduleOne.cs" />
     <Compile Include="ClassScheduleRow.cs" />
+    <Compile Include="ClassTeacherPreference.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="ClassFacultyGroups.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

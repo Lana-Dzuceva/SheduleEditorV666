@@ -122,6 +122,7 @@
             this.listViewErrors.TabIndex = 2;
             this.listViewErrors.UseCompatibleStateImageBehavior = false;
             this.listViewErrors.View = System.Windows.Forms.View.Details;
+            this.listViewErrors.MouseDown += new System.Windows.Forms.MouseEventHandler(this.listViewErrors_MouseDown);
             // 
             // menuStrip1
             // 
