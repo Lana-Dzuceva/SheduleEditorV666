@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,13 +18,18 @@ namespace SheduleEditorV6
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
             dataGridViewTable.RowTemplate.Height = 23;
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 5; i++)
             {
                 dataGridViewTable.Columns.Add(new SpannedDataGridView.DataGridViewTextBoxColumnEx());
             }
-            dataGridViewTable.RowCount = 40;
+            dataGridViewTable.RowCount = 4;
             dataGridViewTable.ColumnHeadersHeight = 40;
-
+            string[] weekDays = { "Пн", "Вт", "Ср", "Чт", "Пт" };
+            for (int i = 0; i < 5; i++)
+            {
+                dataGridViewTable.Columns[i].HeaderCell.Value = weekDays[i];
+            }
+            //var q = JsonConvert.DeserializeObject()
         }
 
         private void FormTeacherPreferences_Load(object sender, EventArgs e)

@@ -23,9 +23,9 @@ namespace SheduleEditorV6
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
             scheduleData = new ScheduleOne();
-            facultyGroups = JsonConvert.DeserializeObject<FacultyGroups>(File.ReadAllText("qqq.json"));
+            facultyGroups = JsonConvert.DeserializeObject<FacultyGroups>(File.ReadAllText(Environment.CurrentDirectory + @"\..\..\..\qqq.json"));
         }
-
+            
         private void FormMain_Load(object sender, EventArgs e)
         {
             listViewErrors.Columns.Add("Тип ошибки");
@@ -209,7 +209,7 @@ namespace SheduleEditorV6
 
         private void TeacherPreferencesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            GenerateTeachers();
+            //GenerateTeachers();
             var f = new FormTeacherPreferences();
             f.Show();
         }
