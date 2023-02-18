@@ -110,7 +110,6 @@ namespace SheduleEditorV6
             TabPage tabPage = new TabPage(title);
             ListView listViewSubjects = new ListView();
             listViewSubjects.View = View.Details;
-            tabPage.Controls.Add(listViewSubjects);
             listViewSubjects.Dock = DockStyle.Fill;
             listViewSubjects.Columns.Add("Дисциплина");
             listViewSubjects.Columns.Add("Преподователь");
@@ -121,6 +120,7 @@ namespace SheduleEditorV6
             listViewSubjects.Columns[2].Width = 150;
             listViewSubjects.Columns[3].Width = 150;
             listViewSubjects.Font = new Font(FontFamily.GenericSansSerif, 12);
+            tabPage.Controls.Add(listViewSubjects);
             return tabPage;
         }
         public void DrawLessons()
@@ -136,7 +136,7 @@ namespace SheduleEditorV6
                     lvi.SubItems.Add(acadClass.Type.ToString());
                     lvi.SubItems.Add(acadClass.Hours.ToString());
                     (tabPage.Controls[0] as ListView).Items.Add(lvi);
-                    
+                    lvi.Tag = acadClass;
                 }
                 (tabPage.Controls[0] as ListView).MouseDown += new System.Windows.Forms.MouseEventHandler(ListViewItem_MouseDown);
                 (tabPage.Controls[0] as ListView).MultiSelect = false;
@@ -220,14 +220,9 @@ namespace SheduleEditorV6
             {
                 //DataGridView.HitTestInfo info = .HitTest(e.X, e.Y);
                 //string aud = dataGridViewAudience[info.ColumnIndex, info.RowIndex].Value.ToString();
-                //ShowAudienceDescription(aud);
-                //dataGridViewShedule.DoDragDrop(aud, DragDropEffects.Copy);
-                var lv = (tabControlGroups.SelectedTab.Controls[0] as ListView);
-                var lvi = (sender as ListView).Items.IndexOf((sender as ListView).GetItemAt(e.X, e.Y)); ;
-                (sender as ListView).DoDragDrop(lvi, DragDropEffects.Move);
-                //int indexSource = listView.Items.IndexOf(listViewSubjects.GetItemAt(e.X, e.Y));
-                //string s = ListViewItemToString(listViewSubjects.Items[indexSource]);
-                //listViewSubjects.DoDragDrop(s, DragDropEffects.Copy);
+                var lv = sender as ListView;
+                var lvi = lv.GetItemAt(e.X, e.Y);
+                lv.DoDragDrop(lvi.Tag, DragDropEffects.Move);
             }
             catch (Exception)
             { }
@@ -244,14 +239,27 @@ namespace SheduleEditorV6
 
         private void dataGridViewSchedule_DragDrop(object sender, DragEventArgs e)
         {
-            var li = e.Data.GetData(typeof(ListViewItem)) as ListViewItem;
+            //var li = e.Data.GetData(typeof(ListViewItem)) as ListViewItem;
+            var acadClass = e.Data.GetData(typeof(ListViewItem)) as ListViewItem;
             int a = 0;
-            //dataGridViewSchedule
+            
         }
 
         private void listViewErrors_MouseDown(object sender, MouseEventArgs e)
         {
 
+        }
+
+        private void dataGridViewSchedule_DragOver(object sender, DragEventArgs e)
+        {
+            var info = dataGridViewSchedule.HitTest(e.X, e.Y);
+            if (info.RowIndex == -1) return;
+            dataGridViewSchedule.HighlightRow(info.RowIndex - 1, info.ColumnIndex, e.Data.GetData(typeof(AcademicClass)) as AcademicClass);
+        }
+
+        private void dataGridViewSchedule_DragLeave(object sender, EventArgs e)
+        {
+            dataGridViewSchedule.UpdateDataGrid(scheduleData);
         }
     }
 }

@@ -1,9 +1,11 @@
 ﻿using Newtonsoft.Json;
+using ScheduleEditorClassLibrary;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,12 +15,13 @@ namespace SheduleEditorV6
 {
     public partial class FormTeacherPreferences : Form
     {
+        List<TeacherPreference> prefs;
         public FormTeacherPreferences()
         {
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
             dataGridViewTable.RowTemplate.Height = 23;
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 7; i++)
             {
                 dataGridViewTable.Columns.Add(new SpannedDataGridView.DataGridViewTextBoxColumnEx());
             }
@@ -29,7 +32,17 @@ namespace SheduleEditorV6
             {
                 dataGridViewTable.Columns[i].HeaderCell.Value = weekDays[i];
             }
-            //var q = JsonConvert.DeserializeObject()
+            prefs = JsonConvert.DeserializeObject<List<TeacherPreference>>(File.ReadAllText(Environment.CurrentDirectory + @"\..\..\..\teachers2.json"));
+            foreach (var teacher in prefs)
+            {
+                listView1.Items.Add(new ListViewItem(teacher.Name));
+                foreach (var pref in teacher.Preferences)
+                {
+                    dataGridViewTable[(int)pref.WeekDay, pref.LessonNumber - 1].Value = teacher.Name;
+                }
+                
+                //ListViewItem lvi = new ListViewItem(acadClass.ClassTitle);
+            }
         }
 
         private void FormTeacherPreferences_Load(object sender, EventArgs e)

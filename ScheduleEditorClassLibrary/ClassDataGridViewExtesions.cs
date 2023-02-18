@@ -6,6 +6,7 @@ using System.Text;
 using System.Windows.Forms;
 using ScheduleEditorClassLibrary;
 using System.Runtime.CompilerServices;
+using System.Drawing;
 
 namespace SheduleEditorV6
 {
@@ -26,6 +27,27 @@ namespace SheduleEditorV6
                 (dataGrid[i, ind] as DataGridViewTextBoxCellEx).RowSpan = 2;
             }
         }
+        static void ToTwoGrops(this DataGridView dataGrid, int ind)
+        {
+            (dataGrid[0, ind] as DataGridViewTextBoxCellEx).ColumnSpan = 1;
+            for (int i = 0; i < 4; i++)
+                (dataGrid[i, ind] as DataGridViewTextBoxCellEx).RowSpan = 2;
+        }
+        static void ToTwoWeeks(this DataGridView dataGrid, int ind)
+        {
+            (dataGrid[0, ind] as DataGridViewTextBoxCellEx).RowSpan = 1;
+            (dataGrid[3, ind] as DataGridViewTextBoxCellEx).RowSpan = 1;
+            (dataGrid[0, ind] as DataGridViewTextBoxCellEx).ColumnSpan = 3;
+            (dataGrid[0, ind + 1] as DataGridViewTextBoxCellEx).ColumnSpan = 3;
+        }
+        static void ToTwoGroupsAndTwoWeeks(this DataGridView dataGrid, int ind)
+        {
+            (dataGrid[0, ind] as DataGridViewTextBoxCellEx).ColumnSpan = 1;
+            (dataGrid[0, ind] as DataGridViewTextBoxCellEx).RowSpan = 1;
+            (dataGrid[3, ind] as DataGridViewTextBoxCellEx).RowSpan = 1;
+        }
+
+
         /// <summary>
         /// приводит строку расписания к нужному виду в зависимости от типа
         /// </summary>
@@ -33,7 +55,7 @@ namespace SheduleEditorV6
         /// <param name="ind">номер строки</param>
         public static void VisualizeRow(this DataGridView dataGrid, int ind, RowTypes RowType)
         {
-            ind -= ind % 2;
+            ind *= 2;
             switch (RowType)
             {
                 case RowTypes.Simple:
@@ -41,24 +63,15 @@ namespace SheduleEditorV6
                     break;
                 case RowTypes.TwoGroups:
                     ToSimpleView(dataGrid, ind);
-                    (dataGrid[0, ind] as DataGridViewTextBoxCellEx).ColumnSpan = 1;
-                    for (int i = 0; i < 4; i++)
-                        (dataGrid[i, ind] as DataGridViewTextBoxCellEx).RowSpan = 2;
-
+                    ToTwoGrops(dataGrid, ind);
                     break;
                 case RowTypes.TwoWeeks:
                     ToSimpleView(dataGrid, ind);
-                    (dataGrid[0, ind] as DataGridViewTextBoxCellEx).RowSpan = 1;
-                    (dataGrid[3, ind] as DataGridViewTextBoxCellEx).RowSpan = 1;
-                    (dataGrid[0, ind] as DataGridViewTextBoxCellEx).ColumnSpan = 3;
-                    (dataGrid[0, ind + 1] as DataGridViewTextBoxCellEx).ColumnSpan = 3;
+                    ToTwoWeeks(dataGrid, ind);
                     break;
                 case RowTypes.TwoGroupsAndTwoWeeks:
                     ToSimpleView(dataGrid, ind);
-                    (dataGrid[0, ind] as DataGridViewTextBoxCellEx).ColumnSpan = 1;
-                    (dataGrid[0, ind] as DataGridViewTextBoxCellEx).RowSpan = 1;
-                    (dataGrid[3, ind] as DataGridViewTextBoxCellEx).RowSpan = 1;
-
+                    ToTwoGroupsAndTwoWeeks(dataGrid, ind);
                     break;
                 default:
                     break;
@@ -72,6 +85,7 @@ namespace SheduleEditorV6
         /// <param name="scheduleRow"></param>
         public static void FillRow(this DataGridView dataGrid, int ind, ScheduleRow scheduleRow)
         {
+            ind *= 2;
             dataGrid[1, ind].Value = scheduleRow?.Group1week1.GetTitleAndTeacher() ?? "";
             dataGrid[2, ind].Value = scheduleRow?.Group2week1.GetTitleAndTeacher() ?? "";
             dataGrid[1, ind + 1].Value = scheduleRow?.Group1week1.GetTitleAndTeacher() ?? "";
@@ -86,8 +100,46 @@ namespace SheduleEditorV6
         {
             for (int i = 0; i < data.Count(); i++)
             {
-                dataGrid.FillRow(i * 2, data[i]);
-                dataGrid.VisualizeRow(i * 2, data[i]?.RowType ?? RowTypes.Simple);
+                dataGrid.FillRow(i, data[i]);
+                dataGrid.VisualizeRow(i, data[i]?.RowType ?? RowTypes.Simple);
+            }
+        }
+        static void ColorRow(this DataGridView dataGrid, int ind, Color color)
+        {
+            dataGrid[0, ind].Style.BackColor = color;
+            dataGrid[0, ind + 1].Style.BackColor = color;
+            dataGrid[3, ind].Style.BackColor = color;
+            dataGrid[3, ind + 1].Style.BackColor = color;
+        }
+        /// <summary>
+        /// подсветка(подсказка) для заполнения расписания
+        /// </summary>
+        /// <param name="dataGrid"></param>
+        /// <param name="row"> номер строки в расписании</param>
+        /// <param name="academicClass"></param>
+        public static void HighlightRow(this DataGridView dataGrid, int row, int col, AcademicClass academicClass)
+        {
+            Color colorLight = Color.FromArgb(135, 206, 250);
+            Color colorDark = Color.FromArgb(37, 165, 245);
+            ToSimpleView(dataGrid, row - row % 2);
+            dataGrid.ColorRow(row - row % 2, colorLight);
+            if (academicClass.Type == ClassTypes.Lecture)
+            {
+                if(academicClass.Hours <= 36) // раз в 2 недели
+                {
+                    ToTwoWeeks(dataGrid, row);
+                    dataGrid[0, row].Style.BackColor = colorDark;
+                    dataGrid[3, row].Style.BackColor = colorDark;
+                }
+                else
+                {
+                    dataGrid[0, row].Style.BackColor = colorDark;
+                    dataGrid[3, row].Style.BackColor = colorDark;
+                }
+            }
+            else
+            {
+                
             }
         }
     }
