@@ -33,16 +33,16 @@ namespace SheduleEditorV6
                 dataGridViewTable.Columns[i].HeaderCell.Value = weekDays[i];
             }
             prefs = JsonConvert.DeserializeObject<List<TeacherPreference>>(File.ReadAllText(Environment.CurrentDirectory + @"\..\..\..\teachers2.json"));
-            foreach (var teacher in prefs)
-            {
-                listView1.Items.Add(new ListViewItem(teacher.Name));
-                foreach (var pref in teacher.Preferences)
-                {
-                    dataGridViewTable[(int)pref.WeekDay, pref.LessonNumber - 1].Value = teacher.Name;
-                }
-                
-                //ListViewItem lvi = new ListViewItem(acadClass.ClassTitle);
-            }
+            //foreach (var teacher in prefs)
+            //{
+            //    listView1.Items.Add(new ListViewItem(teacher.Name));
+            //    foreach (var pref in teacher.Preferences)
+            //    {
+            //        dataGridViewTable[(int)pref.WeekDay, pref.LessonNumber - 1].Value = teacher.Name;
+            //    }
+            //    //ListViewItem lvi = new ListViewItem(acadClass.ClassTitle);
+            //}
+            
         }
 
         private void FormTeacherPreferences_Load(object sender, EventArgs e)
