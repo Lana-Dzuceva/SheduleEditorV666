@@ -12,9 +12,16 @@ namespace SheduleEditorV6
 {
     public partial class FormEditTPCell : Form
     {
-        public FormEditTPCell()
+        DataGridViewCell cellData;
+        public FormEditTPCell(DataGridViewCell cell, )
         {
             InitializeComponent();
+            cellData = cell;
+        }
+
+        private void FormEditTPCell_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -71,6 +71,8 @@ namespace SheduleEditorV6
         private void FormTeacherPreferences_Load(object sender, EventArgs e)
         {
             //hmm();
+            listView1.Items.Cast<List<ListViewItem>>();
         }
+
     }
 }
