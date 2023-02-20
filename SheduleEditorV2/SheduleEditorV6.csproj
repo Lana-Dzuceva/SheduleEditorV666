@@ -51,6 +51,12 @@
   <ItemGroup>
     <Compile Include="ClassScheduleRow.cs" />
     <Compile Include="ClassScheduleError.cs" />
+    <Compile Include="FormEditTPCell.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormEditTPCell.Designer.cs">
+      <DependentUpon>FormEditTPCell.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -65,6 +71,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FormEditTPCell.resx">
+      <DependentUpon>FormEditTPCell.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>

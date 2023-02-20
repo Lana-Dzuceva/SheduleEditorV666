@@ -20,31 +20,54 @@ namespace SheduleEditorV6
         {
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
-            dataGridViewTable.RowTemplate.Height = 23;
+            dataGridViewTable.RowTemplate.Height = 100;
             for (int i = 0; i < 7; i++)
             {
                 dataGridViewTable.Columns.Add(new SpannedDataGridView.DataGridViewTextBoxColumnEx());
+                
             }
+            dataGridViewTable.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             dataGridViewTable.RowCount = 4;
             dataGridViewTable.ColumnHeadersHeight = 40;
-            string[] weekDays = { "Пн", "Вт", "Ср", "Чт", "Пт" };
-            for (int i = 0; i < 5; i++)
+            dataGridViewTable.DefaultCellStyle.SelectionBackColor = dataGridViewTable.DefaultCellStyle.BackColor;
+            dataGridViewTable.DefaultCellStyle.SelectionForeColor = dataGridViewTable.DefaultCellStyle.ForeColor;
+            string[] weekDays = { "Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вск" };
+            for (int i = 0; i < 7; i++)
             {
                 dataGridViewTable.Columns[i].HeaderCell.Value = weekDays[i];
+                for (int r = 0; r < dataGridViewTable.RowCount; r++)
+                {
+                    dataGridViewTable[i, r].Tag = new List<string>();
+                    dataGridViewTable[i, r].Value = "";
+                    
+                }
             }
             prefs = JsonConvert.DeserializeObject<List<TeacherPreference>>(File.ReadAllText(Environment.CurrentDirectory + @"\..\..\..\teachers2.json"));
-            //foreach (var teacher in prefs)
-            //{
-            //    listView1.Items.Add(new ListViewItem(teacher.Name));
-            //    foreach (var pref in teacher.Preferences)
-            //    {
-            //        dataGridViewTable[(int)pref.WeekDay, pref.LessonNumber - 1].Value = teacher.Name;
-            //    }
-            //    //ListViewItem lvi = new ListViewItem(acadClass.ClassTitle);
-            //}
-            
+            foreach (var teacher in prefs)
+            {
+                listView1.Items.Add(new ListViewItem(teacher.Name));
+                foreach (var pref in teacher.Preferences)
+                {
+                    (dataGridViewTable[(int)pref.WeekDay, pref.LessonNumber - 1].Tag as List<string>).Add(teacher.Name);
+                }
+            }
+            Update();
         }
 
+
+        public void Update()
+        {
+            for (int i = 0; i < dataGridViewTable.ColumnCount; i++)
+            {
+                for (int r = 0; r < dataGridViewTable.RowCount; r++)
+                {
+                    foreach (var name in dataGridViewTable[i, r].Tag as List<string>)
+                    {
+                        dataGridViewTable[i, r].Value += name + '\n';
+                    }
+                }
+            }
+        }
         private void FormTeacherPreferences_Load(object sender, EventArgs e)
         {
             //hmm();
