@@ -31,6 +31,7 @@ namespace SheduleEditorV6
             dataGridViewTable.ColumnHeadersHeight = 40;
             dataGridViewTable.DefaultCellStyle.SelectionBackColor = dataGridViewTable.DefaultCellStyle.BackColor;
             dataGridViewTable.DefaultCellStyle.SelectionForeColor = dataGridViewTable.DefaultCellStyle.ForeColor;
+            dataGridViewTable.MouseDoubleClick += new MouseEventHandler(dataGridViewTable_MouseDoubleClick);
             string[] weekDays = { "Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вск" };
             for (int i = 0; i < 7; i++)
             {
@@ -74,5 +75,11 @@ namespace SheduleEditorV6
             listView1.Items.Cast<List<ListViewItem>>();
         }
 
+        private void dataGridViewTable_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            var info = dataGridViewTable.HitTest(e.X, e.Y);
+            var form = new FormEditTPCell(dataGridViewTable[info.ColumnIndex, info.RowIndex], prefs);
+            form.Show();
+        }
     }
 }
