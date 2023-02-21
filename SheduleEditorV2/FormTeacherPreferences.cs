@@ -68,6 +68,11 @@ namespace SheduleEditorV6
                     }
                 }
             }
+            dataGridViewTable.Update();
+            dataGridViewTable.Refresh();
+            this.Refresh();
+            //dataGridViewTable.EndEdit();
+            //dataGridViewTable.CurrentCell = null;
         }
         public void save()
         {
@@ -100,8 +105,10 @@ namespace SheduleEditorV6
         private void dataGridViewTable_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             var info = dataGridViewTable.HitTest(e.X, e.Y);
-            var form = new FormEditTPCell(dataGridViewTable[info.ColumnIndex, info.RowIndex], prefs);
+            var form = new FormEditTPCell(dataGridViewTable[info.ColumnIndex, info.RowIndex].Tag as List<string>, prefs.Select(pref => pref.Name).ToList(), dataGridViewTable, info.RowIndex, info.ColumnIndex, this);
             form.Show();
+            
+            //dataGridViewTable[info.ColumnIndex, info.RowIndex].Tag = form.cellData;
             Update();
         }
     }

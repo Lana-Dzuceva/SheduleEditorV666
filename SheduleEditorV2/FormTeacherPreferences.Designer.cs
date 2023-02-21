@@ -41,10 +41,13 @@
             // 
             // dataGridViewTable
             // 
+            this.dataGridViewTable.AllowUserToAddRows = false;
+            this.dataGridViewTable.AllowUserToDeleteRows = false;
             this.dataGridViewTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewTable.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewTable.Location = new System.Drawing.Point(0, 0);
             this.dataGridViewTable.Name = "dataGridViewTable";
+            this.dataGridViewTable.ReadOnly = true;
             this.dataGridViewTable.RowHeadersWidth = 51;
             this.dataGridViewTable.Size = new System.Drawing.Size(599, 450);
             this.dataGridViewTable.TabIndex = 0;

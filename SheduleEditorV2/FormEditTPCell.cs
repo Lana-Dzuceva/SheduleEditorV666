@@ -13,23 +13,27 @@ namespace SheduleEditorV6
 {
     public partial class FormEditTPCell : Form
     {
-        DataGridViewCell cell;
-        List<string> cellData;
-        List<TeacherPreference> preferences;
-        public FormEditTPCell(DataGridViewCell cell, List<TeacherPreference> preferences_)
+        public List<string> cellData;
+        List<string> teachers;
+        DataGridView dataGrid;
+        int row;
+        int col;
+        FormTeacherPreferences form;
+        public FormEditTPCell(List<string> cellData_, List<string> teachers_, DataGridView dataGrid_, int row_, int col_, FormTeacherPreferences form)
         {
             InitializeComponent();
-            this.cell = cell;
-            cellData = (cell.Tag as List<string>);
-            preferences = preferences_;
-
+            cellData = cellData_;
+            teachers = teachers_;
+            dataGrid = dataGrid_;
+            row = row_;
+            col = col_;
+            this.form = form;
         }
 
         private void FormEditTPCell_Load(object sender, EventArgs e)
         {
             listViewIn.Items.AddRange(cellData.Select(name => new ListViewItem(name)).ToArray());
-            listViewOut.Items.AddRange(preferences.Where(pref => !cellData.Contains(pref.Name)).Select(pref => new ListViewItem(pref.Name)).ToArray());
-
+            listViewOut.Items.AddRange(teachers.Where(teacher => !cellData.Contains(teacher)).Select(teacher => new ListViewItem(teacher)).ToArray());
         }
 
 
@@ -39,8 +43,10 @@ namespace SheduleEditorV6
             {
                 var lv = sender as ListView;
                 var lvi = lv.GetItemAt(e.X, e.Y);
-                lv.DoDragDrop(lvi.Text, DragDropEffects.Move);
-                lv.Items.Remove(lvi);
+                var a = lv.DoDragDrop(lvi.Text, DragDropEffects.Move);
+                if(a != DragDropEffects.None)
+                    lv.Items.Remove(lvi);
+                
             }
             catch (Exception)
             { }
@@ -59,7 +65,12 @@ namespace SheduleEditorV6
 
         private void FormEditTPCell_FormClosing(object sender, FormClosingEventArgs e)
         {
-            cell.Tag = listViewIn.Items.Cast<ListViewItem>().Select(item => (item as ListViewItem).Text).ToList();
+            //cell.Tag = listViewIn.Items.Cast<ListViewItem>().Select(item => (item as ListViewItem).Text).ToList();
+            dataGrid[col, row].Tag = listViewIn.Items.Cast<ListViewItem>().Select(item => (item as ListViewItem).Text).ToList();
+            form.Update();
+            //dataGrid.UpdateCellValue(col, row);
+            //dataGrid.Update();
+            //dataGrid.Refresh();
         }
     }
 }
