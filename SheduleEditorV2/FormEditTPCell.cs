@@ -32,9 +32,34 @@ namespace SheduleEditorV6
 
         }
 
-        private void FormEditTPCell_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
 
+        private void listView_MouseDown(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                var lv = sender as ListView;
+                var lvi = lv.GetItemAt(e.X, e.Y);
+                lv.DoDragDrop(lvi.Text, DragDropEffects.Move);
+                lv.Items.Remove(lvi);
+            }
+            catch (Exception)
+            { }
+        }
+
+        private void listView_DragDrop(object sender, DragEventArgs e)
+        {
+            var item = e.Data.GetData(typeof(string)) as string;
+            (sender as ListView).Items.Add(new ListViewItem(item));
+        }
+
+        private void listView_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Move;
+        }
+
+        private void FormEditTPCell_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            cell.Tag = listViewIn.Items.Cast<ListViewItem>().Select(item => (item as ListViewItem).Text).ToList();
         }
     }
 }

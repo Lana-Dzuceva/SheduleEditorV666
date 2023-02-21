@@ -35,37 +35,46 @@
             columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
-            // listViewIn
-            // 
-            this.listViewIn.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            columnHeader1});
-            this.listViewIn.HideSelection = false;
-            this.listViewIn.Location = new System.Drawing.Point(41, 11);
-            this.listViewIn.Margin = new System.Windows.Forms.Padding(2);
-            this.listViewIn.MultiSelect = false;
-            this.listViewIn.Name = "listViewIn";
-            this.listViewIn.Size = new System.Drawing.Size(200, 300);
-            this.listViewIn.TabIndex = 0;
-            this.listViewIn.UseCompatibleStateImageBehavior = false;
-            this.listViewIn.View = System.Windows.Forms.View.Details;
-            // 
-            // listViewOut
-            // 
-            this.listViewOut.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader2});
-            this.listViewOut.HideSelection = false;
-            this.listViewOut.Location = new System.Drawing.Point(351, 11);
-            this.listViewOut.MultiSelect = false;
-            this.listViewOut.Name = "listViewOut";
-            this.listViewOut.Size = new System.Drawing.Size(200, 300);
-            this.listViewOut.TabIndex = 1;
-            this.listViewOut.UseCompatibleStateImageBehavior = false;
-            this.listViewOut.View = System.Windows.Forms.View.Details;
-            // 
             // columnHeader1
             // 
             columnHeader1.Text = "Учителя внутри";
             columnHeader1.Width = 163;
+            // 
+            // listViewIn
+            // 
+            this.listViewIn.AllowDrop = true;
+            this.listViewIn.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            columnHeader1});
+            this.listViewIn.HideSelection = false;
+            this.listViewIn.Location = new System.Drawing.Point(55, 14);
+            this.listViewIn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.listViewIn.MultiSelect = false;
+            this.listViewIn.Name = "listViewIn";
+            this.listViewIn.Size = new System.Drawing.Size(265, 368);
+            this.listViewIn.TabIndex = 0;
+            this.listViewIn.UseCompatibleStateImageBehavior = false;
+            this.listViewIn.View = System.Windows.Forms.View.Details;
+            this.listViewIn.DragDrop += new System.Windows.Forms.DragEventHandler(this.listView_DragDrop);
+            this.listViewIn.DragEnter += new System.Windows.Forms.DragEventHandler(this.listView_DragEnter);
+            this.listViewIn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.listView_MouseDown);
+            // 
+            // listViewOut
+            // 
+            this.listViewOut.AllowDrop = true;
+            this.listViewOut.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader2});
+            this.listViewOut.HideSelection = false;
+            this.listViewOut.Location = new System.Drawing.Point(468, 14);
+            this.listViewOut.Margin = new System.Windows.Forms.Padding(4);
+            this.listViewOut.MultiSelect = false;
+            this.listViewOut.Name = "listViewOut";
+            this.listViewOut.Size = new System.Drawing.Size(265, 368);
+            this.listViewOut.TabIndex = 1;
+            this.listViewOut.UseCompatibleStateImageBehavior = false;
+            this.listViewOut.View = System.Windows.Forms.View.Details;
+            this.listViewOut.DragDrop += new System.Windows.Forms.DragEventHandler(this.listView_DragDrop);
+            this.listViewOut.DragEnter += new System.Windows.Forms.DragEventHandler(this.listView_DragEnter);
+            this.listViewOut.MouseDown += new System.Windows.Forms.MouseEventHandler(this.listView_MouseDown);
             // 
             // columnHeader2
             // 
@@ -74,16 +83,16 @@
             // 
             // FormEditTPCell
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(600, 366);
+            this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.listViewOut);
             this.Controls.Add(this.listViewIn);
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "FormEditTPCell";
             this.Text = "FormEditTPCell";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormEditTPCell_FormClosing);
             this.Load += new System.EventHandler(this.FormEditTPCell_Load);
-            this.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.FormEditTPCell_MouseDoubleClick);
             this.ResumeLayout(false);
 
         }

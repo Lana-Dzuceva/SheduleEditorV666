@@ -40,7 +40,6 @@ namespace SheduleEditorV6
                 {
                     dataGridViewTable[i, r].Tag = new List<string>();
                     dataGridViewTable[i, r].Value = "";
-                    
                 }
             }
             prefs = JsonConvert.DeserializeObject<List<TeacherPreference>>(File.ReadAllText(Environment.CurrentDirectory + @"\..\..\..\teachers2.json"));
@@ -62,12 +61,35 @@ namespace SheduleEditorV6
             {
                 for (int r = 0; r < dataGridViewTable.RowCount; r++)
                 {
+                    dataGridViewTable[i, r].Value = "";
                     foreach (var name in dataGridViewTable[i, r].Tag as List<string>)
                     {
                         dataGridViewTable[i, r].Value += name + '\n';
                     }
                 }
             }
+        }
+        public void save()
+        {
+            foreach (var teacher in prefs)
+            {
+                teacher.Preferences.Clear();
+            }
+            for (int i = 0; i < dataGridViewTable.ColumnCount; i++)
+            {
+                for (int r = 0; r < dataGridViewTable.RowCount; r++)
+                {
+                    
+                    foreach (var name in dataGridViewTable[i, r].Tag as List<string>)
+                    {
+                        //prefs[prefs.FindIndex(pref => pref.Name == name)].Preferences.Add()
+                        
+
+                        
+                    }
+                }
+            }
+
         }
         private void FormTeacherPreferences_Load(object sender, EventArgs e)
         {
@@ -80,6 +102,7 @@ namespace SheduleEditorV6
             var info = dataGridViewTable.HitTest(e.X, e.Y);
             var form = new FormEditTPCell(dataGridViewTable[info.ColumnIndex, info.RowIndex], prefs);
             form.Show();
+            Update();
         }
     }
 }
