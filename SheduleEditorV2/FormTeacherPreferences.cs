@@ -16,8 +16,10 @@ namespace SheduleEditorV6
     public partial class FormTeacherPreferences : Form
     {
         List<TeacherPreference> prefs;
-        public FormTeacherPreferences()
+        FormMain formMain;
+        public FormTeacherPreferences(FormMain formMain)
         {
+            this.formMain = formMain;
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
             dataGridViewTable.RowTemplate.Height = 100;
@@ -42,7 +44,11 @@ namespace SheduleEditorV6
                     dataGridViewTable[i, r].Value = "";
                 }
             }
-            prefs = JsonConvert.DeserializeObject<List<TeacherPreference>>(File.ReadAllText(Environment.CurrentDirectory + @"\..\..\..\teachers2.json"));
+            for (int i = 0; i < dataGridViewTable.RowCount; i++)
+            {
+                dataGridViewTable.Rows[i].HeaderCell.Value = (i + 1).ToString();
+            }
+            prefs = JsonConvert.DeserializeObject<List<TeacherPreference>>(File.ReadAllText(Environment.CurrentDirectory + @"\..\..\..\teachers1.json"));
             foreach (var teacher in prefs)
             {
                 listView1.Items.Add(new ListViewItem(teacher.Name));
@@ -51,11 +57,11 @@ namespace SheduleEditorV6
                     (dataGridViewTable[(int)pref.WeekDay, pref.LessonNumber - 1].Tag as List<string>).Add(teacher.Name);
                 }
             }
-            Update();
+            UpdateDGV();
         }
 
 
-        public void Update()
+        public void UpdateDGV()
         {
             for (int i = 0; i < dataGridViewTable.ColumnCount; i++)
             {
@@ -70,11 +76,9 @@ namespace SheduleEditorV6
             }
             dataGridViewTable.Update();
             dataGridViewTable.Refresh();
-            this.Refresh();
-            //dataGridViewTable.EndEdit();
-            //dataGridViewTable.CurrentCell = null;
+            //this.Refresh();
         }
-        public void save()
+        public void Save()
         {
             foreach (var teacher in prefs)
             {
@@ -84,17 +88,13 @@ namespace SheduleEditorV6
             {
                 for (int r = 0; r < dataGridViewTable.RowCount; r++)
                 {
-                    
                     foreach (var name in dataGridViewTable[i, r].Tag as List<string>)
                     {
-                        //prefs[prefs.FindIndex(pref => pref.Name == name)].Preferences.Add()
-                        
-
-                        
+                        prefs[prefs.FindIndex(pref => pref.Name == name)].Preferences.Add(new Preference((WeekDays)i, r + 1));
                     }
                 }
             }
-
+            File.WriteAllText(Environment.CurrentDirectory + @"\..\..\..\teachers1.json", JsonConvert.SerializeObject(prefs));
         }
         private void FormTeacherPreferences_Load(object sender, EventArgs e)
         {
@@ -105,11 +105,13 @@ namespace SheduleEditorV6
         private void dataGridViewTable_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             var info = dataGridViewTable.HitTest(e.X, e.Y);
-            var form = new FormEditTPCell(dataGridViewTable[info.ColumnIndex, info.RowIndex].Tag as List<string>, prefs.Select(pref => pref.Name).ToList(), dataGridViewTable, info.RowIndex, info.ColumnIndex, this);
+            var form = new FormEditTPCell(prefs.Select(pref => pref.Name).ToList(), dataGridViewTable, info.RowIndex, info.ColumnIndex, this);
             form.Show();
-            
-            //dataGridViewTable[info.ColumnIndex, info.RowIndex].Tag = form.cellData;
-            Update();
+        }
+
+        private void FormTeacherPreferences_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            formMain.teacherPreferences = prefs;
         }
     }
 }

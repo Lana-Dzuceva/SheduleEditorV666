@@ -19,10 +19,10 @@ namespace SheduleEditorV6
         int row;
         int col;
         FormTeacherPreferences form;
-        public FormEditTPCell(List<string> cellData_, List<string> teachers_, DataGridView dataGrid_, int row_, int col_, FormTeacherPreferences form)
+        public FormEditTPCell(List<string> teachers_, DataGridView dataGrid_, int row_, int col_, FormTeacherPreferences form)
         {
             InitializeComponent();
-            cellData = cellData_;
+            cellData = dataGrid_[col_, row_].Tag as List<string>;
             teachers = teachers_;
             dataGrid = dataGrid_;
             row = row_;
@@ -66,11 +66,15 @@ namespace SheduleEditorV6
         private void FormEditTPCell_FormClosing(object sender, FormClosingEventArgs e)
         {
             //cell.Tag = listViewIn.Items.Cast<ListViewItem>().Select(item => (item as ListViewItem).Text).ToList();
-            dataGrid[col, row].Tag = listViewIn.Items.Cast<ListViewItem>().Select(item => (item as ListViewItem).Text).ToList();
-            form.Update();
-            //dataGrid.UpdateCellValue(col, row);
-            //dataGrid.Update();
-            //dataGrid.Refresh();
+            dataGrid[col, row].Tag = listViewIn.Items
+                                        .Cast<ListViewItem>()
+                                        .Select(item => (item as ListViewItem).Text)
+                                        .ToList();
+            form.UpdateDGV();
+            form.Save();
+            //шатала я это все
+            //в зад винформы
+            // чтоб еще раз в своей жизни я делала фронт...
         }
     }
 }

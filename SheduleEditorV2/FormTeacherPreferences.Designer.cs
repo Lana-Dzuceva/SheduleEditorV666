@@ -98,6 +98,7 @@
             this.Controls.Add(this.splitContainer1);
             this.Name = "FormTeacherPreferences";
             this.Text = "FormTeacherPreferences";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormTeacherPreferences_FormClosing);
             this.Load += new System.EventHandler(this.FormTeacherPreferences_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTable)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
