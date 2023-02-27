@@ -54,7 +54,7 @@ namespace SheduleEditorV6
         {
             //dataGridViewSchedule.Height = this.Height - 40;
             //dataGridViewSchedule.Width  = this.Width;
-            dataGridViewSchedule.RowTemplate.Height = 23;
+            //dataGridViewSchedule.RowTemplate.Height = 23;
             for (int i = 0; i < 4; i++)
             {
                 dataGridViewSchedule.Columns.Add(new SpannedDataGridView.DataGridViewTextBoxColumnEx());
@@ -77,6 +77,9 @@ namespace SheduleEditorV6
             {
                 dataGridViewSchedule.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
             }
+            dataGridViewSchedule.DefaultCellStyle.SelectionBackColor = dataGridViewSchedule.DefaultCellStyle.BackColor;
+            dataGridViewSchedule.DefaultCellStyle.SelectionForeColor = dataGridViewSchedule.DefaultCellStyle.ForeColor;
+
         }
         #region
         //public void BuildLessonsTabPages()
@@ -256,12 +259,25 @@ namespace SheduleEditorV6
         {
             var info = dataGridViewSchedule.HitTest(e.X, e.Y);
             if (info.RowIndex == -1) return;
-            dataGridViewSchedule.HighlightRow(info.RowIndex - 1, info.ColumnIndex, e.Data.GetData(typeof(AcademicClass)) as AcademicClass);
+            //get_row_col(e.X, e.Y);
+            dataGridViewSchedule[info.ColumnIndex, info.RowIndex].Value = "hmm";
+            dataGridViewSchedule.HighlightRow(info.RowIndex - 2, info.ColumnIndex, e.Data.GetData(typeof(AcademicClass)) as AcademicClass);
         }
 
         private void dataGridViewSchedule_DragLeave(object sender, EventArgs e)
         {
             dataGridViewSchedule.UpdateDataGrid(scheduleData);
         }
+
+        //void get_row_col(int x, int y)
+        //{
+        //    var info = dataGridViewSchedule.HitTest(x, y);
+        //    Point locationOnForm = this.PointToClient(    dataGridViewSchedule.Parent.PointToScreen(dataGridViewSchedule.Location));
+        //    y -= locationOnForm.Y;
+        //    int row = (int)Math.Ceiling((double)y / dataGridViewSchedule.RowTemplate.Height);
+        //    listViewErrors.Items[0].SubItems[0].Text = $"row {info.RowIndex} col {info.ColumnIndex}";
+        //    listViewErrors.Items[1].SubItems[0].Text = $"row {row} col -6-{locationOnForm.Y}";
+
+        //}
     }
 }
