@@ -8,6 +8,8 @@ namespace SheduleEditorV6
 {
     public class ScheduleError
     {
+        public string GroupTitle { get; set; }
+        public string Message { get; set; }
 
     }
 }

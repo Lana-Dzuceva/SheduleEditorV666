@@ -121,10 +121,12 @@ namespace SheduleEditorV6
             listViewSubjects.Columns.Add("Преподователь");
             listViewSubjects.Columns.Add("Тип занятия");
             listViewSubjects.Columns.Add("Кол-во часов");
+            listViewSubjects.Columns.Add("Подгруппа");
             listViewSubjects.Columns[0].Width = 220;
             listViewSubjects.Columns[1].Width = 150;
             listViewSubjects.Columns[2].Width = 150;
             listViewSubjects.Columns[3].Width = 150;
+            listViewSubjects.Columns[4].Width = 150;
             listViewSubjects.Font = new Font(FontFamily.GenericSansSerif, 12);
             tabPage.Controls.Add(listViewSubjects);
             return tabPage;
@@ -141,6 +143,7 @@ namespace SheduleEditorV6
                     lvi.SubItems.Add(acadClass.Teacher.ToString());
                     lvi.SubItems.Add(acadClass.Type.ToString());
                     lvi.SubItems.Add(acadClass.Hours.ToString());
+                    lvi.SubItems.Add(acadClass.SubGroup.ToString());
                     (tabPage.Controls[0] as ListView).Items.Add(lvi);
                     lvi.Tag = acadClass;
                 }
@@ -260,7 +263,9 @@ namespace SheduleEditorV6
             var info = dataGridViewSchedule.HitTest(e.X, e.Y);
             if (info.RowIndex == -1) return;
             //get_row_col(e.X, e.Y);
-            dataGridViewSchedule[info.ColumnIndex, info.RowIndex].Value = "hmm";
+            //dataGridViewSchedule[info.ColumnIndex, info.RowIndex].Value = "hmm";
+            listViewErrors.Items[0].SubItems[0].Text = $"row {info.RowIndex} col {info.ColumnIndex}";
+
             dataGridViewSchedule.HighlightRow(info.RowIndex - 2, info.ColumnIndex, e.Data.GetData(typeof(AcademicClass)) as AcademicClass);
         }
 

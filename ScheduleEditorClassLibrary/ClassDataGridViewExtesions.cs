@@ -108,38 +108,83 @@ namespace SheduleEditorV6
         {
             dataGrid[0, ind].Style.BackColor = color;
             dataGrid[0, ind + 1].Style.BackColor = color;
+            dataGrid[1, ind].Style.BackColor = color;
+            dataGrid[1, ind + 1].Style.BackColor = color;
+            dataGrid[2, ind].Style.BackColor = color;
+            dataGrid[2, ind + 1].Style.BackColor = color;
             dataGrid[3, ind].Style.BackColor = color;
             dataGrid[3, ind + 1].Style.BackColor = color;
+        }
+        static void Discolor(this DataGridView dataGrid)
+        {
+            for (int i = 0; i < dataGrid.RowCount; i++)
+            {
+                for (int r = 0; r < dataGrid.ColumnCount; r++)
+                {
+                    dataGrid[r, i].Style.BackColor = Color.White;
+                }
+            }
         }
         /// <summary>
         /// подсветка(подсказка) для заполнения расписания
         /// </summary>
         /// <param name="dataGrid"></param>
         /// <param name="row"> номер строки в расписании</param>
-        /// <param name="academicClass"></param>
+        /// <param name="academicClass">предполагаемая пара для вставки</param>
         public static void HighlightRow(this DataGridView dataGrid, int row, int col, AcademicClass academicClass)
         {
+            dataGrid.Discolor();
             Color colorLight = Color.FromArgb(135, 206, 250);
             Color colorDark = Color.FromArgb(37, 165, 245);
             ToSimpleView(dataGrid, row - row % 2);
             dataGrid.ColorRow(row - row % 2, colorLight);
             if (academicClass.Type == ClassTypes.Lecture)
             {
-                if(academicClass.Hours <= 36) // раз в 2 недели
+                if (academicClass.Hours <= 36) // раз в 2 недели
                 {
-                    ToTwoWeeks(dataGrid, row);
+                    ToTwoWeeks(dataGrid, row - row % 2);
                     dataGrid[0, row].Style.BackColor = colorDark;
                     dataGrid[3, row].Style.BackColor = colorDark;
+
                 }
                 else
                 {
-                    dataGrid[0, row].Style.BackColor = colorDark;
-                    dataGrid[3, row].Style.BackColor = colorDark;
+                    dataGrid[0, row - row % 2].Style.BackColor = colorDark;
+                    dataGrid[3, row - row % 2].Style.BackColor = colorDark;
                 }
             }
             else
             {
-                
+                if(academicClass.SubGroup == SubGroups.First)
+                {
+                    if (academicClass.Hours <= 36) // раз в 2 недели
+                    {
+                        ToTwoGroupsAndTwoWeeks(dataGrid, row - row % 2);
+                        dataGrid[0, row].Style.BackColor = colorDark;
+                        dataGrid[3, row].Style.BackColor = colorDark;
+                        dataGrid[0, row].Style.BackColor = colorDark;
+                        dataGrid[3, row].Style.BackColor = colorDark;
+                    }
+                    else
+                    {
+                        ToTwoGrops(dataGrid, row - row % 2);
+                        int anotherCol;
+                        if(col > 1)
+                        {
+                            anotherCol = 1 + 2 - col % 2;
+                        }
+                        else
+                        {
+                            anotherCol = 1 - col;
+                        }
+                        dataGrid[col, row - row % 2].Style.BackColor = colorDark;
+                        dataGrid[anotherCol, row - row % 2].Style.BackColor = colorDark;
+                    }
+                }
+                else if(academicClass.SubGroup == SubGroups.Second)
+                {
+
+                }
             }
         }
     }
