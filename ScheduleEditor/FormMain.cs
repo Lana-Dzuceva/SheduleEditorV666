@@ -40,14 +40,12 @@ namespace SheduleEditorV6
             {
                 listViewErrors.Columns[i].Width = 140;
             }
-
+            listViewErrors.MouseDoubleClick += new MouseEventHandler(listViewErrors_MouseDoubleClick);
 
             BuildSchedule();
             dataGridViewSchedule.UpdateDataGrid(scheduleData);
-            //BuildLessonsTabPages();
-            DrawLessons();
-            DrawErrors();
-            //GenerateData();
+            BuildAndFillLessons();
+            FillErrors();
         }
 
         public void BuildSchedule()
@@ -131,7 +129,7 @@ namespace SheduleEditorV6
             tabPage.Controls.Add(listViewSubjects);
             return tabPage;
         }
-        public void DrawLessons()
+        public void BuildAndFillLessons()
         {
             TabPage tabPage;
             foreach (var group in facultyGroups.Groups)
@@ -153,7 +151,7 @@ namespace SheduleEditorV6
             }
         }
 
-        public void DrawErrors()
+        public void FillErrors()
         {
             ListViewItem lvi;
             for (int i = 0; i < 10; i++)
@@ -284,5 +282,9 @@ namespace SheduleEditorV6
         //    listViewErrors.Items[1].SubItems[0].Text = $"row {row} col -6-{locationOnForm.Y}";
 
         //}
+        private void listViewErrors_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            var a = listViewErrors.FocusedItem;
+        }
     }
 }

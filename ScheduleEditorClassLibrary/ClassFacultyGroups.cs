@@ -78,7 +78,7 @@ namespace ScheduleEditorClassLibrary
 
 
     /// <summary>
-    /// Пара которая меет в расписании конкретное место
+    /// Пара которая имеет в расписании конкретное место
     /// </summary>
     public class ScheduleAcademicClass : AcademicClass
     {
