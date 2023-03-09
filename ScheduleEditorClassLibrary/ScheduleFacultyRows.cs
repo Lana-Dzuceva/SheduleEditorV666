@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 
 namespace ScheduleEditorClassLibrary
 {
-    public class ScheduleOne
+    /// <summary>
+    /// хранит в себе ScheduleRow
+    /// </summary>
+    public class ScheduleFacultyRows
     {
         public List<ScheduleRow> Data { get; set; }
 
-        public ScheduleOne()
+        public ScheduleFacultyRows()
         {
             Data = new List<ScheduleRow>(20); // 5 дней в неделю по 4 пары
             for (int i = 0; i < 20; i++)

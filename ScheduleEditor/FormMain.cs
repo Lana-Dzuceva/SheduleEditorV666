@@ -16,14 +16,14 @@ namespace SheduleEditorV6
 {
     public partial class FormMain : Form
     {
-        ScheduleOne scheduleData;
+        ScheduleFacultyRows scheduleData;
         FacultyGroups facultyGroups;
         public List<TeacherPreference> teacherPreferences;
         public FormMain()
         {
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
-            scheduleData = new ScheduleOne();
+            scheduleData = new ScheduleFacultyRows();
             facultyGroups = JsonConvert.DeserializeObject<FacultyGroups>(File.ReadAllText(Environment.CurrentDirectory + @"\..\..\..\qqq.json"));
             teacherPreferences = JsonConvert.DeserializeObject<List<TeacherPreference>>(File.ReadAllText(Environment.CurrentDirectory + @"\..\..\..\teachers1.json"));
 
@@ -41,9 +41,9 @@ namespace SheduleEditorV6
                 listViewErrors.Columns[i].Width = 140;
             }
             listViewErrors.MouseDoubleClick += new MouseEventHandler(listViewErrors_MouseDoubleClick);
-
+            tabControlGroups.SelectedIndexChanged += new EventHandler(tabControlGroups_SelectedIndexChanged);
             BuildSchedule();
-            dataGridViewSchedule.UpdateDataGrid(scheduleData);
+            dataGridViewSchedule.UpdateDataGrid(scheduleData, );
             BuildAndFillLessons();
             FillErrors();
         }
@@ -285,6 +285,10 @@ namespace SheduleEditorV6
         private void listViewErrors_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             var a = listViewErrors.FocusedItem;
+        }
+        private void tabControlGroups_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

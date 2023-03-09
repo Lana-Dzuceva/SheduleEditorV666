@@ -96,7 +96,7 @@ namespace SheduleEditorV6
             dataGrid[3, ind + 1].Value = scheduleRow?.Group2week1.GetAudience() ?? "";
         }
 
-        public static void UpdateDataGrid(this DataGridView dataGrid, ScheduleOne data)
+        public static void UpdateDataGrid(this DataGridView dataGrid, ScheduleFacultyRows data)
         {
             for (int i = 0; i < data.Count(); i++)
             {
