@@ -17,13 +17,11 @@ namespace ScheduleEditorClassLibrary
         First,
         Second
     }
-    public enum WeekDays
+    public enum RowTypes
     {
-        Monday,
-        Tuesday,
-        Wednesday,
-        Thursday,
-        Friday,
-        Saturday
+        Simple,
+        TwoGroups,
+        TwoWeeks,
+        TwoGroupsAndTwoWeeks
     }
 }

@@ -8,13 +8,7 @@ using System.Threading.Tasks;
 
 namespace ScheduleEditorClassLibrary
 {
-    public enum RowTypes
-    {
-        Simple,
-        TwoGroups,
-        TwoWeeks,
-        TwoGroupsAndTwoWeeks
-    }
+    
     #region 
     //public class RowItem
     //{
@@ -33,12 +27,15 @@ namespace ScheduleEditorClassLibrary
     {
         RowTypes rowType;
         //Dictionary<string, ScheduleAcademicClass> items;
-        public ScheduleAcademicClass Group1week1;
-        public ScheduleAcademicClass Group1week2;
-        public ScheduleAcademicClass Group2week1;
-        public ScheduleAcademicClass Group2week2;
-        public WeekDays WeekDay { get; set; }
-        public int ClassNumber { get; set; } // номер пары
+        public SAcademicClass Group1week1;
+        public SAcademicClass Group1week2;
+        public SAcademicClass Group2week1;
+        public SAcademicClass Group2week2;
+        public DayOfWeek WeekDay { get; set; }
+        /// <summary>
+        /// номер пары
+        /// </summary>
+        public int ClassNumber { get; set; } 
         //List<List<ScheduleAcademicClass>> items;
         public int CountOfWeeks { get; private set; }
         public int CountOfGroups { get; private set; }
@@ -65,7 +62,7 @@ namespace ScheduleEditorClassLibrary
         public ScheduleRow()
         {
         }
-        public ScheduleRow(RowTypes rowType, ScheduleAcademicClass group1week1 = null, ScheduleAcademicClass group1week2 = null, ScheduleAcademicClass group2week1 = null, ScheduleAcademicClass group2week2 = null)
+        public ScheduleRow(RowTypes rowType, SAcademicClass group1week1 = null, SAcademicClass group1week2 = null, SAcademicClass group2week1 = null, SAcademicClass group2week2 = null)
         {
             RowType = rowType;
             Group1week1 = group1week1;

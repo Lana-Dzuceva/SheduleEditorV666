@@ -8,29 +8,45 @@ using System.Threading.Tasks;
 namespace ScheduleEditorClassLibrary
 {
     /// <summary>
-    /// ScheduleGroup
+    /// ScheduleGroup хранит в себе rows
     /// </summary>
     public class SGroup
     {
-        public List<Group> Groups { get; set; }
-
         public string Title;
-        public List<AcademicClass> Classes { get; set; } // ScheduleAcademicClass
+        public List<ScheduleRow> Rows { get; set; } // ScheduleAcademicClass
 
-        public Group(string title)
+        public SGroup(string title)
         {
-            Classes = new List<AcademicClass>();
+            Rows = new List<ScheduleRow>(20); // 5 дней в неделю по 4 пары
             Title = title;
         }
+
         [JsonConstructor]
-        public Group(string title, List<AcademicClass> classes)
+        public SGroup(string title, List<ScheduleRow> rows)
         {
-            Classes = classes;
+            Rows = rows;
             Title = title;
         }
-        public void Add(AcademicClass academicClass)
+
+        public void Add(ScheduleRow row)
         {
-            Classes.Add(academicClass);
+            Rows.Add(row);
+        }
+
+        public ScheduleRow this[int index]
+        {
+            get { return Rows[index]; }
+            set { Rows[index] = value; }
+        }
+
+        public ScheduleRow this[DayOfWeek dayOfWeek, int classNumber]
+        {
+            get { return Rows.Where(row => row.WeekDay == dayOfWeek && row.ClassNumber == classNumber).Single(); }
+        }
+
+        public int Count()
+        {
+            return Rows.Count();
         }
     }
 }

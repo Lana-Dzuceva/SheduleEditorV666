@@ -16,14 +16,15 @@ namespace SheduleEditorV6
 {
     public partial class FormMain : Form
     {
-        ScheduleFacultyRows scheduleData;
+        Schedule scheduleData;
         FacultyGroups facultyGroups;
         public List<TeacherPreference> teacherPreferences;
+        string activGroupeTitle;
         public FormMain()
         {
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
-            scheduleData = new ScheduleFacultyRows();
+            scheduleData = new Schedule();
             facultyGroups = JsonConvert.DeserializeObject<FacultyGroups>(File.ReadAllText(Environment.CurrentDirectory + @"\..\..\..\qqq.json"));
             teacherPreferences = JsonConvert.DeserializeObject<List<TeacherPreference>>(File.ReadAllText(Environment.CurrentDirectory + @"\..\..\..\teachers1.json"));
 
@@ -43,7 +44,7 @@ namespace SheduleEditorV6
             listViewErrors.MouseDoubleClick += new MouseEventHandler(listViewErrors_MouseDoubleClick);
             tabControlGroups.SelectedIndexChanged += new EventHandler(tabControlGroups_SelectedIndexChanged);
             BuildSchedule();
-            dataGridViewSchedule.UpdateDataGrid(scheduleData, );
+            dataGridViewSchedule.UpdateDataGrid(scheduleData[activGroupeTitle]);
             BuildAndFillLessons();
             FillErrors();
         }
@@ -196,23 +197,21 @@ namespace SheduleEditorV6
 
             File.WriteAllText("qqq.json", JsonConvert.SerializeObject(facultyGroups));
         }
-        public void GenerateTeachers()
-        {
-            Random random = new Random();
-            var prefs = new List<TeacherPreference>();
-            for (int i = 0; i < 30; i++)
-            {
-                var pref = new TeacherPreference($"Teacher {i}");
-                for (int r = 0; r < 3; r++)
-                {
-                    pref.Preferences.Add(new Preference((WeekDays)random.Next(7), random.Next(1, 5)));
-                    
-                }
-                prefs.Add(pref);
-            }
-            File.WriteAllText("teachers2.json", JsonConvert.SerializeObject(prefs));
-            
-        }
+        //public void GenerateTeachers()
+        //{
+        //    Random random = new Random();
+        //    var prefs = new List<TeacherPreference>();
+        //    for (int i = 0; i < 30; i++)
+        //    {
+        //        var pref = new TeacherPreference($"Teacher {i}");
+        //        for (int r = 0; r < 3; r++)
+        //        {
+        //            pref.Preferences.Add(new Preference((WeekDays)random.Next(7), random.Next(1, 5)));
+        //        }
+        //        prefs.Add(pref);
+        //    }
+        //    File.WriteAllText("teachers2.json", JsonConvert.SerializeObject(prefs));
+        //}
 
         private void TeacherPreferencesToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -269,7 +268,7 @@ namespace SheduleEditorV6
 
         private void dataGridViewSchedule_DragLeave(object sender, EventArgs e)
         {
-            dataGridViewSchedule.UpdateDataGrid(scheduleData);
+            dataGridViewSchedule.UpdateDataGrid(scheduleData[activGroupeTitle]);
         }
 
         //void get_row_col(int x, int y)
@@ -288,7 +287,8 @@ namespace SheduleEditorV6
         }
         private void tabControlGroups_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            activGroupeTitle = tabControlGroups.SelectedTab.Text;
+            MessageBox.Show(activGroupeTitle);
         }
     }
 }

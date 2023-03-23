@@ -96,12 +96,12 @@ namespace SheduleEditorV6
             dataGrid[3, ind + 1].Value = scheduleRow?.Group2week1.GetAudience() ?? "";
         }
 
-        public static void UpdateDataGrid(this DataGridView dataGrid, ScheduleFacultyRows data)
+        public static void UpdateDataGrid(this DataGridView dataGrid,  SGroup group)
         {
-            for (int i = 0; i < data.Count(); i++)
+            for (int i = 0; i < group.Count(); i++)
             {
-                dataGrid.FillRow(i, data[i]);
-                dataGrid.VisualizeRow(i, data[i]?.RowType ?? RowTypes.Simple);
+                dataGrid.FillRow(i, group[i]);
+                dataGrid.VisualizeRow(i, group[i]?.RowType ?? RowTypes.Simple);
             }
         }
         static void ColorRow(this DataGridView dataGrid, int ind, Color color)

@@ -33,7 +33,7 @@ namespace SheduleEditorV6
     class ScheduleRow
     {
         RowTypes rowType;
-        Dictionary<string, ScheduleAcademicClass> items;
+        Dictionary<string, SAcademicClass> items;
         //List<List<ScheduleAcademicClass>> items;
         public int CountOfWeeks { get; private set; }
         public int CountOfGroups { get; private set; }
@@ -48,7 +48,7 @@ namespace SheduleEditorV6
             }
         }
 
-        public Dictionary<string, ScheduleAcademicClass> Items
+        public Dictionary<string, SAcademicClass> Items
         {
             get
             {
@@ -56,7 +56,7 @@ namespace SheduleEditorV6
             }
         }
 
-        public ScheduleRow(RowTypes rowType, ScheduleAcademicClass group1week1 =null, ScheduleAcademicClass group1week2 = null, ScheduleAcademicClass group2week1 = null, ScheduleAcademicClass group2week2 = null)
+        public ScheduleRow(RowTypes rowType, SAcademicClass group1week1 =null, SAcademicClass group1week2 = null, SAcademicClass group2week1 = null, SAcademicClass group2week2 = null)
         {
             RowType = rowType;
             items["group1week1"] = group1week1;
