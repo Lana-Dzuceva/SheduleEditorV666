@@ -17,7 +17,7 @@ namespace ScheduleEditorClassLibrary
 
         public SGroup(string title)
         {
-            Rows = new List<ScheduleRow>(20); // 5 дней в неделю по 4 пары
+            Rows = new List<ScheduleRow>();
             Title = title;
         }
 

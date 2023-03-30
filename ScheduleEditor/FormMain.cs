@@ -18,7 +18,7 @@ namespace SheduleEditorV6
     {
         Schedule scheduleData;
         FacultyGroups facultyGroups;
-        public List<TeacherPreference> teacherPreferences;
+        public List<Teacher> teachers;
         string activGroupeTitle;
         public FormMain()
         {
@@ -26,7 +26,7 @@ namespace SheduleEditorV6
             this.WindowState = FormWindowState.Maximized;
             scheduleData = new Schedule();
             facultyGroups = JsonConvert.DeserializeObject<FacultyGroups>(File.ReadAllText(Environment.CurrentDirectory + @"\..\..\..\qqq.json"));
-            teacherPreferences = JsonConvert.DeserializeObject<List<TeacherPreference>>(File.ReadAllText(Environment.CurrentDirectory + @"\..\..\..\teachers1.json"));
+            teachers = JsonConvert.DeserializeObject<List<Teacher>>(File.ReadAllText(Environment.CurrentDirectory + @"\..\..\..\teachers1.json"));
 
         }
 
@@ -200,7 +200,7 @@ namespace SheduleEditorV6
         //public void GenerateTeachers()
         //{
         //    Random random = new Random();
-        //    var prefs = new List<TeacherPreference>();
+        //    var teachers = new List<TeacherPreference>();
         //    for (int i = 0; i < 30; i++)
         //    {
         //        var pref = new TeacherPreference($"Teacher {i}");
@@ -208,9 +208,9 @@ namespace SheduleEditorV6
         //        {
         //            pref.Preferences.Add(new Preference((WeekDays)random.Next(7), random.Next(1, 5)));
         //        }
-        //        prefs.Add(pref);
+        //        teachers.Add(pref);
         //    }
-        //    File.WriteAllText("teachers2.json", JsonConvert.SerializeObject(prefs));
+        //    File.WriteAllText("teachers2.json", JsonConvert.SerializeObject(teachers));
         //}
 
         private void TeacherPreferencesToolStripMenuItem_Click(object sender, EventArgs e)
