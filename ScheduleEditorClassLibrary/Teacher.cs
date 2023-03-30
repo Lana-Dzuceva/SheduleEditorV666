@@ -9,10 +9,11 @@ namespace ScheduleEditorClassLibrary
     public class Teacher
     {
         public string Name { get; set; }
-
+        public List<TeacherPreference> Preferences { get; set; }
         public Teacher(string name)
         {
             Name = name;
+            Preferences = new List<TeacherPreference>();
         }
         public override string ToString()
         {

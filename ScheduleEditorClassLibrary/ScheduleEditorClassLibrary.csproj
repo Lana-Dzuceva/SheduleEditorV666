@@ -47,12 +47,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AcademicClass.cs" />
-    <Compile Include="ClassDataGridViewExtesions.cs" />
+    <Compile Include="DataGridViewExtesions.cs" />
+    <Compile Include="Group.cs" />
     <Compile Include="SAcademicClass.cs" />
-    <Compile Include="ClassScheduleRow.cs" />
-    <Compile Include="ClassTeacherPreference.cs" />
+    <Compile Include="ScheduleRow.cs" />
+    <Compile Include="TeacherPreference.cs" />
     <Compile Include="Enums.cs" />
-    <Compile Include="ClassFacultyGroups.cs" />
+    <Compile Include="FacultyGroups.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Schedule.cs" />
     <Compile Include="SGroup.cs" />
