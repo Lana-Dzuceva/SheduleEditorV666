@@ -14,6 +14,7 @@ namespace SheduleEditorV6
     public class ScheduleError
     {
         public string GroupTitle { get; set; }
+        //test
         public SAcademicClass ScheduleAcademicClass { get; set; }
         public string Message { get; set; }
     }
