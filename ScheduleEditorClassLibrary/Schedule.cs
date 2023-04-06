@@ -11,9 +11,9 @@ namespace ScheduleEditorClassLibrary
     {
         public List<SGroup> Groups { get; set; }
 
-        public Schedule()
+        public Schedule(List<string> groupTitles)
         {
-            Groups = new List<SGroup>();
+            Groups = groupTitles.Select(title => new SGroup(title)).ToList();
         }
 
         [JsonConstructor]

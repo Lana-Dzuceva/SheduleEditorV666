@@ -13,7 +13,7 @@ namespace ScheduleEditorClassLibrary
     public class SGroup
     {
         public string Title;
-        public List<ScheduleRow> Rows { get; set; } // ScheduleAcademicClass
+        public List<ScheduleRow> Rows { get; set; }
 
         public SGroup(string title)
         {
@@ -41,7 +41,13 @@ namespace ScheduleEditorClassLibrary
 
         public ScheduleRow this[DayOfWeek dayOfWeek, int classNumber]
         {
-            get { return Rows.Where(row => row.WeekDay == dayOfWeek && row.ClassNumber == classNumber).Single(); }
+            get
+            {
+                var temp = Rows.Where(row => row.WeekDay == dayOfWeek && row.ClassNumber == classNumber).ToList();
+                if (temp.Count == 1)
+                    return temp[0];
+                return null;
+            }
         }
 
         public int Count()

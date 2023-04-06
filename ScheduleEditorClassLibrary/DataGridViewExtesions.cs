@@ -86,25 +86,36 @@ namespace SheduleEditorV6
         public static void FillRow(this DataGridView dataGrid, int ind, ScheduleRow scheduleRow)
         {
             ind *= 2;
-            dataGrid[1, ind].Value = scheduleRow?.Group1week1.GetTitleAndTeacher() ?? "";
-            dataGrid[2, ind].Value = scheduleRow?.Group2week1.GetTitleAndTeacher() ?? "";
-            dataGrid[1, ind + 1].Value = scheduleRow?.Group1week1.GetTitleAndTeacher() ?? "";
-            dataGrid[2, ind + 1].Value = scheduleRow?.Group2week1.GetTitleAndTeacher() ?? "";
-            dataGrid[0, ind].Value = scheduleRow?.Group1week1.GetAudience() ?? "";
-            dataGrid[3, ind].Value = scheduleRow?.Group2week1.GetAudience() ?? "";
-            dataGrid[0, ind + 1].Value = scheduleRow?.Group1week1.GetAudience() ?? "";
-            dataGrid[3, ind + 1].Value = scheduleRow?.Group2week1.GetAudience() ?? "";
+            dataGrid[1, ind].Value = scheduleRow?.Group1week1?.GetTitleAndTeacher() ?? "";
+            dataGrid[2, ind].Value = scheduleRow?.Group2week1?.GetTitleAndTeacher() ?? "";
+            dataGrid[1, ind + 1].Value = scheduleRow?.Group1week1?.GetTitleAndTeacher() ?? "";
+            dataGrid[2, ind + 1].Value = scheduleRow?.Group2week1?.GetTitleAndTeacher() ?? "";
+            dataGrid[0, ind].Value = scheduleRow?.Group1week1?.GetAudience() ?? "";
+            dataGrid[3, ind].Value = scheduleRow?.Group2week1?.GetAudience() ?? "";
+            dataGrid[0, ind + 1].Value = scheduleRow?.Group1week1?.GetAudience() ?? "";
+            dataGrid[3, ind + 1].Value = scheduleRow?.Group2week1?.GetAudience() ?? "";
         }
 
         public static void UpdateDataGrid(this DataGridView dataGrid,  SGroup group)
         {
-            for (int i = 0; i < group.Count(); i++)
+            for (int i = 0; i < 5; i++)
             {
-                dataGrid.FillRow(i, group[i]);
-                dataGrid.VisualizeRow(i, group[i]?.RowType ?? RowTypes.Simple);
+                for (int r = 0; r < 4; r++)
+                {
+                    ScheduleRow curRow = group[(DayOfWeek)(i + 1), r + 1];
+                    if (curRow == null)
+                        curRow = new ScheduleRow(RowTypes.Simple);
+                    dataGrid.FillRow(i * 4 + r, curRow);
+                    dataGrid.VisualizeRow(i * 4 + r, curRow.RowType);
+                }
             }
+            //for (int i = 0; i < group.Count(); i++)
+            //{
+            //    dataGrid.FillRow(i, group[i]);
+            //    dataGrid.VisualizeRow(i, group[i]?.RowType ?? RowTypes.Simple);
+            //}
         }
-        static void ColorRow(this DataGridView dataGrid, int ind, Color color)
+        public static void ColorRow(this DataGridView dataGrid, int ind, Color color)
         {
             dataGrid[0, ind].Style.BackColor = color;
             dataGrid[0, ind + 1].Style.BackColor = color;
@@ -115,7 +126,7 @@ namespace SheduleEditorV6
             dataGrid[3, ind].Style.BackColor = color;
             dataGrid[3, ind + 1].Style.BackColor = color;
         }
-        static void Discolor(this DataGridView dataGrid)
+        public static void Discolor(this DataGridView dataGrid)
         {
             for (int i = 0; i < dataGrid.RowCount; i++)
             {
