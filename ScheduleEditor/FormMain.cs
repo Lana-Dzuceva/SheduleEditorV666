@@ -16,8 +16,8 @@ namespace SheduleEditorV6
 {
     public partial class FormMain : Form
     {
-        Schedule schedule; // данные в процессе
         FacultyGroups facultyGroups; // данные на входе
+        Schedule schedule; // данные в процессе
         public List<Teacher> teachers; //учителя
         string activGroupeTitle; 
         public FormMain()
@@ -25,7 +25,7 @@ namespace SheduleEditorV6
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
             
-            facultyGroups = JsonConvert.DeserializeObject<FacultyGroups>(File.ReadAllText(Environment.CurrentDirectory + @"\..\..\..\qqq.json"));
+            facultyGroups = JsonConvert.DeserializeObject<FacultyGroups>(File.ReadAllText(Environment.CurrentDirectory + @"\..\..\..\schedule_in.json"));
             teachers = JsonConvert.DeserializeObject<List<Teacher>>(File.ReadAllText(Environment.CurrentDirectory + @"\..\..\..\teachers1.json"));
             schedule = new Schedule(facultyGroups.Groups.Select(group => group.Title).ToList());
         }
@@ -271,6 +271,7 @@ namespace SheduleEditorV6
             listViewErrors.Items[0].SubItems[0].Text = $"row {info.RowIndex} col {info.ColumnIndex}";
             dataGridViewSchedule.UpdateDataGrid(schedule[activGroupeTitle]);
             dataGridViewSchedule.HighlightRow(info.RowIndex - 2, info.ColumnIndex, e.Data.GetData(typeof(AcademicClass)) as AcademicClass);
+            //schedule. 
         }
 
         private void dataGridViewSchedule_DragLeave(object sender, EventArgs e)

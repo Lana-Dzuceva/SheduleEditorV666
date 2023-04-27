@@ -62,13 +62,14 @@ namespace ScheduleEditorClassLibrary
         public ScheduleRow()
         {
         }
-        public ScheduleRow(RowTypes rowType, SAcademicClass group1week1 = null, SAcademicClass group1week2 = null, SAcademicClass group2week1 = null, SAcademicClass group2week2 = null)
+        public ScheduleRow(RowTypes rowType, int classNumber, SAcademicClass group1week1 = null, SAcademicClass group1week2 = null, SAcademicClass group2week1 = null, SAcademicClass group2week2 = null)
         {
             RowType = rowType;
             Group1week1 = group1week1;
             Group1week2 = group1week2;
             Group2week1 = group2week1;
             Group2week2 = group2week2;
+            ClassNumber = classNumber;
             //items["group1week1"] = group1week1;
             //items["group1week2"] = group1week2;
             //items["group2week1"] = group2week1;

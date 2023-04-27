@@ -96,7 +96,7 @@ namespace SheduleEditorV6
             dataGrid[3, ind + 1].Value = scheduleRow?.Group2week1?.GetAudience() ?? "";
         }
 
-        public static void UpdateDataGrid(this DataGridView dataGrid,  SGroup group)
+        public static void UpdateDataGrid(this DataGridView dataGrid, SGroup group)
         {
             for (int i = 0; i < 5; i++)
             {
@@ -166,36 +166,57 @@ namespace SheduleEditorV6
             }
             else
             {
-                if(academicClass.SubGroup == SubGroups.First)
+                //if(academicClass.SubGroup == SubGroups.First)
+                //{
+                if (academicClass.Hours <= 36) // раз в 2 недели
                 {
-                    if (academicClass.Hours <= 36) // раз в 2 недели
+                    ToTwoGroupsAndTwoWeeks(dataGrid, row - row % 2);
+                    //if (academicClass.SubGroup == SubGroups.First && col < 2)
+                    //{
+                    //    dataGrid[0, row].Style.BackColor = colorDark;
+                    //    dataGrid[1, row].Style.BackColor = colorDark;
+                    //    //dataGrid[0, row].Style.BackColor = colorDark;
+                    //    //dataGrid[3, row].Style.BackColor = colorDark;
+                    //}
+                    //else if(academicClass.SubGroup == SubGroups.Second && col >= 2)
+                    //{
+                    //    dataGrid[2, row].Style.BackColor = colorDark;
+                    //    dataGrid[3, row].Style.BackColor = colorDark;
+                    //}
+                    if (academicClass.SubGroup == SubGroups.First && col < 2 ||
+                        academicClass.SubGroup == SubGroups.Second && col >= 2)
                     {
-                        ToTwoGroupsAndTwoWeeks(dataGrid, row - row % 2);
-                        dataGrid[0, row].Style.BackColor = colorDark;
-                        dataGrid[3, row].Style.BackColor = colorDark;
-                        dataGrid[0, row].Style.BackColor = colorDark;
-                        dataGrid[3, row].Style.BackColor = colorDark;
-                    }
-                    else
-                    {
-                        ToTwoGrops(dataGrid, row - row % 2);
-                        int anotherCol;
-                        if(col > 1)
-                        {
-                            anotherCol = 1 + 2 - col % 2;
-                        }
-                        else
-                        {
-                            anotherCol = 1 - col;
-                        }
-                        dataGrid[col, row - row % 2].Style.BackColor = colorDark;
-                        dataGrid[anotherCol, row - row % 2].Style.BackColor = colorDark;
+                        dataGrid[col - col % 2, row].Style.BackColor = colorDark;
+                        dataGrid[col + (col % 2 + 1) % 2, row].Style.BackColor = colorDark;
                     }
                 }
-                else if(academicClass.SubGroup == SubGroups.Second)
+                else
                 {
+                    ToTwoGrops(dataGrid, row - row % 2);
+                    //int anotherCol;
+                    //if (col > 1)
+                    //{
+                    //    anotherCol = 1 + 2 - col % 2;
+                    //}
+                    //else
+                    //{
+                    //    anotherCol = 1 - col;
+                    //}
+                    //dataGrid[col, row - row % 2].Style.BackColor = colorDark;
+                    //dataGrid[anotherCol, row - row % 2].Style.BackColor = colorDark;
 
+                    if (academicClass.SubGroup == SubGroups.First && col < 2 ||
+                        academicClass.SubGroup == SubGroups.Second && col >= 2)
+                    {
+                        dataGrid[col - col % 2, row - row % 2].Style.BackColor = colorDark;
+                        dataGrid[col + (col % 2 + 1) % 2, row - row % 2].Style.BackColor = colorDark;
+                    }
                 }
+                //}
+                //else if(academicClass.SubGroup == SubGroups.Second)
+                //{
+
+                //}
             }
         }
     }

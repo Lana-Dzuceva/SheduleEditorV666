@@ -24,4 +24,10 @@ namespace ScheduleEditorClassLibrary
         TwoWeeks,
         TwoGroupsAndTwoWeeks
     }
+    public enum Results
+    {
+        Available,
+        TeacherIsBusy,
+        TypeMismatch
+    }
 }
