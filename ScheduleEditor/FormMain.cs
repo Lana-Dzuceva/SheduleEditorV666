@@ -19,7 +19,7 @@ namespace SheduleEditorV6
         FacultyGroups facultyGroups; // данные на входе
         Schedule schedule; // данные в процессе
         public List<Teacher> teachers; //учителя
-        string activGroupeTitle; 
+        string activeGroupeTitle; 
         public FormMain()
         {
             InitializeComponent();
@@ -45,7 +45,7 @@ namespace SheduleEditorV6
             tabControlGroups.SelectedIndexChanged += new EventHandler(tabControlGroups_SelectedIndexChanged);
             BuildSchedule();
             BuildAndFillLessons();
-            dataGridViewSchedule.UpdateDataGrid(schedule[activGroupeTitle]);
+            dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
             
             FillErrors();
         }
@@ -114,9 +114,11 @@ namespace SheduleEditorV6
         public TabPage MakeClassesTabPage(string title = "")
         {
             TabPage tabPage = new TabPage(title);
-            ListView listViewSubjects = new ListView();
-            listViewSubjects.View = View.Details;
-            listViewSubjects.Dock = DockStyle.Fill;
+            ListView listViewSubjects = new ListView
+            {
+                View = View.Details,
+                Dock = DockStyle.Fill
+            };
             listViewSubjects.Columns.Add("Дисциплина");
             listViewSubjects.Columns.Add("Преподователь");
             listViewSubjects.Columns.Add("Тип занятия");
@@ -136,9 +138,9 @@ namespace SheduleEditorV6
             TabPage tabPage;
             foreach (var group in facultyGroups.Groups)
             {
-                if (activGroupeTitle == null)
+                if (activeGroupeTitle == null)
                 {
-                    activGroupeTitle = group.Title;
+                    activeGroupeTitle = group.Title;
                 }
                 tabPage = MakeClassesTabPage(group.Title);
                 foreach (var acadClass in group.Classes)
@@ -237,7 +239,7 @@ namespace SheduleEditorV6
             catch (Exception)
             { }
             dataGridViewSchedule.Discolor();
-            dataGridViewSchedule.UpdateDataGrid(schedule[activGroupeTitle]);
+            dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
         }
 
         private void dataGridViewSchedule_DragEnter(object sender, DragEventArgs e)
@@ -247,14 +249,26 @@ namespace SheduleEditorV6
             //else
             //    e.Effect = DragDropEffects.None;
             e.Effect = DragDropEffects.Move;
+            var info = dataGridViewSchedule.HitTest(e.X, e.Y);
+            if (info.RowIndex == -1) return;
         }
 
         private void dataGridViewSchedule_DragDrop(object sender, DragEventArgs e)
         {
             //var li = e.Data.GetData(typeof(ListViewItem)) as ListViewItem;
-            var acadClass = e.Data.GetData(typeof(ListViewItem)) as ListViewItem;
-            int a = 0;
-            
+            //var acadClass = e.Data.GetData(typeof(ListViewItem)) as ListViewItem;
+            //int a = 0;
+
+            var info = dataGridViewSchedule.HitTest(e.X, e.Y);
+            if (info.RowIndex == -1) return;
+            var res = schedule.IsCellAvaible(activeGroupeTitle, info.RowIndex, info.ColumnIndex, e.Data.GetData(typeof(AcademicClass)) as AcademicClass);
+            //var res2 = MessageBox.Show("Препод занят. Все равно добавить?", "Предупреждение", MessageBoxButtons.YesNo);
+            if(res!= Results.TypeMismatch)
+            {
+                schedule.PutData(activeGroupeTitle, info.RowIndex, info.ColumnIndex, e.Data.GetData(typeof(AcademicClass)) as AcademicClass);
+                dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
+            }
+            listViewErrors.Items[1].SubItems[0].Text = $"r{info.RowIndex} c{info.ColumnIndex} res{res.ToString()}";
         }
 
         private void listViewErrors_MouseDown(object sender, MouseEventArgs e)
@@ -269,14 +283,13 @@ namespace SheduleEditorV6
             //get_row_col(e.X, e.Y);
             //dataGridViewSchedule[info.ColumnIndex, info.RowIndex].Value = "hmm";
             listViewErrors.Items[0].SubItems[0].Text = $"row {info.RowIndex} col {info.ColumnIndex}";
-            dataGridViewSchedule.UpdateDataGrid(schedule[activGroupeTitle]);
+            dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
             dataGridViewSchedule.HighlightRow(info.RowIndex - 2, info.ColumnIndex, e.Data.GetData(typeof(AcademicClass)) as AcademicClass);
-            //schedule. 
         }
 
         private void dataGridViewSchedule_DragLeave(object sender, EventArgs e)
         {
-            dataGridViewSchedule.UpdateDataGrid(schedule[activGroupeTitle]);
+            dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
             dataGridViewSchedule.Discolor();
         }
 
@@ -296,9 +309,18 @@ namespace SheduleEditorV6
         }
         private void tabControlGroups_SelectedIndexChanged(object sender, EventArgs e)
         {
-            activGroupeTitle = tabControlGroups.SelectedTab.Text;
-            dataGridViewSchedule.UpdateDataGrid(schedule[activGroupeTitle]);
-            //MessageBox.Show(activGroupeTitle);
+            activeGroupeTitle = tabControlGroups.SelectedTab.Text;
+            dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
+            //MessageBox.Show(activeGroupeTitle);
+        }
+
+        private void dataGridViewSchedule_MouseUp(object sender, MouseEventArgs e)
+        {
+            //var info = dataGridViewSchedule.HitTest(e.X, e.Y);
+            //if (info.RowIndex == -1) return;
+            //var res = schedule.IsCellAvaible(activeGroupeTitle, info.RowIndex, info.ColumnIndex, e.Data.GetData(typeof(AcademicClass)) as AcademicClass);
+            //var res2 = MessageBox.Show("Препод занят. Все равно добавить?", "Предупреждение", MessageBoxButtons.YesNo);
+            //MessageBox.Show(res.ToString() + ' ' + res2.ToString());
         }
     }
 }

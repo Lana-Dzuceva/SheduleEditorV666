@@ -85,6 +85,7 @@
             this.dataGridViewSchedule.DragEnter += new System.Windows.Forms.DragEventHandler(this.dataGridViewSchedule_DragEnter);
             this.dataGridViewSchedule.DragOver += new System.Windows.Forms.DragEventHandler(this.dataGridViewSchedule_DragOver);
             this.dataGridViewSchedule.DragLeave += new System.EventHandler(this.dataGridViewSchedule_DragLeave);
+            this.dataGridViewSchedule.MouseUp += new System.Windows.Forms.MouseEventHandler(this.dataGridViewSchedule_MouseUp);
             // 
             // splitContainer2
             // 
