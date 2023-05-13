@@ -41,6 +41,7 @@ namespace SheduleEditorV6
             {
                 listViewErrors.Columns[i].Width = 140;
             }
+            listViewErrors.FullRowSelect = true;
             listViewErrors.MouseDoubleClick += new MouseEventHandler(listViewErrors_MouseDoubleClick);
             tabControlGroups.SelectedIndexChanged += new EventHandler(tabControlGroups_SelectedIndexChanged);
             BuildSchedule();
@@ -155,6 +156,7 @@ namespace SheduleEditorV6
                 }
                 (tabPage.Controls[0] as ListView).MouseDown += new System.Windows.Forms.MouseEventHandler(ListViewItem_MouseDown);
                 (tabPage.Controls[0] as ListView).MultiSelect = false;
+                (tabPage.Controls[0] as ListView).FullRowSelect = true;
                 tabControlGroups.Controls.Add(tabPage);
             }
         }
@@ -261,11 +263,11 @@ namespace SheduleEditorV6
 
             var info = dataGridViewSchedule.HitTest(e.X, e.Y);
             if (info.RowIndex == -1) return;
-            var res = schedule.IsCellAvaible(activeGroupeTitle, info.RowIndex, info.ColumnIndex, e.Data.GetData(typeof(AcademicClass)) as AcademicClass);
+            var res = schedule.IsCellAvaible(activeGroupeTitle, info.RowIndex - 2, info.ColumnIndex, e.Data.GetData(typeof(AcademicClass)) as AcademicClass);
             //var res2 = MessageBox.Show("Препод занят. Все равно добавить?", "Предупреждение", MessageBoxButtons.YesNo);
             if(res!= Results.TypeMismatch)
             {
-                schedule.PutData(activeGroupeTitle, info.RowIndex, info.ColumnIndex, e.Data.GetData(typeof(AcademicClass)) as AcademicClass);
+                schedule.PutData(activeGroupeTitle, info.RowIndex - 2, info.ColumnIndex, e.Data.GetData(typeof(AcademicClass)) as AcademicClass);
                 dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
             }
             listViewErrors.Items[1].SubItems[0].Text = $"r{info.RowIndex} c{info.ColumnIndex} res{res.ToString()}";

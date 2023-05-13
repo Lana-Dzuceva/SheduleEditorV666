@@ -96,21 +96,6 @@ namespace SheduleEditorV6
                     break;
             }
         }
-        /// <summary>
-        /// переносит текстовую информацию из ScheduleRow
-        /// </summary>
-        /// <param name="dataGrid"></param>
-        /// <param name="ind"></param>
-        /// <param name="scheduleRow"></param>
-        //public static void FillRow(this DataGridView dataGrid, int ind, ScheduleRow scheduleRow)
-        //{
-        //    ind *= 2;
-        //    //tut переписать все это
-            
-            
-           
-        //}
-
         public static void UpdateDataGrid(this DataGridView dataGrid, SGroup group)
         {
             for (int i = 0; i < 5; i++)

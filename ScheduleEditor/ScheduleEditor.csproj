@@ -51,6 +51,12 @@
   <ItemGroup>
     <Compile Include="ClassScheduleRow.cs" />
     <Compile Include="ClassScheduleError.cs" />
+    <Compile Include="FormChooseAudience.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormChooseAudience.Designer.cs">
+      <DependentUpon>FormChooseAudience.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormEditTPCell.cs">
       <SubType>Form</SubType>
     </Compile>

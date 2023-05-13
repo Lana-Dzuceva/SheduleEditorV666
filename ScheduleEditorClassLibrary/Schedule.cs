@@ -29,13 +29,12 @@ namespace ScheduleEditorClassLibrary
         }
         public Results IsCellAvaible(string activeGroup, int row, int col, AcademicClass academicClass)
         {
-            //    обновлять структуру для внешнего отображения и удалять лишние данные 
             if ((academicClass.SubGroup == SubGroups.First && col >= 2 ||
                 academicClass.SubGroup == SubGroups.Second && col < 2) && academicClass.Type != ClassTypes.Lecture)
                 return Results.TypeMismatch;
             for (int i = 0; i < Groups.Count; i++)
             {
-                var group = Groups[i][(DayOfWeek)(row / 5), row % 5];
+                var group = Groups[i][(DayOfWeek)(row / 8 + 1), (row - row / 8 * 8) / 2 + 1];
                 if (group == null) continue;
                 bool simple = academicClass.Type == ClassTypes.Lecture && academicClass.Hours > 36 && group.Group1week1.Teacher == academicClass.Teacher;
                 bool twoWeeks1 = academicClass.Type == ClassTypes.Lecture && academicClass.Hours <= 36 && row % 2 == 0 && group.Group1week1.Teacher == academicClass.Teacher;
@@ -56,7 +55,6 @@ namespace ScheduleEditorClassLibrary
         }
         public void PutData(string activeGroup, int row, int col, AcademicClass academicClass)
         {
-            row -= 2;
             var weekDay = (DayOfWeek)(row / 8 + 1);
             var сlassNumber = (row - ((int)weekDay - 1) * 8) / 2 + 1; // [1 - 4]
             var sRow = this[activeGroup][weekDay, сlassNumber];
@@ -65,11 +63,11 @@ namespace ScheduleEditorClassLibrary
                 this[activeGroup].Add(new ScheduleRow(weekDay, сlassNumber));
                 sRow = this[activeGroup][weekDay, сlassNumber];
             }
+
             if (academicClass.Type == ClassTypes.Lecture && (academicClass.Hours <= 36 && row % 2 == 0 || academicClass.Hours > 36))
             {   
                 sRow.Group1week1 = new SAcademicClass(0, weekDay, сlassNumber, academicClass);
             }
-
             else if (academicClass.Type == ClassTypes.Lecture)
             {
                 if (academicClass.Hours <= 36 && row % 2 != 0) // раз в 2 недели
@@ -103,77 +101,6 @@ namespace ScheduleEditorClassLibrary
                     sRow.Group2week1 = new SAcademicClass(0, weekDay, сlassNumber, academicClass);
                 }
             }
-            #region hmm
-            //if (academicClass.Type == ClassTypes.Lecture)
-            //{
-            //    if (academicClass.Hours <= 36) // раз в 2 недели
-            //    {
-            //        if (row % 2 == 0)
-            //        {
-            //            sRow.Group1week1 = new SAcademicClass(0, (DayOfWeek)(row / 5 + 1), row % 4 + 1, academicClass);
-            //        }
-            //        else
-            //        {
-            //            sRow.Group1week2 = new SAcademicClass(0, (DayOfWeek)(row / 5 + 1), row % 4 + 1, academicClass);
-            //        }
-            //    }
-            //    else
-            //    {
-            //        sRow.Group1week1 = new SAcademicClass(0, (DayOfWeek)(row / 5 + 1), row % 4 + 1, academicClass);
-            //    }
-            //}
-            //else
-            //{
-            //    if (academicClass.Hours <= 36) // раз в 2 недели
-            //    {
-            //        if (row % 2 == 0 && col < 2)
-            //        {
-            //            sRow.Group1week1 = new SAcademicClass(0, (DayOfWeek)(row / 5 + 1), row % 4 + 1, academicClass);
-            //        }
-            //        else if (row % 2 == 0)
-            //        {
-            //            sRow.Group2week1 = new SAcademicClass(0, (DayOfWeek)(row / 5 + 1), row % 4 + 1, academicClass);
-            //        }
-            //        else if (col < 2)
-            //        {
-            //            sRow.Group1week2 = new SAcademicClass(0, (DayOfWeek)(row / 5 + 1), row % 4 + 1, academicClass);
-            //        }
-            //        else
-            //        {
-            //            sRow.Group2week2 = new SAcademicClass(0, (DayOfWeek)(row / 5 + 1), row % 4 + 1, academicClass);
-            //        }
-            //    }
-            //    else
-            //    {
-            //        if (col < 2)
-            //        {
-            //            sRow.Group1week1 = new SAcademicClass(0, (DayOfWeek)(row / 5 + 1), row % 4 + 1, academicClass);
-
-            //        }
-            //        else
-            //        {
-            //            sRow.Group2week1 = new SAcademicClass(0, (DayOfWeek)(row / 5 + 1), row % 4 + 1, academicClass);
-
-            //        }
-            //    }
-            //}
-            //if (row % 2 == 0 && col < 2)
-            //{
-            //    sRow.Group1week1 = new SAcademicClass(0, (DayOfWeek)(row / 5 + 1), row % 4 + 1, academicClass);
-            //}
-            //else if (row % 2 == 0)
-            //{
-            //    sRow.Group2week1 = new SAcademicClass(0, (DayOfWeek)(row / 5 + 1), row % 4 + 1, academicClass);
-            //}
-            //else if (row % 2 != 0 && col < 2)
-            //{
-            //    sRow.Group1week2 = new SAcademicClass(0, (DayOfWeek)(row / 5 + 1), row % 4 + 1, academicClass);
-            //}
-            //else
-            //{
-            //    sRow.Group2week2 = new SAcademicClass(0, (DayOfWeek)(row / 5 + 1), row % 4 + 1, academicClass);
-            //}
-            #endregion
         }
     }
 }
