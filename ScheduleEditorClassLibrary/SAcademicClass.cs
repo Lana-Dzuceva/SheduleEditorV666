@@ -27,7 +27,7 @@ namespace ScheduleEditorClassLibrary
         }
         public string GetAudience()
         {
-            return Audience.ToString();
+            return Audience != 0 ? Audience.ToString() : "";
         }
     }
 }

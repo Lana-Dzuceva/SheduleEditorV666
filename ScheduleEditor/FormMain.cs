@@ -267,7 +267,18 @@ namespace SheduleEditorV6
             //var res2 = MessageBox.Show("Препод занят. Все равно добавить?", "Предупреждение", MessageBoxButtons.YesNo);
             if(res!= Results.TypeMismatch)
             {
-                schedule.PutData(activeGroupeTitle, info.RowIndex - 2, info.ColumnIndex, e.Data.GetData(typeof(AcademicClass)) as AcademicClass);
+                var f = new FormChooseAudience();
+                f.Show();
+                int aud;
+                if(f.DialogResult == DialogResult.OK)
+                {
+                    aud = int.Parse(f.selectedLVIAudience.SubItems[0].Text);
+                }
+                else
+                {
+                    aud = 0;
+                }
+                schedule.PutData(activeGroupeTitle, info.RowIndex - 2, info.ColumnIndex, e.Data.GetData(typeof(AcademicClass)) as AcademicClass, aud);
                 dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
             }
             listViewErrors.Items[1].SubItems[0].Text = $"r{info.RowIndex} c{info.ColumnIndex} res{res.ToString()}";

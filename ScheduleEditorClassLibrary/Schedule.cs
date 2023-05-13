@@ -54,7 +54,7 @@ namespace ScheduleEditorClassLibrary
             }
             return Results.Available;
         }
-        public void PutData(string activeGroup, int row, int col, AcademicClass academicClass)
+        public void PutData(string activeGroup, int row, int col, AcademicClass academicClass, int audience)
         {
             var weekDay = (DayOfWeek)(row / 8 + 1);
             var сlassNumber = (row - ((int)weekDay - 1) * 8) / 2 + 1; // [1 - 4]
@@ -67,13 +67,13 @@ namespace ScheduleEditorClassLibrary
 
             if (academicClass.Type == ClassTypes.Lecture && (academicClass.Hours <= 36 && row % 2 == 0 || academicClass.Hours > 36))
             {   
-                sRow.Group1week1 = new SAcademicClass(0, weekDay, сlassNumber, academicClass);
+                sRow.Group1week1 = new SAcademicClass(audience, weekDay, сlassNumber, academicClass);
             }
             else if (academicClass.Type == ClassTypes.Lecture)
             {
                 if (academicClass.Hours <= 36 && row % 2 != 0) // раз в 2 недели
                 {
-                    sRow.Group1week2 = new SAcademicClass(0, weekDay, сlassNumber, academicClass);
+                    sRow.Group1week2 = new SAcademicClass(audience, weekDay, сlassNumber, academicClass);
                 }
             }
             else
@@ -82,24 +82,24 @@ namespace ScheduleEditorClassLibrary
                 {
                     if (row % 2 == 0 && col < 2)
                     {
-                        sRow.Group1week1 = new SAcademicClass(0, weekDay, сlassNumber, academicClass);
+                        sRow.Group1week1 = new SAcademicClass(audience, weekDay, сlassNumber, academicClass);
                     }
                     else if (row % 2 == 0)
                     {
-                        sRow.Group2week1 = new SAcademicClass(0, weekDay, сlassNumber, academicClass);
+                        sRow.Group2week1 = new SAcademicClass(audience, weekDay, сlassNumber, academicClass);
                     }
                     else if (col < 2)
                     {
-                        sRow.Group1week2 = new SAcademicClass(0, weekDay, сlassNumber, academicClass);
+                        sRow.Group1week2 = new SAcademicClass(audience, weekDay, сlassNumber, academicClass);
                     }
                     else
                     {
-                        sRow.Group2week2 = new SAcademicClass(0, weekDay, сlassNumber, academicClass);
+                        sRow.Group2week2 = new SAcademicClass(audience, weekDay, сlassNumber, academicClass);
                     }
                 }
                 else if (col >= 2)
                 {
-                    sRow.Group2week1 = new SAcademicClass(0, weekDay, сlassNumber, academicClass);
+                    sRow.Group2week1 = new SAcademicClass(audience, weekDay, сlassNumber, academicClass);
                 }
             }
         }
