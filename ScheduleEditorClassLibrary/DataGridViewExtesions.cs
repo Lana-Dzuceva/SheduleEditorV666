@@ -53,25 +53,44 @@ namespace SheduleEditorV6
         /// </summary>
         /// <param name="dataGrid"></param>
         /// <param name="ind">номер строки</param>
-        public static void VisualizeRow(this DataGridView dataGrid, int ind, RowTypes RowType)
+        public static void VisualizeRow(this DataGridView dataGrid, int ind, ScheduleRow scheduleRow)
         {
             ind *= 2;
-            switch (RowType)
+            switch (scheduleRow?.RowType ?? RowTypes.Simple)
             {
                 case RowTypes.Simple:
                     ToSimpleView(dataGrid, ind);
+                    dataGrid[0, ind].Value = scheduleRow?.Group1week1?.GetTitleAndTeacher() ?? "";
+                    dataGrid[3, ind].Value = scheduleRow?.Group1week1?.GetAudience() ?? "";
                     break;
                 case RowTypes.TwoGroups:
                     ToSimpleView(dataGrid, ind);
                     ToTwoGrops(dataGrid, ind);
+                    dataGrid[1, ind].Value = scheduleRow?.Group1week1?.GetTitleAndTeacher() ?? "";
+                    dataGrid[2, ind].Value = scheduleRow?.Group2week1?.GetTitleAndTeacher() ?? "";
+                    dataGrid[0, ind].Value = scheduleRow?.Group1week1?.GetAudience() ?? "";
+                    dataGrid[3, ind].Value = scheduleRow?.Group2week1?.GetAudience() ?? "";
                     break;
                 case RowTypes.TwoWeeks:
                     ToSimpleView(dataGrid, ind);
                     ToTwoWeeks(dataGrid, ind);
+                    dataGrid[0, ind].Value = scheduleRow?.Group1week1?.GetTitleAndTeacher() ?? "";
+                    dataGrid[0, ind + 1].Value = scheduleRow?.Group1week2?.GetTitleAndTeacher() ?? "";
+                    dataGrid[3, ind].Value = scheduleRow?.Group1week1?.GetAudience() ?? "";
+                    dataGrid[3, ind + 1].Value = scheduleRow?.Group1week2?.GetAudience() ?? "";
                     break;
                 case RowTypes.TwoGroupsAndTwoWeeks:
                     ToSimpleView(dataGrid, ind);
                     ToTwoGroupsAndTwoWeeks(dataGrid, ind);
+                    dataGrid[1, ind].Value = scheduleRow?.Group1week1?.GetTitleAndTeacher() ?? "";
+                    dataGrid[2, ind].Value = scheduleRow?.Group2week1?.GetTitleAndTeacher() ?? "";
+                    dataGrid[1, ind + 1].Value = scheduleRow?.Group1week2?.GetTitleAndTeacher() ?? "";
+                    dataGrid[2, ind + 1].Value = scheduleRow?.Group2week2?.GetTitleAndTeacher() ?? "";
+                    
+                    dataGrid[0, ind].Value = scheduleRow?.Group1week1?.GetAudience() ?? "";
+                    dataGrid[3, ind].Value = scheduleRow?.Group2week1?.GetAudience() ?? "";
+                    dataGrid[0, ind + 1].Value = scheduleRow?.Group1week2?.GetAudience() ?? "";
+                    dataGrid[3, ind + 1].Value = scheduleRow?.Group2week2?.GetAudience() ?? "";
                     break;
                 default:
                     break;
@@ -83,19 +102,14 @@ namespace SheduleEditorV6
         /// <param name="dataGrid"></param>
         /// <param name="ind"></param>
         /// <param name="scheduleRow"></param>
-        public static void FillRow(this DataGridView dataGrid, int ind, ScheduleRow scheduleRow)
-        {
-            ind *= 2;
-            //tut переписать все это
-            dataGrid[1, ind].Value = scheduleRow?.Group1week1?.GetTitleAndTeacher() ?? "";
-            dataGrid[2, ind].Value = scheduleRow?.Group2week1?.GetTitleAndTeacher() ?? "";
-            dataGrid[1, ind + 1].Value = scheduleRow?.Group1week1?.GetTitleAndTeacher() ?? "";
-            dataGrid[2, ind + 1].Value = scheduleRow?.Group2week1?.GetTitleAndTeacher() ?? "";
-            dataGrid[0, ind].Value = scheduleRow?.Group1week1?.GetAudience() ?? "";
-            dataGrid[3, ind].Value = scheduleRow?.Group2week1?.GetAudience() ?? "";
-            dataGrid[0, ind + 1].Value = scheduleRow?.Group1week1?.GetAudience() ?? "";
-            dataGrid[3, ind + 1].Value = scheduleRow?.Group2week1?.GetAudience() ?? "";
-        }
+        //public static void FillRow(this DataGridView dataGrid, int ind, ScheduleRow scheduleRow)
+        //{
+        //    ind *= 2;
+        //    //tut переписать все это
+            
+            
+           
+        //}
 
         public static void UpdateDataGrid(this DataGridView dataGrid, SGroup group)
         {
@@ -107,11 +121,8 @@ namespace SheduleEditorV6
                     if (curRow != null)
                     {
                         int a = 0;
-                        //    curRow = new ScheduleRow(RowTypes.Simple, r + 1, DayOfWeek.Monday);
-
                     }
-                    dataGrid.FillRow(i * 4 + r, curRow);
-                    dataGrid.VisualizeRow(i * 4 + r, RowTypes.Simple);
+                    dataGrid.VisualizeRow(i * 4 + r, curRow);
                 }
             }
         }
