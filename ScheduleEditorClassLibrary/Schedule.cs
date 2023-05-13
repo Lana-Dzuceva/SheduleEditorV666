@@ -57,7 +57,7 @@ namespace ScheduleEditorClassLibrary
         public void PutData(string activeGroup, int row, int col, AcademicClass academicClass)
         {
             row -= 2;
-            var weekDay = (DayOfWeek)(row / 5);
+            var weekDay = (DayOfWeek)(row / 8 + 1);
             var сlassNumber = (row - ((int)weekDay - 1) * 8) / 2 + 1; // [1 - 4]
             var sRow = this[activeGroup][weekDay, сlassNumber];
             if (sRow == null)
