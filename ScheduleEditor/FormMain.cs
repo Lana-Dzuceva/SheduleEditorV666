@@ -20,14 +20,20 @@ namespace SheduleEditorV6
         Schedule schedule; // данные в процессе
         public List<Teacher> teachers; //учителя
         string activeGroupeTitle; 
+        public List<Audience> audiences;
+        string curDir = Environment.CurrentDirectory;
         public FormMain()
         {
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
             
-            facultyGroups = JsonConvert.DeserializeObject<FacultyGroups>(File.ReadAllText(Environment.CurrentDirectory + @"\..\..\..\schedule_in.json"));
-            teachers = JsonConvert.DeserializeObject<List<Teacher>>(File.ReadAllText(Environment.CurrentDirectory + @"\..\..\..\teachers1.json"));
+            facultyGroups = JsonConvert.DeserializeObject<FacultyGroups>(File.ReadAllText(curDir + @"\..\..\..\schedule_in.json"));
+            teachers = JsonConvert.DeserializeObject<List<Teacher>>(File.ReadAllText(curDir + @"\..\..\..\teachers1.json"));
             schedule = new Schedule(facultyGroups.Groups.Select(group => group.Title).ToList());
+            using (StreamReader file = new StreamReader(curDir + @"\..\..\..\audiences.json"))
+            {
+                audiences = JsonConvert.DeserializeObject<List<Audience>>(file.ReadToEnd());
+            }
         }
 
         private void FormMain_Load(object sender, EventArgs e)
@@ -267,12 +273,14 @@ namespace SheduleEditorV6
             //var res2 = MessageBox.Show("Препод занят. Все равно добавить?", "Предупреждение", MessageBoxButtons.YesNo);
             if(res!= Results.TypeMismatch)
             {
-                var f = new FormChooseAudience();
-                f.Show();
+                var f = new FormChooseAudience(this);
+
+                f.ShowDialog();
+                //while (f.i)
                 int aud;
                 if(f.DialogResult == DialogResult.OK)
                 {
-                    aud = int.Parse(f.selectedLVIAudience.SubItems[0].Text);
+                    aud = f.num;
                 }
                 else
                 {

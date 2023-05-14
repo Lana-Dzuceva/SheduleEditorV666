@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Audience.cs" />
     <Compile Include="ClassScheduleRow.cs" />
     <Compile Include="ClassScheduleError.cs" />
     <Compile Include="FormChooseAudience.cs">

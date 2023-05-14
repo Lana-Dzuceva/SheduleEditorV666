@@ -40,7 +40,7 @@
             this.listViewAudienceDescription.Location = new System.Drawing.Point(12, 12);
             this.listViewAudienceDescription.MultiSelect = false;
             this.listViewAudienceDescription.Name = "listViewAudienceDescription";
-            this.listViewAudienceDescription.Size = new System.Drawing.Size(433, 219);
+            this.listViewAudienceDescription.Size = new System.Drawing.Size(748, 219);
             this.listViewAudienceDescription.TabIndex = 0;
             this.listViewAudienceDescription.UseCompatibleStateImageBehavior = false;
             this.listViewAudienceDescription.View = System.Windows.Forms.View.Details;
@@ -70,7 +70,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(462, 324);
+            this.ClientSize = new System.Drawing.Size(850, 324);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOk);
             this.Controls.Add(this.listViewAudienceDescription);
