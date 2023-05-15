@@ -269,7 +269,7 @@ namespace SheduleEditorV6
 
             var info = dataGridViewSchedule.HitTest(e.X, e.Y);
             if (info.RowIndex == -1) return;
-            var res = schedule.IsCellAvaible(activeGroupeTitle, info.RowIndex - 2, info.ColumnIndex, e.Data.GetData(typeof(AcademicClass)) as AcademicClass);
+            var res = schedule.IsTeacherAvaible(activeGroupeTitle, info.RowIndex - 2, info.ColumnIndex, e.Data.GetData(typeof(AcademicClass)) as AcademicClass);
             //var res2 = MessageBox.Show("Препод занят. Все равно добавить?", "Предупреждение", MessageBoxButtons.YesNo);
             if(res!= Results.TypeMismatch)
             {
@@ -278,7 +278,7 @@ namespace SheduleEditorV6
                 f.ShowDialog();
                 //while (f.i)
                 int aud;
-                if(f.DialogResult == DialogResult.OK)
+                if(f.DialogResult == DialogResult.OK )
                 {
                     aud = f.num;
                 }
@@ -286,6 +286,7 @@ namespace SheduleEditorV6
                 {
                     aud = 0;
                 }
+
                 schedule.PutData(activeGroupeTitle, info.RowIndex - 2, info.ColumnIndex, e.Data.GetData(typeof(AcademicClass)) as AcademicClass, aud);
                 dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
             }
@@ -339,7 +340,7 @@ namespace SheduleEditorV6
         {
             //var info = dataGridViewSchedule.HitTest(e.X, e.Y);
             //if (info.RowIndex == -1) return;
-            //var res = schedule.IsCellAvaible(activeGroupeTitle, info.RowIndex, info.ColumnIndex, e.Data.GetData(typeof(AcademicClass)) as AcademicClass);
+            //var res = schedule.IsTeacherAvaible(activeGroupeTitle, info.RowIndex, info.ColumnIndex, e.Data.GetData(typeof(AcademicClass)) as AcademicClass);
             //var res2 = MessageBox.Show("Препод занят. Все равно добавить?", "Предупреждение", MessageBoxButtons.YesNo);
             //MessageBox.Show(res.ToString() + ' ' + res2.ToString());
         }

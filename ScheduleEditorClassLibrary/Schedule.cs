@@ -27,7 +27,7 @@ namespace ScheduleEditorClassLibrary
         {
             get { return Groups.Where(group => group.Title == groupTitle).Single(); }
         }
-        public Results IsCellAvaible(string activeGroup, int row, int col, AcademicClass academicClass)
+        public Results IsTeacherAvaible(string activeGroup, int row, int col, AcademicClass academicClass)
         {
             if ((academicClass.SubGroup == SubGroups.First && col >= 2 ||
                 academicClass.SubGroup == SubGroups.Second && col < 2) && academicClass.Type != ClassTypes.Lecture)
@@ -37,6 +37,36 @@ namespace ScheduleEditorClassLibrary
                 if (Groups[i].Title == activeGroup) continue;
                 var sRow = Groups[i][(DayOfWeek)(row / 8 + 1), (row - row / 8 * 8) / 2 + 1];
                 if (sRow == null) continue;
+                bool simple = academicClass.Type == ClassTypes.Lecture && academicClass.Hours > 36 && sRow.Group1week1.Teacher == academicClass.Teacher;
+                bool twoWeeks1 = academicClass.Type == ClassTypes.Lecture && academicClass.Hours <= 36 && row % 2 == 0 && sRow.Group1week1.Teacher == academicClass.Teacher;
+                bool twoWeeks2 = academicClass.Type == ClassTypes.Lecture && academicClass.Hours <= 36 && row % 2 != 0 && sRow.Group1week2.Teacher == academicClass.Teacher;
+                bool twoGroups1 = academicClass.Type == ClassTypes.Practice && academicClass.Hours > 36 && col < 2 && sRow.Group1week1.Teacher == academicClass.Teacher;
+                bool twoGroups2 = academicClass.Type == ClassTypes.Practice && academicClass.Hours > 36 && col > 2 && sRow.Group2week1.Teacher == academicClass.Teacher;
+                bool twoGroupsAndTwoWeeks1 = academicClass.Type == ClassTypes.Practice && academicClass.Hours <= 36 && col < 2 && row % 2 == 0 && sRow.Group1week1.Teacher == academicClass.Teacher;
+                bool twoGroupsAndTwoWeeks2 = academicClass.Type == ClassTypes.Practice && academicClass.Hours <= 36 && col < 2 && row % 2 != 0 && sRow.Group1week2.Teacher == academicClass.Teacher;
+                bool twoGroupsAndTwoWeeks3 = academicClass.Type == ClassTypes.Practice && academicClass.Hours <= 36 && col >= 2 && row % 2 == 0 && sRow.Group2week1.Teacher == academicClass.Teacher;
+                bool twoGroupsAndTwoWeeks4 = academicClass.Type == ClassTypes.Practice && academicClass.Hours <= 36 && col >= 2 && row % 2 != 0 && sRow.Group2week2.Teacher == academicClass.Teacher;
+
+                if (simple || twoWeeks1 || twoWeeks2 || twoGroups1 || twoGroups2 || twoGroupsAndTwoWeeks1 || twoGroupsAndTwoWeeks2 || twoGroupsAndTwoWeeks3 || twoGroupsAndTwoWeeks4)
+                {
+                    return Results.TeacherIsBusy;
+                }
+            }
+            return Results.Available;
+        }
+        public Results IsAudienceAvaible(string activeGroup, int row, int col, AcademicClass academicClass, int aud)
+        {
+            for (int i = 0; i < Groups.Count; i++)
+            {
+                //if (Groups[i].Title == activeGroup) continue;
+                var sRow = Groups[i][(DayOfWeek)(row / 8 + 1), (row - row / 8 * 8) / 2 + 1];
+                if (sRow == null) continue;
+                RowTypes rowType;
+                if (academicClass.Type == ClassTypes.Lecture && academicClass.Hours > 36) rowType = RowTypes.Simple;
+                else if (academicClass.Type == ClassTypes.Lecture && academicClass.Hours <= 36) rowType = RowTypes.TwoWeeks;
+                else if (academicClass.Type == ClassTypes.Practice && academicClass.Hours > 36) rowType = RowTypes.TwoGroups;
+                else if (academicClass.Type == ClassTypes.Practice && academicClass.Hours <= 36) rowType = RowTypes.TwoGroupsAndTwoWeeks;
+
                 bool simple = academicClass.Type == ClassTypes.Lecture && academicClass.Hours > 36 && sRow.Group1week1.Teacher == academicClass.Teacher;
                 bool twoWeeks1 = academicClass.Type == ClassTypes.Lecture && academicClass.Hours <= 36 && row % 2 == 0 && sRow.Group1week1.Teacher == academicClass.Teacher;
                 bool twoWeeks2 = academicClass.Type == ClassTypes.Lecture && academicClass.Hours <= 36 && row % 2 != 0 && sRow.Group1week2.Teacher == academicClass.Teacher;

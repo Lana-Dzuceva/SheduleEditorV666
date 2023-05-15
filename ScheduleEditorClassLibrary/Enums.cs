@@ -28,6 +28,7 @@ namespace ScheduleEditorClassLibrary
     {
         Available,
         TeacherIsBusy,
-        TypeMismatch
+        TypeMismatch,
+        audienceIsOccupied
     }
 }
