@@ -52,7 +52,8 @@
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 24);
+            this.splitContainer1.Location = new System.Drawing.Point(0, 30);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -62,8 +63,9 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer1.Size = new System.Drawing.Size(800, 426);
-            this.splitContainer1.SplitterDistance = 443;
+            this.splitContainer1.Size = new System.Drawing.Size(1067, 524);
+            this.splitContainer1.SplitterDistance = 590;
+            this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 0;
             // 
             // dataGridViewSchedule
@@ -77,9 +79,11 @@
             this.dataGridViewSchedule.ColumnHeadersVisible = false;
             this.dataGridViewSchedule.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewSchedule.Location = new System.Drawing.Point(0, 0);
+            this.dataGridViewSchedule.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dataGridViewSchedule.Name = "dataGridViewSchedule";
             this.dataGridViewSchedule.ReadOnly = true;
-            this.dataGridViewSchedule.Size = new System.Drawing.Size(443, 426);
+            this.dataGridViewSchedule.RowHeadersWidth = 51;
+            this.dataGridViewSchedule.Size = new System.Drawing.Size(590, 524);
             this.dataGridViewSchedule.TabIndex = 0;
             this.dataGridViewSchedule.DragDrop += new System.Windows.Forms.DragEventHandler(this.dataGridViewSchedule_DragDrop);
             this.dataGridViewSchedule.DragEnter += new System.Windows.Forms.DragEventHandler(this.dataGridViewSchedule_DragEnter);
@@ -91,6 +95,7 @@
             // 
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.splitContainer2.Name = "splitContainer2";
             this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -101,17 +106,19 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.listViewErrors);
-            this.splitContainer2.Size = new System.Drawing.Size(353, 426);
-            this.splitContainer2.SplitterDistance = 290;
+            this.splitContainer2.Size = new System.Drawing.Size(472, 524);
+            this.splitContainer2.SplitterDistance = 356;
+            this.splitContainer2.SplitterWidth = 5;
             this.splitContainer2.TabIndex = 0;
             // 
             // tabControlGroups
             // 
             this.tabControlGroups.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlGroups.Location = new System.Drawing.Point(0, 0);
+            this.tabControlGroups.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabControlGroups.Name = "tabControlGroups";
             this.tabControlGroups.SelectedIndex = 0;
-            this.tabControlGroups.Size = new System.Drawing.Size(353, 290);
+            this.tabControlGroups.Size = new System.Drawing.Size(472, 356);
             this.tabControlGroups.TabIndex = 0;
             // 
             // listViewErrors
@@ -120,8 +127,9 @@
             this.listViewErrors.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewErrors.HideSelection = false;
             this.listViewErrors.Location = new System.Drawing.Point(0, 0);
+            this.listViewErrors.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.listViewErrors.Name = "listViewErrors";
-            this.listViewErrors.Size = new System.Drawing.Size(353, 132);
+            this.listViewErrors.Size = new System.Drawing.Size(472, 163);
             this.listViewErrors.TabIndex = 2;
             this.listViewErrors.UseCompatibleStateImageBehavior = false;
             this.listViewErrors.View = System.Windows.Forms.View.Details;
@@ -129,42 +137,44 @@
             // 
             // menuStrip1
             // 
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.хммToolStripMenuItem,
             this.toolStripMenuItem1,
             this.предпочтенияУчителейToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(800, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1067, 30);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // хммToolStripMenuItem
             // 
             this.хммToolStripMenuItem.Name = "хммToolStripMenuItem";
-            this.хммToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.хммToolStripMenuItem.Size = new System.Drawing.Size(54, 26);
             this.хммToolStripMenuItem.Text = "Хмм";
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(12, 20);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(14, 26);
             // 
             // предпочтенияУчителейToolStripMenuItem
             // 
             this.предпочтенияУчителейToolStripMenuItem.Name = "предпочтенияУчителейToolStripMenuItem";
-            this.предпочтенияУчителейToolStripMenuItem.Size = new System.Drawing.Size(151, 20);
+            this.предпочтенияУчителейToolStripMenuItem.Size = new System.Drawing.Size(190, 26);
             this.предпочтенияУчителейToolStripMenuItem.Text = "предпочтения учителей";
             this.предпочтенияУчителейToolStripMenuItem.Click += new System.EventHandler(this.TeacherPreferencesToolStripMenuItem_Click);
             // 
             // FormMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1067, 554);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "FormMain";
             this.Text = "Редактор расписания";
             this.Load += new System.EventHandler(this.FormMain_Load);

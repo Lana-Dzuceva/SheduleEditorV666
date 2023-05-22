@@ -34,6 +34,25 @@ namespace ScheduleEditorClassLibrary
                 return Results.TypeMismatch;
             for (int i = 0; i < Groups.Count; i++)
             {
+                //if (Groups[i].Title == activeGroup) continue;
+                var sRow = Groups[i][(DayOfWeek)(row / 8 + 1), (row - row / 8 * 8) / 2 + 1];
+                if (sRow == null) continue;
+                Results res = Results.Available;
+                if(academicClass.Type == ClassTypes.Lecture)
+                {
+                    if(academicClass.Hours > 36)
+                    {
+                        if ()
+                            res = Results.TeacherIsBusy;
+                    }
+                    else
+                    {
+
+                    }
+                }
+            }
+            for (int i = 0; i < Groups.Count; i++)
+            {
                 if (Groups[i].Title == activeGroup) continue;
                 var sRow = Groups[i][(DayOfWeek)(row / 8 + 1), (row - row / 8 * 8) / 2 + 1];
                 if (sRow == null) continue;
@@ -97,7 +116,7 @@ namespace ScheduleEditorClassLibrary
 
             if (academicClass.Type == ClassTypes.Lecture && (academicClass.Hours <= 36 && row % 2 == 0 || academicClass.Hours > 36) ||
                 academicClass.Type == ClassTypes.Practice && academicClass.Hours > 36 && col < 2)
-            {   
+            {
                 sRow.Group1week1 = new SAcademicClass(audience, weekDay, сlassNumber, academicClass);
             }
             else if (academicClass.Type == ClassTypes.Lecture)
