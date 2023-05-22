@@ -95,7 +95,8 @@ namespace ScheduleEditorClassLibrary
                 sRow = this[activeGroup][weekDay, сlassNumber];
             }
 
-            if (academicClass.Type == ClassTypes.Lecture && (academicClass.Hours <= 36 && row % 2 == 0 || academicClass.Hours > 36))
+            if (academicClass.Type == ClassTypes.Lecture && (academicClass.Hours <= 36 && row % 2 == 0 || academicClass.Hours > 36) ||
+                academicClass.Type == ClassTypes.Practice && academicClass.Hours > 36 && col < 2)
             {   
                 sRow.Group1week1 = new SAcademicClass(audience, weekDay, сlassNumber, academicClass);
             }
