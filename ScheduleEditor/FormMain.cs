@@ -22,6 +22,7 @@ namespace SheduleEditorV6
         string activeGroupeTitle; 
         public List<Audience> audiences;
         string curDir = Environment.CurrentDirectory;
+        List<ScheduleError> errors;
         public FormMain()
         {
             InitializeComponent();
@@ -170,12 +171,14 @@ namespace SheduleEditorV6
         public void FillErrors()
         {
             ListViewItem lvi;
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 3; i++)
             {
                 lvi = new ListViewItem("Error");
                 lvi.SubItems.Add("very");
                 lvi.SubItems.Add("bad");
                 lvi.SubItems.Add(i.ToString());
+                listViewErrors.ContextMenuStrip = new ContextMenuStrip();
+
                 listViewErrors.Items.Add(lvi);
             }
         }

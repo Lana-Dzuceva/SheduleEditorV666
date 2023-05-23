@@ -53,7 +53,7 @@
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 30);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -79,7 +79,7 @@
             this.dataGridViewSchedule.ColumnHeadersVisible = false;
             this.dataGridViewSchedule.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewSchedule.Location = new System.Drawing.Point(0, 0);
-            this.dataGridViewSchedule.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dataGridViewSchedule.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridViewSchedule.Name = "dataGridViewSchedule";
             this.dataGridViewSchedule.ReadOnly = true;
             this.dataGridViewSchedule.RowHeadersWidth = 51;
@@ -95,7 +95,7 @@
             // 
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer2.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.splitContainer2.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer2.Name = "splitContainer2";
             this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -115,7 +115,7 @@
             // 
             this.tabControlGroups.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlGroups.Location = new System.Drawing.Point(0, 0);
-            this.tabControlGroups.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabControlGroups.Margin = new System.Windows.Forms.Padding(4);
             this.tabControlGroups.Name = "tabControlGroups";
             this.tabControlGroups.SelectedIndex = 0;
             this.tabControlGroups.Size = new System.Drawing.Size(472, 356);
@@ -127,7 +127,7 @@
             this.listViewErrors.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewErrors.HideSelection = false;
             this.listViewErrors.Location = new System.Drawing.Point(0, 0);
-            this.listViewErrors.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.listViewErrors.Margin = new System.Windows.Forms.Padding(4);
             this.listViewErrors.Name = "listViewErrors";
             this.listViewErrors.Size = new System.Drawing.Size(472, 163);
             this.listViewErrors.TabIndex = 2;
@@ -174,7 +174,7 @@
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormMain";
             this.Text = "Редактор расписания";
             this.Load += new System.EventHandler(this.FormMain_Load);

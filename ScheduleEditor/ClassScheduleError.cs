@@ -17,4 +17,6 @@ namespace SheduleEditorV6
         public SAcademicClass ScheduleAcademicClass { get; set; }
         public string Message { get; set; }
     }
+
+
 }

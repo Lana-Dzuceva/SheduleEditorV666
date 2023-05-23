@@ -31,7 +31,7 @@ namespace ScheduleEditorClassLibrary
         SAcademicClass group1week2;
         SAcademicClass group2week1;
         SAcademicClass group2week2;
-        void setRowType(AcademicClass academicClass)
+        void setRowType(SAcademicClass academicClass)
         {
             if (academicClass == null)
             {

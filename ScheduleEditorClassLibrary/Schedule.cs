@@ -75,12 +75,12 @@ namespace ScheduleEditorClassLibrary
                     if (academicClass.Hours > 36)
                     {
                         if (col < 2 && (sRow.Group1week1.Teacher == academicClass.Teacher || sRow.Group1week2.Teacher == academicClass.Teacher) ||
-                            col >= 2 && (sRow.Group2week1.Teacher == academicClass.Teacher || sRow.Group2week2.Teacher == academicClass.Teacher))   
+                            col >= 2 && (sRow.Group2week1.Teacher == academicClass.Teacher || sRow.Group2week2.Teacher == academicClass.Teacher))
                             return Results.TeacherIsBusy;
                     }
                     else // раз в 2 недели
                     {
-                        if(row % 2 == 0)
+                        if (row % 2 == 0)
                         {
                             if (col < 2 && sRow.Group1week1.Teacher == academicClass.Teacher ||
                                 col >= 2 && sRow.Group2week1.Teacher == academicClass.Teacher)
@@ -138,64 +138,104 @@ namespace ScheduleEditorClassLibrary
                 this[activeGroup].Add(new ScheduleRow(weekDay, сlassNumber));
                 sRow = this[activeGroup][weekDay, сlassNumber];
             }
-
-            //if (academicClass.Type == ClassTypes.Lecture)
-            //{
-            //    if (academicClass.Hours > 36)
-            //    {
-            //        sRow.Group1week1 
-            //    }
-            //    else
-            //    {
-
-            //    }
-            //}
-            //else
-            //{
-
-            //}
-
-
-
-
-                if (academicClass.Type == ClassTypes.Lecture && (academicClass.Hours <= 36 && row % 2 == 0 || academicClass.Hours > 36) ||
-                academicClass.Type == ClassTypes.Practice && academicClass.Hours > 36 && col < 2)
+            var sAcademicClass = new SAcademicClass(audience, weekDay, сlassNumber, academicClass);
+            if (academicClass.Type == ClassTypes.Lecture)
             {
-                sRow.Group1week1 = new SAcademicClass(audience, weekDay, сlassNumber, academicClass);
-            }
-            else if (academicClass.Type == ClassTypes.Lecture)
-            {
-                if (academicClass.Hours <= 36 && row % 2 != 0) // раз в 2 недели
+                if (academicClass.Hours > 36)
                 {
-                    sRow.Group1week2 = new SAcademicClass(audience, weekDay, сlassNumber, academicClass);
+                    sRow.Group1week1 = sAcademicClass;
+                    sRow.Group1week2 = sAcademicClass;
+                    sRow.Group2week1 = sAcademicClass;
+                    sRow.Group2week2 = sAcademicClass;
+                }
+                else
+                {
+                    if (row % 2 == 0)
+                    {
+                        sRow.Group1week1 = sAcademicClass;
+                        sRow.Group2week1 = sAcademicClass;
+                    }
+                    else
+                    {
+                        sRow.Group1week2 = sAcademicClass;
+                        sRow.Group2week2 = sAcademicClass;
+                    }
                 }
             }
             else
             {
-                if (academicClass.Hours <= 36) // раз в 2 недели
+                if (academicClass.Hours > 36)
                 {
-                    if (row % 2 == 0 && col < 2)
+                    if (col < 2)
                     {
-                        sRow.Group1week1 = new SAcademicClass(audience, weekDay, сlassNumber, academicClass);
-                    }
-                    else if (row % 2 == 0)
-                    {
-                        sRow.Group2week1 = new SAcademicClass(audience, weekDay, сlassNumber, academicClass);
-                    }
-                    else if (col < 2)
-                    {
-                        sRow.Group1week2 = new SAcademicClass(audience, weekDay, сlassNumber, academicClass);
+                        sRow.Group1week1 = sAcademicClass;
+                        sRow.Group1week2 = sAcademicClass;
                     }
                     else
                     {
-                        sRow.Group2week2 = new SAcademicClass(audience, weekDay, сlassNumber, academicClass);
+                        sRow.Group2week1 = sAcademicClass;
+                        sRow.Group2week2 = sAcademicClass;
                     }
                 }
-                else if (col >= 2)
+                else
                 {
-                    sRow.Group2week1 = new SAcademicClass(audience, weekDay, сlassNumber, academicClass);
+                    if (row % 2 == 0 && col < 2)
+                    {
+                        sRow.Group1week1 = sAcademicClass;
+                    }
+                    else if (row % 2 == 0)
+                    {
+                        sRow.Group2week1 = sAcademicClass;
+                    }
+                    else if (col < 2)
+                    {
+                        sRow.Group1week2 = sAcademicClass;
+                    }
+                    else
+                    {
+                        sRow.Group2week2 = sAcademicClass;
+                    }
                 }
             }
+
+            //if (academicClass.Type == ClassTypes.Lecture && (academicClass.Hours <= 36 && row % 2 == 0 || academicClass.Hours > 36) ||
+            //academicClass.Type == ClassTypes.Practice && academicClass.Hours > 36 && col < 2)
+            //{
+            //    sRow.Group1week1 = sAcademicClass;
+            //}
+            //else if (academicClass.Type == ClassTypes.Lecture)
+            //{
+            //    if (academicClass.Hours <= 36 && row % 2 != 0) // раз в 2 недели
+            //    {
+            //        sRow.Group1week2 = sAcademicClass;
+            //    }
+            //}
+            //else
+            //{
+            //    if (academicClass.Hours <= 36) // раз в 2 недели
+            //    {
+            //        if (row % 2 == 0 && col < 2)
+            //        {
+            //            sRow.Group1week1 = sAcademicClass;
+            //        }
+            //        else if (row % 2 == 0)
+            //        {
+            //            sRow.Group2week1 = sAcademicClass;
+            //        }
+            //        else if (col < 2)
+            //        {
+            //            sRow.Group1week2 = sAcademicClass;
+            //        }
+            //        else
+            //        {
+            //            sRow.Group2week2 = sAcademicClass;
+            //        }
+            //    }
+            //    else if (col >= 2)
+            //    {
+            //        sRow.Group2week1 = sAcademicClass;
+            //    }
+            //}
         }
     }
 }
