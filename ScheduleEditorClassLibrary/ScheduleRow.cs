@@ -50,6 +50,7 @@ namespace ScheduleEditorClassLibrary
             set
             {
                 setRowType(value);
+                //tut
                 group1week1 = value;
             }
         }
