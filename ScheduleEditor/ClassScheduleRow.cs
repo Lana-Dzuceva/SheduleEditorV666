@@ -30,42 +30,42 @@ namespace SheduleEditorV6
     //    }
     //}
 
-    class ScheduleRow
-    {
-        RowTypes rowType;
-        Dictionary<string, SAcademicClass> items;
-        //List<List<ScheduleAcademicClass>> items;
-        public int CountOfWeeks { get; private set; }
-        public int CountOfGroups { get; private set; }
-        public RowTypes RowType
-        {
-            get { return rowType; }
-            set
-            {
-                CountOfWeeks = (value == RowTypes.Simple || value == RowTypes.TwoGroups ? 1 : 2);
-                CountOfGroups = (value == RowTypes.Simple || value == RowTypes.TwoWeeks ? 1 : 2);
-                rowType = value;
-            }
-        }
+    //class ScheduleRow
+    //{
+    //    RowTypes rowType;
+    //    Dictionary<string, SAcademicClass> items;
+    //    //List<List<ScheduleAcademicClass>> items;
+    //    public int CountOfWeeks { get; private set; }
+    //    public int CountOfGroups { get; private set; }
+    //    public RowTypes RowType
+    //    {
+    //        get { return rowType; }
+    //        set
+    //        {
+    //            CountOfWeeks = (value == RowTypes.Simple || value == RowTypes.TwoGroups ? 1 : 2);
+    //            CountOfGroups = (value == RowTypes.Simple || value == RowTypes.TwoWeeks ? 1 : 2);
+    //            rowType = value;
+    //        }
+    //    }
 
-        public Dictionary<string, SAcademicClass> Items
-        {
-            get
-            {
-                return items;
-            }
-        }
+    //    public Dictionary<string, SAcademicClass> Items
+    //    {
+    //        get
+    //        {
+    //            return items;
+    //        }
+    //    }
 
-        public ScheduleRow(RowTypes rowType, SAcademicClass group1week1 =null, SAcademicClass group1week2 = null, SAcademicClass group2week1 = null, SAcademicClass group2week2 = null)
-        {
-            RowType = rowType;
-            items["group1week1"] = group1week1;
-            items["group1week2"] = group1week2;
-            items["group2week1"] = group2week1;
-            items["group2week2"] = group2week2;
-        }
+    //    public ScheduleRow(RowTypes rowType, SAcademicClass group1week1 =null, SAcademicClass group1week2 = null, SAcademicClass group2week1 = null, SAcademicClass group2week2 = null)
+    //    {
+    //        RowType = rowType;
+    //        items["group1week1"] = group1week1;
+    //        items["group1week2"] = group1week2;
+    //        items["group2week1"] = group2week1;
+    //        items["group2week2"] = group2week2;
+    //    }
 
         
-    }
+    //}
 }
 

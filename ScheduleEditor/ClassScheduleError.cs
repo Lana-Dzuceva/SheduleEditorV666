@@ -13,10 +13,20 @@ namespace SheduleEditorV6
     // 
     public class ScheduleError
     {
+        public Results Type { get; set; }
         public string GroupTitle { get; set; }
-        public SAcademicClass ScheduleAcademicClass { get; set; }
+        public ScheduleRow ScheduleRow { get; set; }
+        public int col;//1-2
+        public int row;//1-2
         public string Message { get; set; }
+        public ScheduleError(Results type, string groupTitle, ScheduleRow scheduleRow, int col, int row, string message="")
+        {
+            Type = type;
+            GroupTitle = groupTitle;
+            ScheduleRow = scheduleRow;
+            this.col = col;
+            this.row = row;
+            Message = message;
+        }
     }
-
-
 }

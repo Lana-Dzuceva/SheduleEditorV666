@@ -38,10 +38,18 @@ namespace ScheduleEditorClassLibrary
                 RowType = RowTypes.Simple;
                 return;
             }
+            var cur = RowType;
             if (academicClass.Type == ClassTypes.Lecture && academicClass.Hours > 36) RowType = RowTypes.Simple;
             if (academicClass.Type == ClassTypes.Lecture && academicClass.Hours <= 36) RowType = RowTypes.TwoWeeks;
             if (academicClass.Type == ClassTypes.Practice && academicClass.Hours > 36) RowType = RowTypes.TwoGroups;
             if (academicClass.Type == ClassTypes.Practice && academicClass.Hours <= 36) RowType = RowTypes.TwoGroupsAndTwoWeeks;
+            if (cur != RowType)
+            {
+                group1week1 = null;
+                group1week2 = null;
+                group2week1 = null;
+                group2week2 = null;
+            }
 
         }
         public SAcademicClass Group1week1
@@ -50,7 +58,6 @@ namespace ScheduleEditorClassLibrary
             set
             {
                 setRowType(value);
-                //tut
                 group1week1 = value;
             }
         }

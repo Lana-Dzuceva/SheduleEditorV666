@@ -39,10 +39,11 @@ namespace SheduleEditorV6
 
         private void FormMain_Load(object sender, EventArgs e)
         {
+            errors = new List<ScheduleError>();
+            listViewErrors.Columns.Add("№");
             listViewErrors.Columns.Add("Тип ошибки");
-            listViewErrors.Columns.Add("Сведения");
-            listViewErrors.Columns.Add("Еще сведелния");
-            listViewErrors.Columns.Add("Какая-то цифра");
+            listViewErrors.Columns.Add("Группа");
+            listViewErrors.Columns.Add("Сообщение");
             listViewErrors.Font = new Font(FontFamily.GenericSansSerif, 12);
             for (int i = 0; i < 4; i++)
             {
@@ -55,7 +56,7 @@ namespace SheduleEditorV6
             BuildAndFillLessons();
             dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
             
-            FillErrors();
+            UpdateErrors();
         }
 
         public void BuildSchedule()
@@ -168,10 +169,11 @@ namespace SheduleEditorV6
             }
         }
 
-        public void FillErrors()
+        public void UpdateErrors()
         {
+            listViewErrors.Items.Clear();
             ListViewItem lvi;
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 2; i++)
             {
                 lvi = new ListViewItem("Error");
                 lvi.SubItems.Add("very");
@@ -179,6 +181,15 @@ namespace SheduleEditorV6
                 lvi.SubItems.Add(i.ToString());
                 listViewErrors.ContextMenuStrip = new ContextMenuStrip();
 
+                listViewErrors.Items.Add(lvi);
+            }
+            for (int i = 0; i < errors.Count; i++)
+            {
+                lvi = new ListViewItem((i + 1).ToString());
+                lvi.SubItems.Add(errors[i].Type.ToString());
+                lvi.SubItems.Add(errors[i].GroupTitle);
+                lvi.SubItems.Add(errors[i].Message);
+                listViewErrors.ContextMenuStrip = new ContextMenuStrip();
                 listViewErrors.Items.Add(lvi);
             }
         }
@@ -289,7 +300,13 @@ namespace SheduleEditorV6
                 {
                     aud = 0;
                 }
-
+                if (res != Results.Available)
+                {
+                    var weekDay = (DayOfWeek)(info.RowIndex / 8 + 1);
+                    var сlassNumber = (info.RowIndex - ((int)weekDay - 1) * 8) / 2 + 1; // [1 - 4]
+                    errors.Add(new ScheduleError(res, activeGroupeTitle, schedule[activeGroupeTitle][weekDay, сlassNumber], info.ColumnIndex / 2 + 1, info.RowIndex % 2 + 1, "ААА матан захватит мир!"));
+                    UpdateErrors();
+                }
                 schedule.PutData(activeGroupeTitle, info.RowIndex - 2, info.ColumnIndex, e.Data.GetData(typeof(AcademicClass)) as AcademicClass, aud);
                 dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
             }
@@ -309,6 +326,7 @@ namespace SheduleEditorV6
             //dataGridViewSchedule[info.ColumnIndex, info.RowIndex].Value = "hmm";
             listViewErrors.Items[0].SubItems[0].Text = $"row {info.RowIndex} col {info.ColumnIndex}";
             dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
+
             dataGridViewSchedule.HighlightRow(info.RowIndex - 2, info.ColumnIndex, e.Data.GetData(typeof(AcademicClass)) as AcademicClass);
         }
 
@@ -336,7 +354,6 @@ namespace SheduleEditorV6
         {
             activeGroupeTitle = tabControlGroups.SelectedTab.Text;
             dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
-            //MessageBox.Show(activeGroupeTitle);
         }
 
         private void dataGridViewSchedule_MouseUp(object sender, MouseEventArgs e)

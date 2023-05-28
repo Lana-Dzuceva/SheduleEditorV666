@@ -29,6 +29,7 @@ namespace ScheduleEditorClassLibrary
         Available,
         TeacherIsBusy,
         TypeMismatch,
-        AudienceIsOccupied
+        AudienceIsOccupied,
+        InconsistencyWithDesire
     }
 }
