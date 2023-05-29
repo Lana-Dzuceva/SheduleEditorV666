@@ -141,6 +141,16 @@ namespace ScheduleEditorClassLibrary
             //items["group2week1"] = group2week1;
             //items["group2week2"] = group2week2;
         }
+        public AcademicClass this[int group, int week]
+        {
+            get
+            {
+                if (group == 1 && week == 1) return Group1week1;
+                if (group == 1 && week == 2) return Group1week2;
+                if (group == 2 && week == 1) return Group2week1;
+                return Group2week2;
+            }
+        } 
     }
 }
 

@@ -173,7 +173,7 @@ namespace SheduleEditorV6
         {
             listViewErrors.Items.Clear();
             ListViewItem lvi;
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 1; i++)
             {
                 lvi = new ListViewItem("Error");
                 lvi.SubItems.Add("very");
@@ -189,7 +189,8 @@ namespace SheduleEditorV6
                 lvi.SubItems.Add(errors[i].Type.ToString());
                 lvi.SubItems.Add(errors[i].GroupTitle);
                 lvi.SubItems.Add(errors[i].Message);
-                listViewErrors.ContextMenuStrip = new ContextMenuStrip();
+                //listViewErrors.ContextMenuStrip = new ContextMenuStrip();
+                lvi.Tag = errors[i];
                 listViewErrors.Items.Add(lvi);
             }
         }
@@ -275,6 +276,18 @@ namespace SheduleEditorV6
             if (info.RowIndex == -1) return;
         }
 
+        void checkErrors(int row, int col)
+        {
+            var newErrors = new List<ScheduleError>();
+            for (int i = 0; i < errors.Count; i++)
+            {
+                var res = schedule.IsTeacherAvaible(activeGroupeTitle, (int)errors[i].ScheduleRow.WeekDay * 8 + errors[i].row, errors[i].col, errors[i].ScheduleRow[errors[i].col, errors[i].row]);
+                if (res != Results.Available)
+                {
+
+                }
+            }
+        }
         private void dataGridViewSchedule_DragDrop(object sender, DragEventArgs e)
         {
             //var li = e.Data.GetData(typeof(ListViewItem)) as ListViewItem;
@@ -310,7 +323,7 @@ namespace SheduleEditorV6
                 schedule.PutData(activeGroupeTitle, info.RowIndex - 2, info.ColumnIndex, e.Data.GetData(typeof(AcademicClass)) as AcademicClass, aud);
                 dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
             }
-            listViewErrors.Items[1].SubItems[0].Text = $"r{info.RowIndex} c{info.ColumnIndex} res{res.ToString()}";
+            listViewErrors.Items[0].SubItems[1].Text = $"r{info.RowIndex} c{info.ColumnIndex} res{res.ToString()}";
         }
 
         private void listViewErrors_MouseDown(object sender, MouseEventArgs e)
@@ -348,7 +361,10 @@ namespace SheduleEditorV6
         //}
         private void listViewErrors_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            var a = listViewErrors.FocusedItem;
+            var cur_item = listViewErrors.FocusedItem;
+            activeGroupeTitle = (cur_item.Tag as ScheduleError).GroupTitle;
+            dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
+
         }
         private void tabControlGroups_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -363,6 +379,11 @@ namespace SheduleEditorV6
             //var res = schedule.IsTeacherAvaible(activeGroupeTitle, info.RowIndex, info.ColumnIndex, e.Data.GetData(typeof(AcademicClass)) as AcademicClass);
             //var res2 = MessageBox.Show("Препод занят. Все равно добавить?", "Предупреждение", MessageBoxButtons.YesNo);
             //MessageBox.Show(res.ToString() + ' ' + res2.ToString());
+        }
+
+        private void dataGridViewSchedule_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            
         }
     }
 }

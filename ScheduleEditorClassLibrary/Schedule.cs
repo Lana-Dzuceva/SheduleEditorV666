@@ -103,31 +103,71 @@ namespace ScheduleEditorClassLibrary
         }
         public Results IsAudienceAvaible(string activeGroup, int row, int col, AcademicClass academicClass, int aud)
         {
-            return Results.Available;
             for (int i = 0; i < Groups.Count; i++)
             {
-                //if (Groups[i].Title == activeGroup) continue;
                 var sRow = Groups[i][(DayOfWeek)(row / 8 + 1), (row - row / 8 * 8) / 2 + 1];
                 if (sRow == null) continue;
-                RowTypes rowType;
-                if (academicClass.Type == ClassTypes.Lecture && academicClass.Hours > 36) rowType = RowTypes.Simple;
-                else if (academicClass.Type == ClassTypes.Lecture && academicClass.Hours <= 36) rowType = RowTypes.TwoWeeks;
-                else if (academicClass.Type == ClassTypes.Practice && academicClass.Hours > 36) rowType = RowTypes.TwoGroups;
-                else if (academicClass.Type == ClassTypes.Practice && academicClass.Hours <= 36) rowType = RowTypes.TwoGroupsAndTwoWeeks;
-
-                bool simple = academicClass.Type == ClassTypes.Lecture && academicClass.Hours > 36 && sRow.Group1week1.Teacher == academicClass.Teacher;
-                bool twoWeeks1 = academicClass.Type == ClassTypes.Lecture && academicClass.Hours <= 36 && row % 2 == 0 && sRow.Group1week1.Teacher == academicClass.Teacher;
-                bool twoWeeks2 = academicClass.Type == ClassTypes.Lecture && academicClass.Hours <= 36 && row % 2 != 0 && sRow.Group1week2.Teacher == academicClass.Teacher;
-                bool twoGroups1 = academicClass.Type == ClassTypes.Practice && academicClass.Hours > 36 && col < 2 && sRow.Group1week1.Teacher == academicClass.Teacher;
-                bool twoGroups2 = academicClass.Type == ClassTypes.Practice && academicClass.Hours > 36 && col > 2 && sRow.Group2week1.Teacher == academicClass.Teacher;
-                bool twoGroupsAndTwoWeeks1 = academicClass.Type == ClassTypes.Practice && academicClass.Hours <= 36 && col < 2 && row % 2 == 0 && sRow.Group1week1.Teacher == academicClass.Teacher;
-                bool twoGroupsAndTwoWeeks2 = academicClass.Type == ClassTypes.Practice && academicClass.Hours <= 36 && col < 2 && row % 2 != 0 && sRow.Group1week2.Teacher == academicClass.Teacher;
-                bool twoGroupsAndTwoWeeks3 = academicClass.Type == ClassTypes.Practice && academicClass.Hours <= 36 && col >= 2 && row % 2 == 0 && sRow.Group2week1.Teacher == academicClass.Teacher;
-                bool twoGroupsAndTwoWeeks4 = academicClass.Type == ClassTypes.Practice && academicClass.Hours <= 36 && col >= 2 && row % 2 != 0 && sRow.Group2week2.Teacher == academicClass.Teacher;
-
-                if (simple || twoWeeks1 || twoWeeks2 || twoGroups1 || twoGroups2 || twoGroupsAndTwoWeeks1 || twoGroupsAndTwoWeeks2 || twoGroupsAndTwoWeeks3 || twoGroupsAndTwoWeeks4)
+                var aud11 = sRow.Group1week1?.Audience ?? -1;
+                var a12 = sRow.Group1week2?.Audience ?? -1;
+                var a21 = sRow.Group2week1?.Audience ?? -1;
+                var t22 = sRow.Group2week2?.Audience ?? -1;
+                if (Groups[i].Title == activeGroup)
                 {
-                    return Results.TeacherIsBusy;
+                    if (academicClass.Type == ClassTypes.Practice)
+                    {
+                        if (academicClass.Hours > 36)
+                        {
+                            if (a21 == aud || t22 == aud)
+                                return Results.TeacherIsBusy;
+                        }
+                        else // раз в 2 недели
+                        {
+                            if (row % 2 == 0 && (aud11 == aud || a21 == aud) ||
+                                row % 2 != 0 && a12 == aud || t22 == aud)
+                                return Results.TeacherIsBusy;
+                        }
+                    }
+                    continue;
+                }
+
+                if (academicClass.Type == ClassTypes.Lecture)
+                {
+                    if (academicClass.Hours > 36)
+                    {
+                        if (aud11 == aud || a12 == aud ||
+                            a21 == aud || t22 == aud)
+                            return Results.TeacherIsBusy;
+                    }
+                    else // раз в 2 недели
+                    {
+                        if (row % 2 == 0 && (aud11 == aud || a21 == aud) ||
+                            row % 2 != 0 && (a12 == aud || t22 == aud))
+                            return Results.TeacherIsBusy;
+                    }
+                }
+                else if (academicClass.Type == ClassTypes.Practice)
+                {
+                    if (academicClass.Hours > 36)
+                    {
+                        if (col < 2 && (aud11 == aud || a12 == aud) ||
+                            col >= 2 && (a21 == aud || sRow.Group2week2.Teacher == academicClass.Teacher))
+                            return Results.TeacherIsBusy;
+                    }
+                    else // раз в 2 недели
+                    {
+                        if (row % 2 == 0)
+                        {
+                            if (col < 2 && aud11 == aud ||
+                                col >= 2 && a21 == aud)
+                                return Results.TeacherIsBusy;
+                        }
+                        else
+                        {
+                            if (col < 2 && a12 == aud ||
+                                col >= 2 && t22 == aud)
+                                return Results.TeacherIsBusy;
+                        }
+                    }
                 }
             }
             return Results.Available;
