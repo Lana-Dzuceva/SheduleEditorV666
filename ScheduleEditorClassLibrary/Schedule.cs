@@ -122,13 +122,13 @@ namespace ScheduleEditorClassLibrary
                         if (academicClass.Hours > 36)
                         {
                             if (audience11 == aud && col >= 2 || a21 == aud && col < 2)
-                                return Results.TeacherIsBusy;
+                                return Results.AudienceIsOccupied;
                         }
                         else // раз в 2 недели
                         {
                             if (row % 2 == 0 && (audience11 == aud && col >= 2 || a21 == aud && col < 2) ||
                                 row % 2 != 0 && a12 == aud && col >= 2 || a22 == aud && col < 2)
-                                return Results.TeacherIsBusy;
+                                return Results.AudienceIsOccupied;
                         }
                     }
                     continue;
@@ -140,13 +140,13 @@ namespace ScheduleEditorClassLibrary
                     {
                         if (audience11 == aud || a12 == aud ||
                             a21 == aud || a22 == aud)
-                            return Results.TeacherIsBusy;
+                            return Results.AudienceIsOccupied;
                     }
                     else // раз в 2 недели
                     {
                         if (row % 2 == 0 && (audience11 == aud || a21 == aud) ||
                             row % 2 != 0 && (a12 == aud || a22 == aud))
-                            return Results.TeacherIsBusy;
+                            return Results.AudienceIsOccupied;
                     }
                 }
                 else if (academicClass.Type == ClassTypes.Practice)
@@ -155,7 +155,7 @@ namespace ScheduleEditorClassLibrary
                     {
                         if (audience11 == aud || a12 == aud ||
                             a21 == aud || a22 == aud)
-                            return Results.TeacherIsBusy;
+                            return Results.AudienceIsOccupied;
                     }
                     else // раз в 2 недели
                     {
@@ -163,13 +163,13 @@ namespace ScheduleEditorClassLibrary
                         {
                             if (audience11 == aud ||
                                 a21 == aud)
-                                return Results.TeacherIsBusy;
+                                return Results.AudienceIsOccupied;
                         }
                         else
                         {
                             if (a12 == aud ||
                                 a22 == aud)
-                                return Results.TeacherIsBusy;
+                                return Results.AudienceIsOccupied;
                         }
                     }
                 }

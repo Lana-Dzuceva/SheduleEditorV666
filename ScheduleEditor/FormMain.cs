@@ -305,9 +305,12 @@ namespace SheduleEditorV6
                 f.ShowDialog();
                 //while (f.i)
                 int aud;
+                Results res2 = Results.Available;
                 if(f.DialogResult == DialogResult.OK )
                 {
                     aud = f.num;
+                    res2 = schedule.IsAudienceAvaible(activeGroupeTitle, info.RowIndex - 2, info.ColumnIndex, e.Data.GetData(typeof(AcademicClass)) as AcademicClass, aud);
+
                 }
                 else
                 {
@@ -318,6 +321,13 @@ namespace SheduleEditorV6
                     var weekDay = (DayOfWeek)(info.RowIndex / 8 + 1);
                     var сlassNumber = (info.RowIndex - ((int)weekDay - 1) * 8) / 2 + 1; // [1 - 4]
                     errors.Add(new ScheduleError(res, activeGroupeTitle, schedule[activeGroupeTitle][weekDay, сlassNumber], info.ColumnIndex / 2 + 1, info.RowIndex % 2 + 1, "ААА матан захватит мир!"));
+                    UpdateErrors();
+                }
+                if ( res2 != Results.Available)
+                {
+                    var weekDay = (DayOfWeek)(info.RowIndex / 8 + 1);
+                    var сlassNumber = (info.RowIndex - ((int)weekDay - 1) * 8) / 2 + 1; // [1 - 4]
+                    errors.Add(new ScheduleError(res2, activeGroupeTitle, schedule[activeGroupeTitle][weekDay, сlassNumber], info.ColumnIndex / 2 + 1, info.RowIndex % 2 + 1, "ААА матан захватит мир!"));
                     UpdateErrors();
                 }
                 schedule.PutData(activeGroupeTitle, info.RowIndex - 2, info.ColumnIndex, e.Data.GetData(typeof(AcademicClass)) as AcademicClass, aud);
