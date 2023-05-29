@@ -51,7 +51,7 @@
   <ItemGroup>
     <Compile Include="Audience.cs" />
     <Compile Include="ClassScheduleRow.cs" />
-    <Compile Include="ClassScheduleError.cs" />
+    <Compile Include="ScheduleError.cs" />
     <Compile Include="FormChooseAudience.cs">
       <SubType>Form</SubType>
     </Compile>
