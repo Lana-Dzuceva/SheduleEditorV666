@@ -11,6 +11,7 @@ using SpannedDataGridView;
 using ScheduleEditorClassLibrary;
 using Newtonsoft.Json;
 using System.IO;
+using System.Runtime.InteropServices.ComTypes;
 
 namespace SheduleEditorV6
 {
@@ -23,6 +24,7 @@ namespace SheduleEditorV6
         public List<Audience> audiences;
         string curDir = Environment.CurrentDirectory;
         List<ScheduleError> errors;
+        bool isFormLoaded;
         public FormMain()
         {
             InitializeComponent();
@@ -57,6 +59,7 @@ namespace SheduleEditorV6
             dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
             
             UpdateErrors();
+            isFormLoaded = true;
         }
 
         public void BuildSchedule()
@@ -243,6 +246,21 @@ namespace SheduleEditorV6
         //    File.WriteAllText("teachers2.json", JsonConvert.SerializeObject(teachers));
         //}
 
+        void save()
+        {
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+
+            saveFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+            saveFileDialog1.FilterIndex = 2;
+            saveFileDialog1.RestoreDirectory = true;
+
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                MessageBox.Show(saveFileDialog1.FileName);
+            }
+
+        }
+
         private void TeacherPreferencesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var f = new FormTeacherPreferences(this);
@@ -393,7 +411,8 @@ namespace SheduleEditorV6
 
         private void dataGridViewSchedule_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            
+            //if(isFormLoaded)
+                //save();
         }
     }
 }
