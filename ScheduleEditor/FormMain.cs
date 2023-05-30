@@ -248,16 +248,17 @@ namespace SheduleEditorV6
 
         void save()
         {
-            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            //SaveFileDialog saveFileDialog1 = new SaveFileDialog();
 
-            saveFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
-            saveFileDialog1.FilterIndex = 2;
-            saveFileDialog1.RestoreDirectory = true;
+            //saveFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+            //saveFileDialog1.FilterIndex = 2;
+            //saveFileDialog1.RestoreDirectory = true;
 
-            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-                MessageBox.Show(saveFileDialog1.FileName);
-            }
+            //if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            //{
+            //    MessageBox.Show(saveFileDialog1.FileName);
+            //}
+            File.WriteAllText(Environment.CurrentDirectory + @"\..\..\..\schedule_temp.json", JsonConvert.SerializeObject(schedule));
 
         }
 
@@ -350,6 +351,7 @@ namespace SheduleEditorV6
                 }
                 schedule.PutData(activeGroupeTitle, info.RowIndex - 2, info.ColumnIndex, e.Data.GetData(typeof(AcademicClass)) as AcademicClass, aud);
                 dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
+                save();
             }
             listViewErrors.Items[0].SubItems[1].Text = $"r{info.RowIndex} c{info.ColumnIndex} res{res.ToString()}";
         }
@@ -413,6 +415,16 @@ namespace SheduleEditorV6
         {
             //if(isFormLoaded)
                 //save();
+        }
+
+        private void открытьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void новоеРасписаниеToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
