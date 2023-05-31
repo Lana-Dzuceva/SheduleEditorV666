@@ -248,15 +248,15 @@ namespace SheduleEditorV6
 
         void save()
         {
-            //SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            //SaveFileDialog openFileDialog1 = new SaveFileDialog();
 
-            //saveFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
-            //saveFileDialog1.FilterIndex = 2;
-            //saveFileDialog1.RestoreDirectory = true;
+            //openFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+            //openFileDialog1.FilterIndex = 2;
+            //openFileDialog1.RestoreDirectory = true;
 
-            //if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            //if (openFileDialog1.ShowDialog() == DialogResult.OK)
             //{
-            //    MessageBox.Show(saveFileDialog1.FileName);
+            //    MessageBox.Show(openFileDialog1.FileName);
             //}
             File.WriteAllText(Environment.CurrentDirectory + @"\..\..\..\schedule_temp.json", JsonConvert.SerializeObject(schedule));
 
@@ -419,12 +419,51 @@ namespace SheduleEditorV6
 
         private void открытьToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
 
+            openFileDialog1.Filter = "json files (*.json)|*.json|All files (*.*)|*.*";
+            openFileDialog1.FilterIndex = 1;
+            openFileDialog1.RestoreDirectory = true;
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                MessageBox.Show(openFileDialog1.FileName);
+            }
         }
 
         private void новоеРасписаниеToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //OpenFileDialog openFileDialog1 = new OpenFileDialog();
 
+            //openFileDialog1.Filter = "json files (*.json)|*.json|All files (*.*)|*.*";
+            //openFileDialog1.FilterIndex = 1;
+            //openFileDialog1.RestoreDirectory = true;
+            //openFileDialog1.AddExtension = true;
+            //openFileDialog1.Title = "Создайте файл";
+            ////CreateFi
+            //if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            //{
+            //    MessageBox.Show(openFileDialog1.FileName);
+            //}
+
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+
+            // Настройка параметров диалогового окна
+            saveFileDialog.Filter = "Текстовые файлы (*.txt)|*.txt|Все файлы (*.*)|*.*";
+            saveFileDialog.Title = "Создать файл";
+            saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+            // Отображение диалогового окна и обработка результата
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string filePath = saveFileDialog.FileName;
+                //В этом месте вы можете использовать filePath для создания файла или выполнения нужных действий
+                // например, можно использовать StreamWriter для записи в файл
+                 using (StreamWriter writer = new StreamWriter(filePath))
+                {
+                    writer.WriteLine("Пример текста");
+                }
+            }
         }
     }
 }
