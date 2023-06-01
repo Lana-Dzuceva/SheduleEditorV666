@@ -306,6 +306,8 @@ namespace SheduleEditorV6
 
                 }
             }
+            errors.Clear();
+            errors.AddRange(newErrors);
         }
         private void dataGridViewSchedule_DragDrop(object sender, DragEventArgs e)
         {
@@ -350,6 +352,7 @@ namespace SheduleEditorV6
                     UpdateErrors();
                 }
                 schedule.PutData(activeGroupeTitle, info.RowIndex - 2, info.ColumnIndex, e.Data.GetData(typeof(AcademicClass)) as AcademicClass, aud);
+                checkErrors();
                 dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
                 save();
             }
@@ -445,7 +448,7 @@ namespace SheduleEditorV6
             //{
             //    MessageBox.Show(openFileDialog1.FileName);
             //}
-
+ 
             SaveFileDialog saveFileDialog = new SaveFileDialog();
 
             // Настройка параметров диалогового окна

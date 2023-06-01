@@ -148,6 +148,7 @@ namespace SheduleEditorV6
             dataGrid.Discolor();
             Color colorLight = Color.FromArgb(135, 206, 250);
             Color colorDark = Color.FromArgb(37, 165, 245);
+            Colo
             ToSimpleView(dataGrid, row - row % 2);
             dataGrid.ColorRow(row - row % 2, colorLight);
             if (academicClass.Type == ClassTypes.Lecture)
