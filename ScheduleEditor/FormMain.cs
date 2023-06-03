@@ -295,19 +295,21 @@ namespace SheduleEditorV6
             if (info.RowIndex == -1) return;
         }
 
-        void checkErrors(int row, int col)
+        void checkErrors()
         {
             var newErrors = new List<ScheduleError>();
             for (int i = 0; i < errors.Count; i++)
             {
-                var res = schedule.IsTeacherAvaible(activeGroupeTitle, (int)errors[i].ScheduleRow.WeekDay * 8 + errors[i].row, errors[i].col, errors[i].ScheduleRow[errors[i].col, errors[i].row]);
-                if (res != Results.Available)
+                var res = schedule.IsTeacherAvaible(errors[i].GroupTitle, ((int)errors[i].ScheduleRow.WeekDay - 1) * 8 + errors[i].row, errors[i].col, errors[i].ScheduleRow[errors[i].col, errors[i].row]);
+                if (res == errors[i].Type)
                 {
-
+                    newErrors.Add(errors[i]);
+                    dataGridViewSchedule.HighlightError(errors[i]); 
                 }
             }
-            errors.Clear();
-            errors.AddRange(newErrors);
+            
+            errors = newErrors;
+            
         }
         private void dataGridViewSchedule_DragDrop(object sender, DragEventArgs e)
         {

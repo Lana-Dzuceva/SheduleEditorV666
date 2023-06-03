@@ -148,7 +148,6 @@ namespace SheduleEditorV6
             dataGrid.Discolor();
             Color colorLight = Color.FromArgb(135, 206, 250);
             Color colorDark = Color.FromArgb(37, 165, 245);
-            Colo
             ToSimpleView(dataGrid, row - row % 2);
             dataGrid.ColorRow(row - row % 2, colorLight);
             if (academicClass.Type == ClassTypes.Lecture)
@@ -158,7 +157,6 @@ namespace SheduleEditorV6
                     ToTwoWeeks(dataGrid, row - row % 2);
                     dataGrid[0, row].Style.BackColor = colorDark;
                     dataGrid[3, row].Style.BackColor = colorDark;
-
                 }
                 else
                 {
@@ -186,6 +184,48 @@ namespace SheduleEditorV6
                     {
                         dataGrid[col - col % 2, row - row % 2].Style.BackColor = colorDark;
                         dataGrid[col + (col % 2 + 1) % 2, row - row % 2].Style.BackColor = colorDark;
+                    }
+                }
+            }
+        }
+
+        public static void HighlightError(this DataGridView dataGrid, ScheduleError error)
+        {
+            Color colorError = Color.FromArgb(255, 255, 0, 0);
+            var academicClass = error.ScheduleRow[error.col, error.row];
+            var row = ((int)error.ScheduleRow.WeekDay - 1) * 8 + error.row;
+            var col = error.col;
+            if (error.ScheduleRow[error.col, error.row].Type == ClassTypes.Lecture)
+            {
+                if (academicClass.Hours <= 36) // раз в 2 недели
+                {
+                    dataGrid[0, row].Style.BackColor = colorError;
+                    dataGrid[3, row].Style.BackColor = colorError;
+                }
+                else
+                {
+                    dataGrid[0, row - row % 2].Style.BackColor = colorError;
+                    dataGrid[3, row - row % 2].Style.BackColor = colorError;
+                }
+            }
+            else
+            {
+                if (academicClass.Hours <= 36) // раз в 2 недели
+                {
+                    if (academicClass.SubGroup == SubGroups.First && col < 2 ||
+                        academicClass.SubGroup == SubGroups.Second && col >= 2)
+                    {
+                        dataGrid[col - col % 2, row].Style.BackColor = colorError;
+                        dataGrid[col + (col % 2 + 1) % 2, row].Style.BackColor = colorError;
+                    }
+                }
+                else
+                {
+                    if (academicClass.SubGroup == SubGroups.First && col < 2 ||
+                        academicClass.SubGroup == SubGroups.Second && col >= 2)
+                    {
+                        dataGrid[col - col % 2, row - row % 2].Style.BackColor = colorError;
+                        dataGrid[col + (col % 2 + 1) % 2, row - row % 2].Style.BackColor = colorError;
                     }
                 }
             }

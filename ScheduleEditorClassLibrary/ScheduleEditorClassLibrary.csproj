@@ -50,6 +50,7 @@
     <Compile Include="DataGridViewExtesions.cs" />
     <Compile Include="Group.cs" />
     <Compile Include="SAcademicClass.cs" />
+    <Compile Include="ScheduleError.cs" />
     <Compile Include="ScheduleRow.cs" />
     <Compile Include="TeacherPreference.cs" />
     <Compile Include="Enums.cs" />
