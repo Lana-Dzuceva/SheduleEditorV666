@@ -307,9 +307,7 @@ namespace SheduleEditorV6
                     dataGridViewSchedule.HighlightError(errors[i]); 
                 }
             }
-            
             errors = newErrors;
-            
         }
         private void dataGridViewSchedule_DragDrop(object sender, DragEventArgs e)
         {
@@ -339,21 +337,22 @@ namespace SheduleEditorV6
                 {
                     aud = 0;
                 }
+                
+                schedule.PutData(activeGroupeTitle, info.RowIndex - 2, info.ColumnIndex, e.Data.GetData(typeof(AcademicClass)) as AcademicClass, aud);
                 if (res != Results.Available)
                 {
                     var weekDay = (DayOfWeek)(info.RowIndex / 8 + 1);
-                    var сlassNumber = (info.RowIndex - ((int)weekDay - 1) * 8) / 2 + 1; // [1 - 4]
+                    var сlassNumber = (info.RowIndex - 2 - ((int)weekDay - 1) * 8) / 2 + 1; // [1 - 4]
                     errors.Add(new ScheduleError(res, activeGroupeTitle, schedule[activeGroupeTitle][weekDay, сlassNumber], info.ColumnIndex / 2 + 1, info.RowIndex % 2 + 1, "ААА матан захватит мир!"));
                     UpdateErrors();
                 }
-                if ( res2 != Results.Available)
+                if (res2 != Results.Available)
                 {
                     var weekDay = (DayOfWeek)(info.RowIndex / 8 + 1);
                     var сlassNumber = (info.RowIndex - ((int)weekDay - 1) * 8) / 2 + 1; // [1 - 4]
                     errors.Add(new ScheduleError(res2, activeGroupeTitle, schedule[activeGroupeTitle][weekDay, сlassNumber], info.ColumnIndex / 2 + 1, info.RowIndex % 2 + 1, "ААА матан захватит мир!"));
                     UpdateErrors();
                 }
-                schedule.PutData(activeGroupeTitle, info.RowIndex - 2, info.ColumnIndex, e.Data.GetData(typeof(AcademicClass)) as AcademicClass, aud);
                 checkErrors();
                 dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
                 save();
