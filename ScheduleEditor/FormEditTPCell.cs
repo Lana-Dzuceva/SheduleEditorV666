@@ -76,5 +76,10 @@ namespace SheduleEditorV6
             //в зад винформы
             // чтоб еще раз в своей жизни я делала фронт...
         }
+
+        private void buttonSave_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

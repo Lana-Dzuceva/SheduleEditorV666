@@ -90,7 +90,7 @@ namespace SheduleEditorV6
                 {
                     foreach (var name in dataGridViewTable[i, r].Tag as List<string>)
                     {
-                        teachers[teachers.FindIndex(pref => pref.Name == name)].Preferences.Add(new TeacherPreference((DayOfWeek)((i + 1) % 7), r + 1));
+                        teachers[teachers.FindIndex(pref => pref.Name == name)].Preferences.Add(new TeacherPreference((DayOfWeek)(i), r + 1));
                     }
                 }
             }

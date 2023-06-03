@@ -32,6 +32,7 @@
             this.listViewIn = new System.Windows.Forms.ListView();
             this.listViewOut = new System.Windows.Forms.ListView();
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.buttonSave = new System.Windows.Forms.Button();
             columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
@@ -81,16 +82,27 @@
             this.columnHeader2.Text = "Учителя снаружи";
             this.columnHeader2.Width = 173;
             // 
+            // buttonSave
+            // 
+            this.buttonSave.Location = new System.Drawing.Point(560, 405);
+            this.buttonSave.Name = "buttonSave";
+            this.buttonSave.Size = new System.Drawing.Size(173, 33);
+            this.buttonSave.TabIndex = 2;
+            this.buttonSave.Text = "Сохранить";
+            this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
+            // 
             // FormEditTPCell
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.listViewOut);
             this.Controls.Add(this.listViewIn);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "FormEditTPCell";
-            this.Text = "FormEditTPCell";
+            this.Text = "Редактирование предпочтений";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormEditTPCell_FormClosing);
             this.Load += new System.EventHandler(this.FormEditTPCell_Load);
             this.ResumeLayout(false);
@@ -102,5 +114,6 @@
         private System.Windows.Forms.ListView listViewIn;
         private System.Windows.Forms.ListView listViewOut;
         private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.Button buttonSave;
     }
 }
