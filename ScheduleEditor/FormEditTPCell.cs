@@ -44,9 +44,8 @@ namespace SheduleEditorV6
                 var lv = sender as ListView;
                 var lvi = lv.GetItemAt(e.X, e.Y);
                 var a = lv.DoDragDrop(lvi.Text, DragDropEffects.Move);
-                if(a != DragDropEffects.None)
+                if (a != DragDropEffects.None)
                     lv.Items.Remove(lvi);
-                
             }
             catch (Exception)
             { }
@@ -65,7 +64,10 @@ namespace SheduleEditorV6
 
         private void FormEditTPCell_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //cell.Tag = listViewIn.Items.Cast<ListViewItem>().Select(item => (item as ListViewItem).Text).ToList();
+        }
+
+        private void buttonSave_Click(object sender, EventArgs e)
+        {
             dataGrid[col, row].Tag = listViewIn.Items
                                         .Cast<ListViewItem>()
                                         .Select(item => (item as ListViewItem).Text)
@@ -75,6 +77,7 @@ namespace SheduleEditorV6
             //шатала я это все
             //в зад винформы
             // чтоб еще раз в своей жизни я делала фронт...
+            this.Close();
         }
     }
 }
