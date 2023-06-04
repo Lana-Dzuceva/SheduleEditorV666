@@ -47,11 +47,11 @@
             this.listViewIn.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             columnHeader1});
             this.listViewIn.HideSelection = false;
-            this.listViewIn.Location = new System.Drawing.Point(55, 14);
-            this.listViewIn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.listViewIn.Location = new System.Drawing.Point(41, 11);
+            this.listViewIn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.listViewIn.MultiSelect = false;
             this.listViewIn.Name = "listViewIn";
-            this.listViewIn.Size = new System.Drawing.Size(265, 368);
+            this.listViewIn.Size = new System.Drawing.Size(200, 300);
             this.listViewIn.TabIndex = 0;
             this.listViewIn.UseCompatibleStateImageBehavior = false;
             this.listViewIn.View = System.Windows.Forms.View.Details;
@@ -65,11 +65,10 @@
             this.listViewOut.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader2});
             this.listViewOut.HideSelection = false;
-            this.listViewOut.Location = new System.Drawing.Point(468, 14);
-            this.listViewOut.Margin = new System.Windows.Forms.Padding(4);
+            this.listViewOut.Location = new System.Drawing.Point(351, 11);
             this.listViewOut.MultiSelect = false;
             this.listViewOut.Name = "listViewOut";
-            this.listViewOut.Size = new System.Drawing.Size(265, 368);
+            this.listViewOut.Size = new System.Drawing.Size(200, 300);
             this.listViewOut.TabIndex = 1;
             this.listViewOut.UseCompatibleStateImageBehavior = false;
             this.listViewOut.View = System.Windows.Forms.View.Details;
@@ -84,9 +83,10 @@
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(560, 405);
+            this.buttonSave.Location = new System.Drawing.Point(420, 329);
+            this.buttonSave.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(173, 33);
+            this.buttonSave.Size = new System.Drawing.Size(130, 27);
             this.buttonSave.TabIndex = 2;
             this.buttonSave.Text = "Сохранить";
             this.buttonSave.UseVisualStyleBackColor = true;
@@ -94,15 +94,15 @@
             // 
             // FormEditTPCell
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(600, 366);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.listViewOut);
             this.Controls.Add(this.listViewIn);
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "FormEditTPCell";
-            this.Text = "Редактирование предпочтений";
+            this.Text = "Редактирование предпочтения";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormEditTPCell_FormClosing);
             this.Load += new System.EventHandler(this.FormEditTPCell_Load);
             this.ResumeLayout(false);
