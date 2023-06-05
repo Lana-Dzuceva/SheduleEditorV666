@@ -161,8 +161,8 @@
             // предпочтенияУчителейToolStripMenuItem
             // 
             this.предпочтенияУчителейToolStripMenuItem.Name = "предпочтенияУчителейToolStripMenuItem";
-            this.предпочтенияУчителейToolStripMenuItem.Size = new System.Drawing.Size(151, 20);
-            this.предпочтенияУчителейToolStripMenuItem.Text = "предпочтения учителей";
+            this.предпочтенияУчителейToolStripMenuItem.Size = new System.Drawing.Size(189, 20);
+            this.предпочтенияУчителейToolStripMenuItem.Text = "предпочтения преподавателей";
             this.предпочтенияУчителейToolStripMenuItem.Click += new System.EventHandler(this.TeacherPreferencesToolStripMenuItem_Click);
             // 
             // новоеРасписаниеToolStripMenuItem
