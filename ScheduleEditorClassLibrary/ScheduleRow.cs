@@ -150,7 +150,67 @@ namespace ScheduleEditorClassLibrary
                 if (group == 2 && week == 1) return Group2week1;
                 return Group2week2;
             }
-        } 
+        }
+        public void ClearCell(int group, int week)
+        {
+            if (RowType == RowTypes.Simple)
+            {
+                group1week1 = null;
+                group1week2 = null;
+                group2week1 = null;
+                group2week2 = null;
+            }
+            else if (RowType == RowTypes.TwoGroups)
+            {
+                if (group == 1)
+                {
+                    group1week1 = null;
+                    group1week2 = null;
+                }
+                else
+                {
+                    group2week1 = null;
+                    group2week2 = null;
+                }
+            }
+            else if (RowType == RowTypes.TwoWeeks)
+            {
+                if (week == 1)
+                {
+                    group1week1 = null;
+                    group2week1 = null;
+                }
+                else
+                {
+                    group1week2 = null;
+                    group2week2 = null;
+                }
+            }
+            else if (RowType == RowTypes.TwoGroupsAndTwoWeeks)
+            {
+                if (group == 1)
+                {
+                    if (week == 1)
+                        group1week1 = null;
+                    else
+                        group1week2 = null;
+                }
+                else
+                {
+                    if (week == 1)
+                        group2week1 = null;
+                    else
+                        group2week2 = null;
+                }
+            }
+            if (group1week1 == null &&
+                group1week2 == null &&
+                group2week1 == null &&
+                group2week2 == null)
+            {
+                RowType = RowTypes.Simple;
+            }
+        }
     }
 }
 

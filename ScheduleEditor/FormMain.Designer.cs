@@ -84,6 +84,8 @@
             this.dataGridViewSchedule.RowHeadersWidth = 51;
             this.dataGridViewSchedule.Size = new System.Drawing.Size(442, 426);
             this.dataGridViewSchedule.TabIndex = 0;
+            this.dataGridViewSchedule.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewSchedule_CellContentDoubleClick);
+            this.dataGridViewSchedule.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewSchedule_CellMouseDoubleClick);
             this.dataGridViewSchedule.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewSchedule_CellValueChanged);
             this.dataGridViewSchedule.DragDrop += new System.Windows.Forms.DragEventHandler(this.dataGridViewSchedule_DragDrop);
             this.dataGridViewSchedule.DragEnter += new System.Windows.Forms.DragEventHandler(this.dataGridViewSchedule_DragEnter);

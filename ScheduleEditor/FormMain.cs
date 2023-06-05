@@ -469,5 +469,20 @@ namespace SheduleEditorV6
                 }
             }
         }
+
+        private void dataGridViewSchedule_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            var cell = (sender as DataGridView).CurrentCell;
+            var a = cell.RowIndex;
+            var b = cell.ColumnIndex;
+            var weekDay = (DayOfWeek)(a / 8 + 1);
+            var сlassNumber = (a - ((int)weekDay - 1) * 8) / 2 + 1; // [1 - 4]
+            schedule[activeGroupeTitle][weekDay, сlassNumber].ClearCell(1 + b < 2 ? 0 : 1, 1 + a % 2);
+            dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
+        }
+
+        private void dataGridViewSchedule_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+        }
     }
 }
