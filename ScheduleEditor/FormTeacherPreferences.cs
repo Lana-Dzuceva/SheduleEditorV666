@@ -15,7 +15,7 @@ namespace SheduleEditorV6
 {
     public partial class FormTeacherPreferences : Form
     {
-        List<Teacher> teachers;
+        public List<Teacher> teachers;
         FormMain formMain;
         public FormTeacherPreferences(FormMain formMain)
         {
@@ -26,7 +26,7 @@ namespace SheduleEditorV6
             for (int i = 0; i < 7; i++)
             {
                 dataGridViewTable.Columns.Add(new SpannedDataGridView.DataGridViewTextBoxColumnEx());
-                
+
             }
             dataGridViewTable.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             dataGridViewTable.RowCount = 4;
@@ -40,7 +40,6 @@ namespace SheduleEditorV6
                 dataGridViewTable.Columns[i].HeaderCell.Value = weekDays[i];
                 for (int r = 0; r < dataGridViewTable.RowCount; r++)
                 {
-                    //dataGridViewTable[i, r].Tag = new List<string>();
                     dataGridViewTable[i, r].Value = "";
                 }
             }
@@ -52,10 +51,6 @@ namespace SheduleEditorV6
             foreach (var teacher in teachers)
             {
                 listViewTeachers.Items.Add(new ListViewItem(teacher.Name));
-                foreach (var pref in teacher.Preferences)
-                {
-                    (dataGridViewTable[(int)pref.WeekDay, pref.LessonNumber - 1].Tag as List<string>).Add(teacher.Name);
-                }
             }
             UpdateDGV();
         }
@@ -68,32 +63,34 @@ namespace SheduleEditorV6
                 for (int r = 0; r < dataGridViewTable.RowCount; r++)
                 {
                     dataGridViewTable[i, r].Value = "";
-                    foreach (var name in dataGridViewTable[i, r].Tag as List<string>)
-                    {
-                        dataGridViewTable[i, r].Value += name + '\n';
-                    }
+                }
+            }
+            foreach (var teacher in teachers)
+            {
+                foreach (var pref in teacher.Preferences)
+                {
+                    dataGridViewTable[(int)pref.WeekDay, pref.LessonNumber].Value += teacher.Name + '\n';
                 }
             }
             dataGridViewTable.Update();
             dataGridViewTable.Refresh();
-            //this.Refresh();
         }
         public void Save()
         {
-            foreach (var teacher in teachers)
-            {
-                teacher.Preferences.Clear();
-            }
-            for (int i = 0; i < dataGridViewTable.ColumnCount; i++)
-            {
-                for (int r = 0; r < dataGridViewTable.RowCount; r++)
-                {
-                    foreach (var name in dataGridViewTable[i, r].Tag as List<string>)
-                    {
-                        teachers[teachers.FindIndex(pref => pref.Name == name)].Preferences.Add(new TeacherPreference((DayOfWeek)(i), r + 1));
-                    }
-                }
-            }
+            //foreach (var teacher in teachers)
+            //{
+            //    teacher.Preferences.Clear();
+            //}
+            //for (int i = 0; i < dataGridViewTable.ColumnCount; i++)
+            //{
+            //    for (int r = 0; r < dataGridViewTable.RowCount; r++)
+            //    {
+            //        foreach (var name in dataGridViewTable[i, r].Tag as List<string>)
+            //        {
+            //            teachers[teachers.FindIndex(pref => pref.Name == name)].Preferences.Add(new TeacherPreference((DayOfWeek)(i), r + 1));
+            //        }
+            //    }
+            //}
             File.WriteAllText(Environment.CurrentDirectory + @"\..\..\..\teachers1.json", JsonConvert.SerializeObject(teachers));
         }
         private void FormTeacherPreferences_Load(object sender, EventArgs e)
@@ -105,7 +102,7 @@ namespace SheduleEditorV6
         private void dataGridViewTable_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             var info = dataGridViewTable.HitTest(e.X, e.Y);
-            var form = new FormEditTPCell(teachers.Select(pref => pref.Name).ToList(), dataGridViewTable, info.RowIndex, info.ColumnIndex, this);
+            var form = new FormEditTPCell(teachers.Where(teacher => (dataGridViewTable[info.ColumnIndex, info.RowIndex].Value as string).Contains(teacher.Name)).ToList(), teachers, this);
             form.Show();
         }
 
