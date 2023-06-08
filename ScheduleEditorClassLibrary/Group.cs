@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using MySql.Data.MySqlClient;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,11 @@ namespace ScheduleEditorClassLibrary
         public void Add(AcademicClass academicClass)
         {
             Classes.Add(academicClass);
+        }
+
+        internal void FillAcademicClasses(MySqlConnection connection, string databaseName)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -38,10 +38,6 @@ namespace ScheduleEditorClassLibrary
             {
                 connection.Open();
                 Groups = FillGroupes(connection, databaseName);
-                //foreach (var group in Groups)
-                //{
-                //    group.FillAcademicClasses(connection);
-                //}
             }
             catch (MySqlException ex)
             {
@@ -55,12 +51,23 @@ namespace ScheduleEditorClassLibrary
 
         private List<Group> FillGroupes(MySqlConnection connection, string databaseName)
         {
-            string query = "";
-            MySqlDataAdapter dataAdapter = new MySqlDataAdapter(query, connection);
-            DataSet dataSet = new DataSet();
-            dataAdapter.Fill(dataSet);
+            string queryGetSchedule = $"SELECT * FROM {databaseName}.groups";
+            MySqlDataAdapter dataAdapter = new MySqlDataAdapter(queryGetSchedule, connection);
+            DataSet dataSetSchedule = new DataSet();
+            dataAdapter.Fill(dataSetSchedule);
 
-            return new List<Group>();
+            List<Group> result = new List<Group>();
+
+            DataTable tableSchedule = dataSetSchedule.Tables[0];
+            foreach (DataRow row in tableSchedule.Rows)
+            {
+                string groupTitle = row[1].ToString();
+                Group group = new Group(groupTitle);
+                group.FillAcademicClasses(connection, databaseName);
+                result.Add(group);
+            }
+
+            return result;
         }
     }
 }
