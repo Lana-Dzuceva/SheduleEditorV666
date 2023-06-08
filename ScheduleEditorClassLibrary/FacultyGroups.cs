@@ -69,5 +69,46 @@ namespace ScheduleEditorClassLibrary
 
             return result;
         }
+
+        public void SendToDB(string connectionString)
+        {
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            connection.Open();
+
+            foreach (var group in Groups)
+            {
+                int groupId = GetGroupId(group.Title, connection);
+
+                foreach (var @class in group.Classes)
+                {
+                    int employeeId = GetEmployeeId(@class.Teacher.Name, connection);
+                    int subgroup = (int)@class.SubGroup + 1;
+                    int type = (int)@class.Type + 1;
+
+                    string query = "INSERT INTO `test`.`schedule` " +
+                        "(`group_id`, `subgroup_num`, `subject_form_id`, `employee_id`)" +
+                        $"VALUES ('{groupId}', '{subgroup}', '{type}', '{employeeId}');";
+                    MySqlCommand command = new MySqlCommand(query, connection);
+                    command.ExecuteNonQuery();
+                }
+            }
+
+            connection.Close();
+        }
+
+        private int GetEmployeeId(string name, MySqlConnection connection)
+        {
+            string surname = name.Split()[0];
+            string queryGetGroupId = "SELECT id FROM test.employees WHERE surname='" + surname + "' LIMIT 1";
+            MySqlCommand command = new MySqlCommand(queryGetGroupId, connection);
+            return (int)command.ExecuteScalar();
+        }
+
+        private int GetGroupId(string title, MySqlConnection connection)
+        {
+            string queryGetGroupId = "SELECT id FROM test.groups WHERE title='" + title + "' LIMIT 1";
+            MySqlCommand command = new MySqlCommand(queryGetGroupId, connection);
+            return (int)command.ExecuteScalar();
+        }
     }
 }
