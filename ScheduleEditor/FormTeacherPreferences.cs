@@ -40,7 +40,7 @@ namespace SheduleEditorV6
                 dataGridViewTable.Columns[i].HeaderCell.Value = weekDays[i];
                 for (int r = 0; r < dataGridViewTable.RowCount; r++)
                 {
-                    dataGridViewTable[i, r].Tag = new List<string>();
+                    //dataGridViewTable[i, r].Tag = new List<string>();
                     dataGridViewTable[i, r].Value = "";
                 }
             }
@@ -51,7 +51,7 @@ namespace SheduleEditorV6
             teachers = JsonConvert.DeserializeObject<List<Teacher>>(File.ReadAllText(Environment.CurrentDirectory + @"\..\..\..\teachers1.json"));
             foreach (var teacher in teachers)
             {
-                listView1.Items.Add(new ListViewItem(teacher.Name));
+                listViewTeachers.Items.Add(new ListViewItem(teacher.Name));
                 foreach (var pref in teacher.Preferences)
                 {
                     (dataGridViewTable[(int)pref.WeekDay, pref.LessonNumber - 1].Tag as List<string>).Add(teacher.Name);
@@ -99,7 +99,7 @@ namespace SheduleEditorV6
         private void FormTeacherPreferences_Load(object sender, EventArgs e)
         {
             //hmm();
-            listView1.Items.Cast<List<ListViewItem>>();
+            listViewTeachers.Items.Cast<List<ListViewItem>>();
         }
 
         private void dataGridViewTable_MouseDoubleClick(object sender, MouseEventArgs e)

@@ -27,11 +27,14 @@ namespace ScheduleEditorClassLibrary
         {
             get { return Groups.Where(group => group.Title == groupTitle).Single(); }
         }
-        public Results IsTeacherAvaible(string activeGroup, int row, int col, AcademicClass academicClass)
+        public Results IsTeacherAvaible(string activeGroup, int row, int col, AcademicClass academicClass, Teacher teacher)
         {
             if ((academicClass.SubGroup == SubGroups.First && col >= 2 ||
                 academicClass.SubGroup == SubGroups.Second && col < 2) && academicClass.Type != ClassTypes.Lecture)
                 return Results.TypeMismatch;
+            if (teacher.Preferences.Where(pref => pref.WeekDay == (DayOfWeek)(row / 8 + 1)).Count() != 1)
+                return Results.InconsistencyWithDesire;
+
             for (int i = 0; i < Groups.Count; i++)
             {
                 var sRow = Groups[i][(DayOfWeek)(row / 8 + 1), (row - row / 8 * 8) / 2 + 1];

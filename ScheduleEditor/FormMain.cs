@@ -20,7 +20,7 @@ namespace SheduleEditorV6
         FacultyGroups facultyGroups; // данные на входе
         Schedule schedule; // данные в процессе
         public List<Teacher> teachers; //учителя
-        string activeGroupeTitle; 
+        string activeGroupeTitle;
         public List<Audience> audiences;
         string curDir = Environment.CurrentDirectory;
         List<ScheduleError> errors;
@@ -29,7 +29,7 @@ namespace SheduleEditorV6
         {
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
-            
+
             facultyGroups = JsonConvert.DeserializeObject<FacultyGroups>(File.ReadAllText(curDir + @"\..\..\..\schedule_in.json"));
             teachers = JsonConvert.DeserializeObject<List<Teacher>>(File.ReadAllText(curDir + @"\..\..\..\teachers1.json"));
             schedule = new Schedule(facultyGroups.Groups.Select(group => group.Title).ToList());
@@ -57,7 +57,7 @@ namespace SheduleEditorV6
             BuildSchedule();
             BuildAndFillLessons();
             dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
-            
+
             UpdateErrors();
             isFormLoaded = true;
         }
@@ -300,11 +300,14 @@ namespace SheduleEditorV6
             var newErrors = new List<ScheduleError>();
             for (int i = 0; i < errors.Count; i++)
             {
-                var res = schedule.IsTeacherAvaible(errors[i].GroupTitle, ((int)errors[i].ScheduleRow.WeekDay - 1) * 8 + errors[i].row, errors[i].col, errors[i].ScheduleRow[errors[i].col, errors[i].row]);
+                var res = schedule.IsTeacherAvaible(errors[i].GroupTitle,
+                    ((int)errors[i].ScheduleRow.WeekDay - 1) * 8 + errors[i].row,
+                    errors[i].col, errors[i].ScheduleRow[errors[i].col, errors[i].row],
+                    teachers.Where(teacher => teacher.Name == errors[i].ScheduleRow[errors[i].col, errors[i].row].Teacher.Name).First());
                 if (res == errors[i].Type)
                 {
                     newErrors.Add(errors[i]);
-                    dataGridViewSchedule.HighlightError(errors[i]); 
+                    dataGridViewSchedule.HighlightError(errors[i]);
                 }
             }
             errors = newErrors;
@@ -317,9 +320,10 @@ namespace SheduleEditorV6
 
             var info = dataGridViewSchedule.HitTest(e.X, e.Y);
             if (info.RowIndex == -1) return;
-            var res = schedule.IsTeacherAvaible(activeGroupeTitle, info.RowIndex - 2, info.ColumnIndex, e.Data.GetData(typeof(AcademicClass)) as AcademicClass);
+            var res = schedule.IsTeacherAvaible(activeGroupeTitle, info.RowIndex - 2, info.ColumnIndex, e.Data.GetData(typeof(AcademicClass)) as AcademicClass,
+                teachers.Where(teacher => teacher.Name == (e.Data.GetData(typeof(AcademicClass)) as AcademicClass).Teacher.Name).First());
             //var res2 = MessageBox.Show("Препод занят. Все равно добавить?", "Предупреждение", MessageBoxButtons.YesNo);
-            if(res!= Results.TypeMismatch)
+            if (res != Results.TypeMismatch)
             {
                 var f = new FormChooseAudience(this);
 
@@ -327,7 +331,7 @@ namespace SheduleEditorV6
                 //while (f.i)
                 int aud;
                 Results res2 = Results.Available;
-                if(f.DialogResult == DialogResult.OK )
+                if (f.DialogResult == DialogResult.OK)
                 {
                     aud = f.num;
                     res2 = schedule.IsAudienceAvaible(activeGroupeTitle, info.RowIndex - 2, info.ColumnIndex, e.Data.GetData(typeof(AcademicClass)) as AcademicClass, aud);
@@ -337,7 +341,7 @@ namespace SheduleEditorV6
                 {
                     aud = 0;
                 }
-                
+
                 schedule.PutData(activeGroupeTitle, info.RowIndex - 2, info.ColumnIndex, e.Data.GetData(typeof(AcademicClass)) as AcademicClass, aud);
                 if (res != Results.Available)
                 {
@@ -418,7 +422,7 @@ namespace SheduleEditorV6
         private void dataGridViewSchedule_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             //if(isFormLoaded)
-                //save();
+            //save();
         }
 
         private void открытьToolStripMenuItem_Click(object sender, EventArgs e)
@@ -449,7 +453,7 @@ namespace SheduleEditorV6
             //{
             //    MessageBox.Show(openFileDialog1.FileName);
             //}
- 
+
             SaveFileDialog saveFileDialog = new SaveFileDialog();
 
             // Настройка параметров диалогового окна
@@ -463,7 +467,7 @@ namespace SheduleEditorV6
                 string filePath = saveFileDialog.FileName;
                 //В этом месте вы можете использовать filePath для создания файла или выполнения нужных действий
                 // например, можно использовать StreamWriter для записи в файл
-                 using (StreamWriter writer = new StreamWriter(filePath))
+                using (StreamWriter writer = new StreamWriter(filePath))
                 {
                     writer.WriteLine("Пример текста");
                 }
