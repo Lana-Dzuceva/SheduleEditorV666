@@ -425,18 +425,19 @@ namespace SheduleEditorV6
             //save();
         }
 
-        private void открытьToolStripMenuItem_Click(object sender, EventArgs e)
+        private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            //OpenFileDialog openFileDialog1 = new OpenFileDialog();
 
-            openFileDialog1.Filter = "json files (*.json)|*.json|All files (*.*)|*.*";
-            openFileDialog1.FilterIndex = 1;
-            openFileDialog1.RestoreDirectory = true;
+            //openFileDialog1.Filter = "json files (*.json)|*.json|All files (*.*)|*.*";
+            //openFileDialog1.FilterIndex = 1;
+            //openFileDialog1.RestoreDirectory = true;
 
-            if (openFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-                MessageBox.Show(openFileDialog1.FileName);
-            }
+            //if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            //{
+            //    MessageBox.Show(openFileDialog1.FileName);
+            //}
+            MessageBox.Show("Вы успешно загрузили данные!");
         }
 
         private void новоеРасписаниеToolStripMenuItem_Click(object sender, EventArgs e)
@@ -453,25 +454,27 @@ namespace SheduleEditorV6
             //{
             //    MessageBox.Show(openFileDialog1.FileName);
             //}
+            #region диалог
+            //SaveFileDialog saveFileDialog = new SaveFileDialog();
 
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            //// Настройка параметров диалогового окна
+            //saveFileDialog.Filter = "Текстовые файлы (*.txt)|*.txt|Все файлы (*.*)|*.*";
+            //saveFileDialog.Title = "Создать файл";
+            //saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
-            // Настройка параметров диалогового окна
-            saveFileDialog.Filter = "Текстовые файлы (*.txt)|*.txt|Все файлы (*.*)|*.*";
-            saveFileDialog.Title = "Создать файл";
-            saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-
-            // Отображение диалогового окна и обработка результата
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                string filePath = saveFileDialog.FileName;
-                //В этом месте вы можете использовать filePath для создания файла или выполнения нужных действий
-                // например, можно использовать StreamWriter для записи в файл
-                using (StreamWriter writer = new StreamWriter(filePath))
-                {
-                    writer.WriteLine("Пример текста");
-                }
-            }
+            //// Отображение диалогового окна и обработка результата
+            //if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            //{
+            //    string filePath = saveFileDialog.FileName;
+            //    //В этом месте вы можете использовать filePath для создания файла или выполнения нужных действий
+            //    // например, можно использовать StreamWriter для записи в файл
+            //    using (StreamWriter writer = new StreamWriter(filePath))
+            //    {
+            //        writer.WriteLine("Пример текста");
+            //    }
+            //}
+            #endregion
+            MessageBox.Show("Это конечно можно, но не сейчас.");
         }
 
         private void dataGridViewSchedule_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -487,6 +490,18 @@ namespace SheduleEditorV6
 
         private void dataGridViewSchedule_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+        }
+
+        private void UploadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Расписание отправлено в БД!");
+        }
+
+        private void хммToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //MessageBox.Show("Хмм...");
+            var f = new FormSurprise();
+            f.Show();
         }
     }
 }

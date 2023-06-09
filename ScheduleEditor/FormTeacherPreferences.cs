@@ -40,7 +40,7 @@ namespace SheduleEditorV6
                 dataGridViewTable.Columns[i].HeaderCell.Value = weekDays[i];
                 for (int r = 0; r < dataGridViewTable.RowCount; r++)
                 {
-                    //dataGridViewTable[i, r].Tag = new List<string>();
+                    dataGridViewTable[i, r].Tag = new List<string>();
                     dataGridViewTable[i, r].Value = "";
                 }
             }
