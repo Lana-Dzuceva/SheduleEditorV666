@@ -17,7 +17,10 @@ namespace SheduleEditorV6
         public string GroupTitle { get; set; }
         public ScheduleRow ScheduleRow { get; set; }
         public int col;//1-2
-        public int row;//1-2
+        /// <summary>
+        /// 1-2
+        /// </summary>
+        public int row;
         public string Message { get; set; }
         public ScheduleError(Results type, string groupTitle, ScheduleRow scheduleRow, int col, int row, string message="")
         {

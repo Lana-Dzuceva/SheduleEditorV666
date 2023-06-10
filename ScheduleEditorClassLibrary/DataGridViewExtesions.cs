@@ -197,7 +197,7 @@ namespace SheduleEditorV6
             colorError = Color.FromArgb(235, 110, 99);
             //colorError = Color.Red;
             var academicClass = error.ScheduleRow[error.col, error.row];
-            var row = ((int)error.ScheduleRow.WeekDay - 1) * 8 + error.row - 1;
+            var row = ((int)error.ScheduleRow.WeekDay - 1) * 8 + error.ScheduleRow.ClassNumber - 1 + error.row - 1;
             var col = error.col;
             if (error.ScheduleRow[error.col, error.row].Type == ClassTypes.Lecture)
             {
