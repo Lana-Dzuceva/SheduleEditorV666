@@ -31,7 +31,7 @@ namespace SheduleEditorV6
             this.WindowState = FormWindowState.Maximized;
 
             facultyGroups = JsonConvert.DeserializeObject<FacultyGroups>(File.ReadAllText(curDir + @"\..\..\..\schedule_in.json"));
-            teachers = JsonConvert.DeserializeObject<List<Teacher>>(File.ReadAllText(curDir + @"\..\..\..\teachers1.json"));
+            teachers = JsonConvert.DeserializeObject<List<Teacher>>(File.ReadAllText(curDir + @"\..\..\..\teachers_prefs.json"));
             schedule = new Schedule(facultyGroups.Groups.Select(group => group.Title).ToList());
             using (StreamReader file = new StreamReader(curDir + @"\..\..\..\audiences.json"))
             {

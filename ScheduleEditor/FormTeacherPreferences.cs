@@ -48,7 +48,7 @@ namespace SheduleEditorV6
             {
                 dataGridViewTable.Rows[i].HeaderCell.Value = (i + 1).ToString();
             }
-            teachers = JsonConvert.DeserializeObject<List<Teacher>>(File.ReadAllText(Environment.CurrentDirectory + @"\..\..\..\teachers1.json"));
+            teachers = JsonConvert.DeserializeObject<List<Teacher>>(File.ReadAllText(Environment.CurrentDirectory + @"\..\..\..\teachers_prefs.json"));
             foreach (var teacher in teachers)
             {
                 listViewTeachers.Items.Add(new ListViewItem(teacher.Name));
@@ -94,7 +94,7 @@ namespace SheduleEditorV6
                     }
                 }
             }
-            File.WriteAllText(Environment.CurrentDirectory + @"\..\..\..\teachers1.json", JsonConvert.SerializeObject(teachers));
+            File.WriteAllText(Environment.CurrentDirectory + @"\..\..\..\teachers_prefs.json", JsonConvert.SerializeObject(teachers));
         }
         private void FormTeacherPreferences_Load(object sender, EventArgs e)
         {
