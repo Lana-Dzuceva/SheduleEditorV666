@@ -179,7 +179,7 @@ namespace SheduleEditorV6
                 lvi.SubItems.Add("very");
                 lvi.SubItems.Add("bad");
                 lvi.SubItems.Add(i.ToString());
-                listViewErrors.ContextMenuStrip = new ContextMenuStrip();
+                //listViewErrors.ContextMenuStrip = new ContextMenuStrip();
 
                 listViewErrors.Items.Add(lvi);
             }
@@ -191,6 +191,7 @@ namespace SheduleEditorV6
                 lvi.SubItems.Add(errors[i].Message);
                 //listViewErrors.ContextMenuStrip = new ContextMenuStrip();
                 lvi.Tag = errors[i];
+                lvi.BackColor = Color.FromArgb(247, 193, 188);
                 listViewErrors.Items.Add(lvi);
             }
         }
@@ -251,6 +252,7 @@ namespace SheduleEditorV6
             { }
             dataGridViewSchedule.Discolor();
             dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
+            checkErrors();
         }
 
         private void dataGridViewSchedule_DragEnter(object sender, DragEventArgs e)
@@ -354,8 +356,9 @@ namespace SheduleEditorV6
 
         private void dataGridViewSchedule_DragLeave(object sender, EventArgs e)
         {
-            dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
             dataGridViewSchedule.Discolor();
+            dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
+            checkErrors();
         }
         #region моя функция get info
         //void get_row_col(int x, int y)

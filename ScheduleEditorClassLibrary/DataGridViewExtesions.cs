@@ -191,7 +191,11 @@ namespace SheduleEditorV6
 
         public static void HighlightError(this DataGridView dataGrid, ScheduleError error)
         {
-            Color colorError = Color.FromArgb(150, 255, 0, 150);
+            Color colorError = Color.FromArgb(204, 102, 102);
+            colorError = Color.FromArgb(222, 62, 53);
+            colorError = Color.FromArgb(227, 67, 52);
+            colorError = Color.FromArgb(235, 110, 99);
+            //colorError = Color.Red;
             var academicClass = error.ScheduleRow[error.col, error.row];
             var row = ((int)error.ScheduleRow.WeekDay - 1) * 8 + error.row - 1;
             var col = error.col;
