@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="AcademicClass.cs" />
     <Compile Include="DataGridViewExtesions.cs" />
+    <Compile Include="EnumExtensions.cs" />
     <Compile Include="Group.cs" />
     <Compile Include="SAcademicClass.cs" />
     <Compile Include="ScheduleError.cs" />

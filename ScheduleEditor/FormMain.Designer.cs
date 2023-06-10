@@ -156,7 +156,7 @@
             this.хммToolStripMenuItem.Name = "хммToolStripMenuItem";
             this.хммToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.хммToolStripMenuItem.Text = "Хмм";
-            this.хммToolStripMenuItem.Click += new System.EventHandler(this.хммToolStripMenuItem_Click);
+            this.хммToolStripMenuItem.Click += new System.EventHandler(this.hmmToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 

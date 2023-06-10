@@ -12,6 +12,7 @@ using ScheduleEditorClassLibrary;
 using Newtonsoft.Json;
 using System.IO;
 using System.Runtime.InteropServices.ComTypes;
+using System.Reflection;
 
 namespace SheduleEditorV6
 {
@@ -49,8 +50,10 @@ namespace SheduleEditorV6
             listViewErrors.Font = new Font(FontFamily.GenericSansSerif, 12);
             for (int i = 0; i < 4; i++)
             {
-                listViewErrors.Columns[i].Width = 140;
+                listViewErrors.Columns[i].Width = 90;
             }
+            listViewErrors.Columns[1].Width = 260;
+            listViewErrors.Columns[3].Width += listViewErrors.Width - listViewErrors.Columns.Cast<ColumnHeader>().Sum(column => column.Width);
             listViewErrors.FullRowSelect = true;
             listViewErrors.MouseDoubleClick += new MouseEventHandler(listViewErrors_MouseDoubleClick);
             tabControlGroups.SelectedIndexChanged += new EventHandler(tabControlGroups_SelectedIndexChanged);
@@ -186,7 +189,7 @@ namespace SheduleEditorV6
             for (int i = 0; i < errors.Count; i++)
             {
                 lvi = new ListViewItem((i + 1).ToString());
-                lvi.SubItems.Add(errors[i].Type.ToString());
+                lvi.SubItems.Add(errors[i].Type.GetDescription());
                 lvi.SubItems.Add(errors[i].GroupTitle);
                 lvi.SubItems.Add(errors[i].Message);
                 //listViewErrors.ContextMenuStrip = new ContextMenuStrip();
@@ -287,20 +290,20 @@ namespace SheduleEditorV6
         {
             var info = dataGridViewSchedule.HitTest(e.X, e.Y);
             if (info.RowIndex == -1) return;
-            var res = schedule.IsTeacherAvaible(activeGroupeTitle, info.RowIndex - 2, info.ColumnIndex, e.Data.GetData(typeof(AcademicClass)) as AcademicClass,
+            var resTeacher = schedule.IsTeacherAvaible(activeGroupeTitle, info.RowIndex - 2, info.ColumnIndex, e.Data.GetData(typeof(AcademicClass)) as AcademicClass,
                 teachers.Where(teacher => teacher.Name == (e.Data.GetData(typeof(AcademicClass)) as AcademicClass).Teacher.Name).First());
-            //var res2 = MessageBox.Show("Препод занят. Все равно добавить?", "Предупреждение", MessageBoxButtons.YesNo);
-            if (res != Results.TypeMismatch)
+            //var resAudience = MessageBox.Show("Препод занят. Все равно добавить?", "Предупреждение", MessageBoxButtons.YesNo);
+            if (resTeacher != Results.TypeMismatch)
             {
                 var f = new FormChooseAudience(this);
 
                 f.ShowDialog();
                 int aud;
-                Results res2 = Results.Available;
+                Results resAudience = Results.Available;
                 if (f.DialogResult == DialogResult.OK)
                 {
                     aud = f.num;
-                    res2 = schedule.IsAudienceAvaible(activeGroupeTitle, info.RowIndex - 2, info.ColumnIndex, e.Data.GetData(typeof(AcademicClass)) as AcademicClass, aud);
+                    resAudience = schedule.IsAudienceAvaible(activeGroupeTitle, info.RowIndex - 2, info.ColumnIndex, e.Data.GetData(typeof(AcademicClass)) as AcademicClass, aud);
 
                 }
                 else
@@ -309,25 +312,25 @@ namespace SheduleEditorV6
                 }
 
                 schedule.PutData(activeGroupeTitle, info.RowIndex - 2, info.ColumnIndex, e.Data.GetData(typeof(AcademicClass)) as AcademicClass, aud);
-                if (res != Results.Available)
+                if (resTeacher != Results.Available)
                 {
                     var weekDay = (DayOfWeek)(info.RowIndex / 8 + 1);
                     var сlassNumber = (info.RowIndex - 2 - ((int)weekDay - 1) * 8) / 2 + 1; // [1 - 4]
-                    errors.Add(new ScheduleError(res, activeGroupeTitle, schedule[activeGroupeTitle][weekDay, сlassNumber], info.ColumnIndex / 2 + 1, info.RowIndex % 2 + 1, "ААА матан захватит мир!"));
+                    errors.Add(new ScheduleError(resTeacher, activeGroupeTitle, schedule[activeGroupeTitle][weekDay, сlassNumber], info.ColumnIndex / 2 + 1, info.RowIndex % 2 + 1, $"Ошибка в {weekDay} на {сlassNumber} паре")); ;
                     UpdateErrors();
                 }
-                if (res2 != Results.Available)
+                if (resAudience != Results.Available)
                 {
                     var weekDay = (DayOfWeek)(info.RowIndex / 8 + 1);
                     var сlassNumber = (info.RowIndex - ((int)weekDay - 1) * 8) / 2 + 1; // [1 - 4]
-                    errors.Add(new ScheduleError(res2, activeGroupeTitle, schedule[activeGroupeTitle][weekDay, сlassNumber], info.ColumnIndex / 2 + 1, info.RowIndex % 2 + 1, "ААА матан захватит мир!"));
+                    errors.Add(new ScheduleError(resAudience, activeGroupeTitle, schedule[activeGroupeTitle][weekDay, сlassNumber], info.ColumnIndex / 2 + 1, info.RowIndex % 2 + 1, $"Ошибка в {weekDay} на {сlassNumber} паре"));
                     UpdateErrors();
                 }
                 checkErrors();
                 dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
                 save();
             }
-            listViewErrors.Items[0].SubItems[1].Text = $"r{info.RowIndex} c{info.ColumnIndex} res{res.ToString()}";
+            listViewErrors.Items[0].SubItems[1].Text = $"r{info.RowIndex} c{info.ColumnIndex} resTeacher{resTeacher.ToString()}";
         }
 
         private void listViewErrors_MouseDown(object sender, MouseEventArgs e)
@@ -389,9 +392,9 @@ namespace SheduleEditorV6
         {
             //var info = dataGridViewSchedule.HitTest(e.X, e.Y);
             //if (info.RowIndex == -1) return;
-            //var res = schedule.IsTeacherAvaible(activeGroupeTitle, info.RowIndex, info.ColumnIndex, e.Data.GetData(typeof(AcademicClass)) as AcademicClass);
-            //var res2 = MessageBox.Show("Препод занят. Все равно добавить?", "Предупреждение", MessageBoxButtons.YesNo);
-            //MessageBox.Show(res.ToString() + ' ' + res2.ToString());
+            //var resTeacher = schedule.IsTeacherAvaible(activeGroupeTitle, info.RowIndex, info.ColumnIndex, e.Data.GetData(typeof(AcademicClass)) as AcademicClass);
+            //var resAudience = MessageBox.Show("Препод занят. Все равно добавить?", "Предупреждение", MessageBoxButtons.YesNo);
+            //MessageBox.Show(resTeacher.ToString() + ' ' + resAudience.ToString());
         }
 
         private void dataGridViewSchedule_CellValueChanged(object sender, DataGridViewCellEventArgs e)
@@ -472,10 +475,37 @@ namespace SheduleEditorV6
             MessageBox.Show("Расписание отправлено в БД!");
         }
 
-        private void хммToolStripMenuItem_Click(object sender, EventArgs e)
+        private void hmmToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var f = new FormSurprise();
             f.Show();
         }
+        //public static string GetDescription<T>(this T enumerationValue)
+        //    where T : struct
+        //{
+        //    Type type = enumerationValue.GetType();
+        //    if (!type.IsEnum)
+        //    {
+        //        throw new ArgumentException("EnumerationValue must be of Enum type", "enumerationValue");
+        //    }
+
+        //    //Tries to find a DescriptionAttribute for a potential friendly name
+        //    //for the enum
+        //    MemberInfo[] memberInfo = type.GetMember(enumerationValue.ToString());
+        //    if (memberInfo != null && memberInfo.Length > 0)
+        //    {
+        //        object[] attrs = memberInfo[0].GetCustomAttributes(typeof(DescriptionAttribute), false);
+
+        //        if (attrs != null && attrs.Length > 0)
+        //        {
+        //            //Pull out the description value
+        //            return ((DescriptionAttribute)attrs[0]).Description;
+        //        }
+        //    }
+        //    //If we have no description attribute, just return the ToString of the enum
+        //    return enumerationValue.ToString();
+        //}
+
+       
     }
 }
