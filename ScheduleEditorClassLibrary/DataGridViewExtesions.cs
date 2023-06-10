@@ -108,10 +108,6 @@ namespace SheduleEditorV6
                 for (int r = 0; r < 4; r++)
                 {
                     ScheduleRow curRow = group[(DayOfWeek)(i + 1), r + 1];
-                    if (curRow != null)
-                    {
-                        int a = 0;
-                    }
                     dataGrid.VisualizeRow(i * 4 + r, curRow);
                 }
             }
@@ -127,6 +123,10 @@ namespace SheduleEditorV6
             dataGrid[3, ind].Style.BackColor = color;
             dataGrid[3, ind + 1].Style.BackColor = color;
         }
+        /// <summary>
+        /// убирает подсветку во всем datagrid
+        /// </summary>
+        /// <param name="dataGrid"></param>
         public static void Discolor(this DataGridView dataGrid)
         {
             for (int i = 0; i < dataGrid.RowCount; i++)

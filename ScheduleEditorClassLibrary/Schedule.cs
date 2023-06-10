@@ -30,7 +30,7 @@ namespace ScheduleEditorClassLibrary
         public Results IsTeacherAvaible(string activeGroup, int row, int col, AcademicClass academicClass, Teacher teacher)
         {
             if ((academicClass.SubGroup == SubGroups.First && col >= 2 ||
-                academicClass.SubGroup == SubGroups.Second && col < 2) && academicClass.Type != ClassTypes.Lecture)
+                academicClass.SubGroup == SubGroups.Second && col < 2) && academicClass.Type == ClassTypes.Practice)
                 return Results.TypeMismatch;
             if (!teacher.IsAvaible((DayOfWeek)(row / 8 + 1), (row - row / 8 * 8) / 2 + 1))
                 return Results.InconsistencyWithDesire;

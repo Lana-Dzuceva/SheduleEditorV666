@@ -64,9 +64,6 @@ namespace SheduleEditorV6
 
         public void BuildSchedule()
         {
-            //dataGridViewSchedule.Height = this.Height - 40;
-            //dataGridViewSchedule.Width  = this.Width;
-            //dataGridViewSchedule.RowTemplate.Height = 23;
             for (int i = 0; i < 4; i++)
             {
                 dataGridViewSchedule.Columns.Add(new SpannedDataGridView.DataGridViewTextBoxColumnEx());
@@ -230,36 +227,10 @@ namespace SheduleEditorV6
 
             File.WriteAllText("qqq.json", JsonConvert.SerializeObject(facultyGroups));
         }
-        //public void GenerateTeachers()
-        //{
-        //    Random random = new Random();
-        //    var teachers = new List<TeacherPreference>();
-        //    for (int i = 0; i < 30; i++)
-        //    {
-        //        var pref = new TeacherPreference($"Teacher {i}");
-        //        for (int r = 0; r < 3; r++)
-        //        {
-        //            pref.Preferences.Add(new Preference((WeekDays)random.Next(7), random.Next(1, 5)));
-        //        }
-        //        teachers.Add(pref);
-        //    }
-        //    File.WriteAllText("teachers2.json", JsonConvert.SerializeObject(teachers));
-        //}
 
         void save()
         {
-            //SaveFileDialog openFileDialog1 = new SaveFileDialog();
-
-            //openFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
-            //openFileDialog1.FilterIndex = 2;
-            //openFileDialog1.RestoreDirectory = true;
-
-            //if (openFileDialog1.ShowDialog() == DialogResult.OK)
-            //{
-            //    MessageBox.Show(openFileDialog1.FileName);
-            //}
             File.WriteAllText(Environment.CurrentDirectory + @"\..\..\..\schedule_temp.json", JsonConvert.SerializeObject(schedule));
-
         }
 
         private void TeacherPreferencesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -272,8 +243,6 @@ namespace SheduleEditorV6
         {
             try
             {
-                //DataGridView.HitTestInfo info = .HitTest(e.X, e.Y);
-                //string aud = dataGridViewAudience[info.ColumnIndex, info.RowIndex].Value.ToString();
                 var lv = sender as ListView;
                 var lvi = lv.GetItemAt(e.X, e.Y);
                 lv.DoDragDrop(lvi.Tag, DragDropEffects.Move);
@@ -314,10 +283,6 @@ namespace SheduleEditorV6
         }
         private void dataGridViewSchedule_DragDrop(object sender, DragEventArgs e)
         {
-            //var li = e.Data.GetData(typeof(ListViewItem)) as ListViewItem;
-            //var acadClass = e.Data.GetData(typeof(ListViewItem)) as ListViewItem;
-            //int a = 0;
-
             var info = dataGridViewSchedule.HitTest(e.X, e.Y);
             if (info.RowIndex == -1) return;
             var res = schedule.IsTeacherAvaible(activeGroupeTitle, info.RowIndex - 2, info.ColumnIndex, e.Data.GetData(typeof(AcademicClass)) as AcademicClass,
@@ -328,7 +293,6 @@ namespace SheduleEditorV6
                 var f = new FormChooseAudience(this);
 
                 f.ShowDialog();
-                //while (f.i)
                 int aud;
                 Results res2 = Results.Available;
                 if (f.DialogResult == DialogResult.OK)
@@ -373,11 +337,18 @@ namespace SheduleEditorV6
         {
             var info = dataGridViewSchedule.HitTest(e.X, e.Y);
             if (info.RowIndex == -1) return;
-            //get_row_col(e.X, e.Y);
-            //dataGridViewSchedule[info.ColumnIndex, info.RowIndex].Value = "hmm";
             listViewErrors.Items[0].SubItems[0].Text = $"row {info.RowIndex} col {info.ColumnIndex}";
             dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
-
+            // уберу весь текст для красивой подсветки
+            var row = info.RowIndex - 2 - info.RowIndex % 2;
+            dataGridViewSchedule[0, row].Value = "";
+            dataGridViewSchedule[0, row + 1].Value = "";
+            dataGridViewSchedule[1, row].Value = "";
+            dataGridViewSchedule[1, row + 1].Value = "";
+            dataGridViewSchedule[2, row].Value = "";
+            dataGridViewSchedule[2, row + 1].Value = "";
+            dataGridViewSchedule[3, row].Value = "";
+            dataGridViewSchedule[3, row + 1].Value = "";
             dataGridViewSchedule.HighlightRow(info.RowIndex - 2, info.ColumnIndex, e.Data.GetData(typeof(AcademicClass)) as AcademicClass);
         }
 
@@ -386,7 +357,7 @@ namespace SheduleEditorV6
             dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
             dataGridViewSchedule.Discolor();
         }
-
+        #region моя функция get info
         //void get_row_col(int x, int y)
         //{
         //    var info = dataGridViewSchedule.HitTest(x, y);
@@ -397,6 +368,7 @@ namespace SheduleEditorV6
         //    listViewErrors.Items[1].SubItems[0].Text = $"row {row} col -6-{locationOnForm.Y}";
 
         //}
+        #endregion
         private void listViewErrors_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             var cur_item = listViewErrors.FocusedItem;
@@ -499,7 +471,6 @@ namespace SheduleEditorV6
 
         private void хммToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //MessageBox.Show("Хмм...");
             var f = new FormSurprise();
             f.Show();
         }
