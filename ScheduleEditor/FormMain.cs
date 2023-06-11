@@ -113,7 +113,7 @@ namespace SheduleEditorV6
             dataGridViewSchedule.DefaultCellStyle.SelectionForeColor = dataGridViewSchedule.DefaultCellStyle.ForeColor;
 
         }
-       
+
         public TabPage MakeClassesTabPage(string title = "")
         {
             TabPage tabPage = new TabPage(title);
@@ -238,7 +238,11 @@ namespace SheduleEditorV6
             {
                 var lv = sender as ListView;
                 var lvi = lv.GetItemAt(e.X, e.Y);
-                lv.DoDragDrop(lvi.Tag, DragDropEffects.Move);
+                var res = lv.DoDragDrop(lvi.Tag, DragDropEffects.Move);
+                if (res != DragDropEffects.None)
+                {
+                    lv.Items.Remove(lvi);
+                }
             }
             catch (Exception)
             { }
@@ -263,20 +267,29 @@ namespace SheduleEditorV6
             var newErrors = new List<ScheduleError>();
             for (int i = 0; i < errors.Count; i++)
             {
-                var res = schedule.IsTeacherAvaible(errors[i].GroupTitle,
-                    ((int)errors[i].ScheduleRow.WeekDay - 1) * 8 + errors[i].row,
-                    errors[i].col, errors[i].ScheduleRow[errors[i].col, errors[i].row],
-                    teachers.Where(teacher => teacher.Name == errors[i].ScheduleRow[errors[i].col, errors[i].row].Teacher.Name).First());
-                if (res == errors[i].Type)
+                try
                 {
-                    newErrors.Add(errors[i]);
-                    dataGridViewSchedule.HighlightError(errors[i]);
+                    var res = schedule.IsTeacherAvaible(errors[i].GroupTitle,
+                        ((int)errors[i].ScheduleRow.WeekDay - 1) * 8 + errors[i].row,
+                        errors[i].col, errors[i].ScheduleRow[errors[i].col, errors[i].row],
+                        teachers.Find(teacher => teacher.Name == errors[i].ScheduleRow[errors[i].col, errors[i].row].Teacher.Name));
+                    if (res == errors[i].Type)
+                    {
+                        newErrors.Add(errors[i]);
+                        dataGridViewSchedule.HighlightError(errors[i]);
+                    }
                 }
+                catch (Exception)
+                { }
             }
-            errors = newErrors;
+            errors = new List<ScheduleError>(newErrors);
         }
         private void dataGridViewSchedule_DragDrop(object sender, DragEventArgs e)
         {
+            if (e.Effect == DragDropEffects.None)
+            {
+                int q = 0;
+            }
             var info = dataGridViewSchedule.HitTest(e.X, e.Y);
             if (info.RowIndex == -1) return;
             var resTeacher = schedule.IsTeacherAvaible(activeGroupeTitle, info.RowIndex - 2, info.ColumnIndex, e.Data.GetData(typeof(AcademicClass)) as AcademicClass,
@@ -318,14 +331,14 @@ namespace SheduleEditorV6
                 dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
                 save();
             }
-            listViewErrors.Items[0].SubItems[1].Text = $"r{info.RowIndex} c{info.ColumnIndex} resTeacher{resTeacher.ToString()}";
+            listViewErrors.Items[0].SubItems[1].Text = $"r{info.RowIndex} c{info.ColumnIndex} resTeacher {resTeacher.ToString()}";
         }
 
         private void listViewErrors_MouseDown(object sender, MouseEventArgs e)
         {
-            activeGroupeTitle = listViewErrors.GetItemAt(e.X, e.Y).SubItems[2].Text;
-            dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
-            tabControlGroups.SelectedTab = tabControlGroups.TabPages.Cast<TabPage>().FirstOrDefault(tab => tab.Text == activeGroupeTitle);
+            //activeGroupeTitle = listViewErrors.GetItemAt(e.X, e.Y).SubItems[2].Text;
+            //dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
+            //tabControlGroups.SelectedTab = tabControlGroups.TabPages.Cast<TabPage>().FirstOrDefault(tab => tab.Text == activeGroupeTitle);
         }
 
         private void dataGridViewSchedule_DragOver(object sender, DragEventArgs e)
@@ -367,9 +380,12 @@ namespace SheduleEditorV6
         #endregion
         private void listViewErrors_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            var cur_item = listViewErrors.FocusedItem;
-            activeGroupeTitle = (cur_item.Tag as ScheduleError).GroupTitle;
+            //var cur_item = listViewErrors.FocusedItem;
+            //activeGroupeTitle = (cur_item.Tag as ScheduleError).GroupTitle;
+            //dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
+            activeGroupeTitle = listViewErrors.GetItemAt(e.X, e.Y).SubItems[2].Text;
             dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
+            tabControlGroups.SelectedTab = tabControlGroups.TabPages.Cast<TabPage>().FirstOrDefault(tab => tab.Text == activeGroupeTitle);
 
         }
         private void tabControlGroups_SelectedIndexChanged(object sender, EventArgs e)
@@ -387,7 +403,7 @@ namespace SheduleEditorV6
             //MessageBox.Show(resTeacher.ToString() + ' ' + resAudience.ToString());
         }
 
-    
+
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //OpenFileDialog openFileDialog1 = new OpenFileDialog();
@@ -442,12 +458,21 @@ namespace SheduleEditorV6
         private void dataGridViewSchedule_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             var cell = (sender as DataGridView).CurrentCell;
-            var a = cell.RowIndex;
-            var b = cell.ColumnIndex;
-            var weekDay = (DayOfWeek)(a / 8 + 1);
-            var сlassNumber = (a - ((int)weekDay - 1) * 8) / 2 + 1; // [1 - 4]
-            schedule[activeGroupeTitle][weekDay, сlassNumber].ClearCell(1 + b < 2 ? 0 : 1, 1 + a % 2);
+            var row = cell.RowIndex;
+            var col = cell.ColumnIndex;
+            var weekDay = (DayOfWeek)(row / 8 + 1);
+            var сlassNumber = (row - ((int)weekDay - 1) * 8) / 2 + 1; // [1 - 4]
+            var acadClass = schedule[activeGroupeTitle][weekDay, сlassNumber][1 + (col < 2 ? 0 : 1), 1 + (row % 2)];
+            ListViewItem lvi = new ListViewItem(acadClass.ClassTitle);
+            lvi.SubItems.Add(acadClass.Teacher.ToString());
+            lvi.SubItems.Add(acadClass.Type.GetDescription());
+            lvi.SubItems.Add(acadClass.Hours.ToString());
+            lvi.SubItems.Add(acadClass.SubGroup.GetDescription());
+            lvi.Tag = acadClass;
+            (tabControlGroups.SelectedTab.Controls[0] as ListView).Items.Add(lvi);
+            schedule[activeGroupeTitle][weekDay, сlassNumber].ClearCell(1 + (col < 2 ? 0 : 1), 1 + (row % 2));
             dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
+            checkErrors();
         }
 
         private void dataGridViewSchedule_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -474,7 +499,7 @@ namespace SheduleEditorV6
         //        throw new ArgumentException("EnumerationValue must be of Enum type", "enumerationValue");
         //    }
 
-        //    //Tries to find a DescriptionAttribute for a potential friendly name
+        //    //Tries to find row DescriptionAttribute for row potential friendly name
         //    //for the enum
         //    MemberInfo[] memberInfo = type.GetMember(enumerationValue.ToString());
         //    if (memberInfo != null && memberInfo.Length > 0)
@@ -491,7 +516,7 @@ namespace SheduleEditorV6
         //    return enumerationValue.ToString();
         //}
         #endregion
-        
+
         private void ListView1_MouseMove(object sender, MouseEventArgs e)
         {
             // Получаем элемент, на котором находится курсор мыши
