@@ -323,7 +323,9 @@ namespace SheduleEditorV6
 
         private void listViewErrors_MouseDown(object sender, MouseEventArgs e)
         {
-
+            activeGroupeTitle = listViewErrors.GetItemAt(e.X, e.Y).SubItems[2].Text;
+            dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
+            tabControlGroups.SelectedTab = tabControlGroups.TabPages.Cast<TabPage>().FirstOrDefault(tab => tab.Text == activeGroupeTitle);
         }
 
         private void dataGridViewSchedule_DragOver(object sender, DragEventArgs e)
