@@ -10,13 +10,17 @@ namespace ScheduleEditorClassLibrary
 {
     public enum ClassTypes
     {
+        [Description("Лекция")]
         Lecture,
+        [Description("Практика")]
         Practice
     }
 
     public enum SubGroups
     {
+        [Description("Первая")]
         First,
+        [Description("Вторая")]
         Second
     }
     public enum RowTypes

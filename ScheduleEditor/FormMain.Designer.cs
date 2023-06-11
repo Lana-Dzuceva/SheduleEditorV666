@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.dataGridViewSchedule = new System.Windows.Forms.DataGridView();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
@@ -40,6 +41,7 @@
             this.новоеРасписаниеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.UploadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -130,6 +132,7 @@
             this.listViewErrors.Name = "listViewErrors";
             this.listViewErrors.Size = new System.Drawing.Size(355, 134);
             this.listViewErrors.TabIndex = 2;
+            this.toolTip1.SetToolTip(this.listViewErrors, "zdjnv;zdkm");
             this.listViewErrors.UseCompatibleStateImageBehavior = false;
             this.listViewErrors.View = System.Windows.Forms.View.Details;
             this.listViewErrors.MouseDown += new System.Windows.Forms.MouseEventHandler(this.listViewErrors_MouseDown);
@@ -232,6 +235,7 @@
         private System.Windows.Forms.ToolStripMenuItem новоеРасписаниеToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loadToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem UploadToolStripMenuItem;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
 

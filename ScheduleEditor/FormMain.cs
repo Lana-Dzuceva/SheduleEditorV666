@@ -13,6 +13,12 @@ using Newtonsoft.Json;
 using System.IO;
 using System.Runtime.InteropServices.ComTypes;
 using System.Reflection;
+//using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+//using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+//using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+//using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+//using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+//using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace SheduleEditorV6
 {
@@ -26,6 +32,9 @@ namespace SheduleEditorV6
         string curDir = Environment.CurrentDirectory;
         List<ScheduleError> errors;
         bool isFormLoaded;
+        ToolTip toolTipeqqq, toolTip;
+        string curToolTipText = "";
+
         public FormMain()
         {
             InitializeComponent();
@@ -42,6 +51,14 @@ namespace SheduleEditorV6
 
         private void FormMain_Load(object sender, EventArgs e)
         {
+            toolTip = new ToolTip(this.components);
+            toolTip.AutoPopDelay = 5000; // Задержка автоматического закрытия подсказки (5 секунд)
+            toolTip.InitialDelay = 500; // Задержка перед отображением подсказки (0,5 секунды)
+            toolTip.ReshowDelay = 500; // Задержка перед повторным отображением подсказки (0,5 секунды)
+                                       //toolTip.ShowAlways = true; // Подсказка будет отображаться всегда, даже если элемент не перекрыт
+
+            this.toolTipeqqq = new System.Windows.Forms.ToolTip(this.components);
+
             errors = new List<ScheduleError>();
             listViewErrors.Columns.Add("№");
             listViewErrors.Columns.Add("Тип ошибки");
@@ -57,12 +74,15 @@ namespace SheduleEditorV6
             listViewErrors.FullRowSelect = true;
             listViewErrors.MouseDoubleClick += new MouseEventHandler(listViewErrors_MouseDoubleClick);
             tabControlGroups.SelectedIndexChanged += new EventHandler(tabControlGroups_SelectedIndexChanged);
+
             BuildSchedule();
             BuildAndFillLessons();
             dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
 
             UpdateErrors();
             isFormLoaded = true;
+            toolTipeqqq.SetToolTip(tabControlGroups.SelectedTab.Controls[0] as ListView, "ненавижу всех");
+            toolTipeqqq.ShowAlways = true;
         }
 
         public void BuildSchedule()
@@ -93,36 +113,7 @@ namespace SheduleEditorV6
             dataGridViewSchedule.DefaultCellStyle.SelectionForeColor = dataGridViewSchedule.DefaultCellStyle.ForeColor;
 
         }
-        #region
-        //public void BuildLessonsTabPages()
-        //{
-        //    TabPage tabPage;
-        //    for (int r = 0; r < 5; r++)
-        //    {
-        //        tabPage = new TabPage("hmm");
-        //        tabControlGroups.Controls.Add(tabPage);
-        //    }
-
-        //    for (int r = 0; r < tabControlGroups.Controls.Count; r++)
-        //    {
-        //        ListView listViewSubjects = new ListView();
-        //        listViewSubjects.View = View.Details;
-        //        //listViewSubjects.BackColor = Color.Red;
-        //        tabControlGroups.Controls[r].Controls.Add(listViewSubjects);
-        //        listViewSubjects.Dock = DockStyle.Fill;
-        //        listViewSubjects.Columns.Add("Дисциплина");
-        //        listViewSubjects.Columns.Add("Преподователь");
-        //        listViewSubjects.Columns.Add("Тип занятия");
-        //        listViewSubjects.Columns.Add("Кол-во часов");
-        //        listViewSubjects.Columns[0].Width = 220;
-        //        listViewSubjects.Columns[1].Width = 150;
-        //        listViewSubjects.Columns[2].Width = 150;
-        //        listViewSubjects.Columns[3].Width = 150;
-        //        listViewSubjects.Font = new Font(FontFamily.GenericSansSerif, 12);
-
-        //    }
-        //}
-        #endregion
+       
         public TabPage MakeClassesTabPage(string title = "")
         {
             TabPage tabPage = new TabPage(title);
@@ -142,6 +133,7 @@ namespace SheduleEditorV6
             listViewSubjects.Columns[3].Width = 150;
             listViewSubjects.Columns[4].Width = 150;
             listViewSubjects.Font = new Font(FontFamily.GenericSansSerif, 12);
+            listViewSubjects.MouseMove += ListView1_MouseMove;
             tabPage.Controls.Add(listViewSubjects);
             return tabPage;
         }
@@ -159,9 +151,9 @@ namespace SheduleEditorV6
                 {
                     ListViewItem lvi = new ListViewItem(acadClass.ClassTitle);
                     lvi.SubItems.Add(acadClass.Teacher.ToString());
-                    lvi.SubItems.Add(acadClass.Type.ToString());
+                    lvi.SubItems.Add(acadClass.Type.GetDescription());
                     lvi.SubItems.Add(acadClass.Hours.ToString());
-                    lvi.SubItems.Add(acadClass.SubGroup.ToString());
+                    lvi.SubItems.Add(acadClass.SubGroup.GetDescription());
                     (tabPage.Controls[0] as ListView).Items.Add(lvi);
                     lvi.Tag = acadClass;
                 }
@@ -182,8 +174,6 @@ namespace SheduleEditorV6
                 lvi.SubItems.Add("very");
                 lvi.SubItems.Add("bad");
                 lvi.SubItems.Add(i.ToString());
-                //listViewErrors.ContextMenuStrip = new ContextMenuStrip();
-
                 listViewErrors.Items.Add(lvi);
             }
             for (int i = 0; i < errors.Count; i++)
@@ -192,7 +182,6 @@ namespace SheduleEditorV6
                 lvi.SubItems.Add(errors[i].Type.GetDescription());
                 lvi.SubItems.Add(errors[i].GroupTitle);
                 lvi.SubItems.Add(errors[i].Message);
-                //listViewErrors.ContextMenuStrip = new ContextMenuStrip();
                 lvi.Tag = errors[i];
                 lvi.BackColor = Color.FromArgb(247, 193, 188);
                 listViewErrors.Items.Add(lvi);
@@ -304,7 +293,6 @@ namespace SheduleEditorV6
                 {
                     aud = f.num;
                     resAudience = schedule.IsAudienceAvaible(activeGroupeTitle, info.RowIndex - 2, info.ColumnIndex, e.Data.GetData(typeof(AcademicClass)) as AcademicClass, aud);
-
                 }
                 else
                 {
@@ -397,12 +385,7 @@ namespace SheduleEditorV6
             //MessageBox.Show(resTeacher.ToString() + ' ' + resAudience.ToString());
         }
 
-        private void dataGridViewSchedule_CellValueChanged(object sender, DataGridViewCellEventArgs e)
-        {
-            //if(isFormLoaded)
-            //save();
-        }
-
+    
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //OpenFileDialog openFileDialog1 = new OpenFileDialog();
@@ -421,7 +404,6 @@ namespace SheduleEditorV6
         private void новоеРасписаниеToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //OpenFileDialog openFileDialog1 = new OpenFileDialog();
-
             //openFileDialog1.Filter = "json files (*.json)|*.json|All files (*.*)|*.*";
             //openFileDialog1.FilterIndex = 1;
             //openFileDialog1.RestoreDirectory = true;
@@ -480,6 +462,7 @@ namespace SheduleEditorV6
             var f = new FormSurprise();
             f.Show();
         }
+        #region another GetDescription
         //public static string GetDescription<T>(this T enumerationValue)
         //    where T : struct
         //{
@@ -505,7 +488,63 @@ namespace SheduleEditorV6
         //    //If we have no description attribute, just return the ToString of the enum
         //    return enumerationValue.ToString();
         //}
+        #endregion
+        
+        private void ListView1_MouseMove(object sender, MouseEventArgs e)
+        {
+            // Получаем элемент, на котором находится курсор мыши
+            ListViewItem item = (tabControlGroups.SelectedTab.Controls[0] as ListView).GetItemAt(e.X, e.Y);
+            if (item != null && curToolTipText != item.SubItems[0].Text)
+            {
+                // Получаем значение первого SubItem
+                curToolTipText = item.SubItems[0].Text;
+                // Устанавливаем текст подсказки для элемента списка
+                //toolTipeqqq.SetToolTip((tabControlGroups.SelectedTab.Controls[0] as ListView), curToolTipText);
+                toolTipeqqq.Show(curToolTipText, (tabControlGroups.SelectedTab.Controls[0] as ListView));
+                toolTipeqqq.ShowAlways = true;
+            }
+            else
+            {
+                // Если курсор мыши не наведен на элемент списка, очищаем текст подсказки
+                //toolTipeqqq.SetToolTip((tabControlGroups.SelectedTab.Controls[0] as ListView), string.Empty);
+            }
+        }
 
-       
+        #region не работающие события мыши
+        void listView_MouseHover(object sender, EventArgs e)
+        {
+            var lv = tabControlGroups.SelectedTab.Controls[0] as ListView;/*(sender as ListView).Get*/
+            ListViewItem item = lv.GetItemAt(Cursor.Position.X, Cursor.Position.Y);
+            if (item != null)
+            {
+                toolTipeqqq.SetToolTip(lv, item.SubItems[0].Text); //(lv, );
+            }
+        }
+
+        private void ListViewItem_MouseEnter(object sender, EventArgs e)
+        {
+            ListViewItem item = sender as ListViewItem;
+            if (item != null)
+            {
+                // Получаем значение первого SubItem
+                string subItemText = item.SubItems[0].Text;
+
+                // Устанавливаем текст подсказки для элемента списка
+                toolTip.SetToolTip(tabControlGroups.SelectedTab.Controls[0] as ListView, subItemText);
+            }
+        }
+
+        private void ListViewItem_MouseLeave(object sender, EventArgs e)
+        {
+            // Очищаем текст подсказки при покидании элемента списка
+            toolTip.SetToolTip(tabControlGroups.SelectedTab.Controls[0] as ListView, string.Empty);
+        }
+
+        private void ListView1_MouseLeave(object sender, EventArgs e)
+        {
+            // При покидании ListView очищаем текст подсказки
+            toolTip.SetToolTip((tabControlGroups.SelectedTab.Controls[0] as ListView), string.Empty);
+        }
+        #endregion
     }
 }
