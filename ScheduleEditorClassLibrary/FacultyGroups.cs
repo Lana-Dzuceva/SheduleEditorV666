@@ -70,8 +70,11 @@ namespace ScheduleEditorClassLibrary
             return result;
         }
 
-        public void SendToDB(string connectionString, string databaseName)
+        public void SendToDB(string connectionString)
         {
+            MySqlConnectionStringBuilder builder = new MySqlConnectionStringBuilder(connectionString);
+            string databaseName = builder.Database;
+
             MySqlConnection connection = new MySqlConnection(connectionString);
             connection.Open();
 
