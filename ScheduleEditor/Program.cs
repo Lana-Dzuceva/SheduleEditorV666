@@ -16,7 +16,15 @@ namespace SheduleEditorV6
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormMain());
+            //try
+            //{
+                Application.Run(new FormMain());
+            //}
+            //catch (Exception)
+            //{
+            //    //throw;
+            //}
+
         }
     }
 }

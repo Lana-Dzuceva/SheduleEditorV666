@@ -56,7 +56,8 @@ namespace SheduleEditorV6
 
         private void listViewAudienceDescription_SelectedIndexChanged(object sender, EventArgs e)
         {
-            selectedLVIAudience = listViewAudienceDescription.SelectedItems[0];
+            if (listViewAudienceDescription.SelectedItems.Count != 0)
+                selectedLVIAudience = listViewAudienceDescription.SelectedItems[0];
         }
     }
 }

@@ -88,8 +88,10 @@
   <ItemGroup>
     <Compile Include="AcademicClass.cs" />
     <Compile Include="DataGridViewExtesions.cs" />
+    <Compile Include="EnumExtensions.cs" />
     <Compile Include="Group.cs" />
     <Compile Include="SAcademicClass.cs" />
+    <Compile Include="ScheduleError.cs" />
     <Compile Include="ScheduleRow.cs" />
     <Compile Include="TeacherPreference.cs" />
     <Compile Include="Enums.cs" />

@@ -30,7 +30,7 @@
         {
             this.dataGridViewTable = new System.Windows.Forms.DataGridView();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.listViewTeachers = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTable)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -65,7 +65,7 @@
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.listView1);
+            this.splitContainer1.Panel2.Controls.Add(this.listViewTeachers);
             this.splitContainer1.Size = new System.Drawing.Size(800, 450);
             this.splitContainer1.SplitterDistance = 599;
             this.splitContainer1.SplitterWidth = 3;
@@ -73,17 +73,17 @@
             // 
             // listView1
             // 
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.listViewTeachers.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1});
-            this.listView1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(0, 0);
-            this.listView1.Margin = new System.Windows.Forms.Padding(2);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(198, 402);
-            this.listView1.TabIndex = 0;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
+            this.listViewTeachers.Dock = System.Windows.Forms.DockStyle.Top;
+            this.listViewTeachers.HideSelection = false;
+            this.listViewTeachers.Location = new System.Drawing.Point(0, 0);
+            this.listViewTeachers.Margin = new System.Windows.Forms.Padding(2);
+            this.listViewTeachers.Name = "listView1";
+            this.listViewTeachers.Size = new System.Drawing.Size(198, 402);
+            this.listViewTeachers.TabIndex = 0;
+            this.listViewTeachers.UseCompatibleStateImageBehavior = false;
+            this.listViewTeachers.View = System.Windows.Forms.View.Details;
             // 
             // columnHeader1
             // 
@@ -113,7 +113,7 @@
 
         private System.Windows.Forms.DataGridView dataGridViewTable;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView listViewTeachers;
         private System.Windows.Forms.ColumnHeader columnHeader1;
     }
 }
