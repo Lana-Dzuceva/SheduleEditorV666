@@ -331,6 +331,10 @@ namespace SheduleEditorV6
                 dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
                 save();
             }
+            else
+            {
+                MessageBox.Show("Выбранная пара не относится к этой подгруппе");
+            }
             listViewErrors.Items[0].SubItems[1].Text = $"r{info.RowIndex} c{info.ColumnIndex} resTeacher {resTeacher.ToString()}";
         }
 
