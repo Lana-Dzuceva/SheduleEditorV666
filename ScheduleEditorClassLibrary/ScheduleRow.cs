@@ -123,7 +123,7 @@ namespace ScheduleEditorClassLibrary
 
         public ScheduleRow(DayOfWeek dayOfWeek, int classNumber)
         {
-            WeekDay = dayOfWeek;
+            WeekDay = dayOfWeek;    
             ClassNumber = classNumber;
         }
         public ScheduleRow(RowTypes rowType, int classNumber, DayOfWeek dayOfWeek, SAcademicClass group1week1 = null, SAcademicClass group1week2 = null, SAcademicClass group2week1 = null, SAcademicClass group2week2 = null)
