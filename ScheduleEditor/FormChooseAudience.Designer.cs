@@ -37,10 +37,11 @@
             // 
             this.listViewAudienceDescription.FullRowSelect = true;
             this.listViewAudienceDescription.HideSelection = false;
-            this.listViewAudienceDescription.Location = new System.Drawing.Point(12, 12);
+            this.listViewAudienceDescription.Location = new System.Drawing.Point(16, 15);
+            this.listViewAudienceDescription.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.listViewAudienceDescription.MultiSelect = false;
             this.listViewAudienceDescription.Name = "listViewAudienceDescription";
-            this.listViewAudienceDescription.Size = new System.Drawing.Size(748, 219);
+            this.listViewAudienceDescription.Size = new System.Drawing.Size(996, 269);
             this.listViewAudienceDescription.TabIndex = 0;
             this.listViewAudienceDescription.UseCompatibleStateImageBehavior = false;
             this.listViewAudienceDescription.View = System.Windows.Forms.View.Details;
@@ -48,9 +49,10 @@
             // 
             // buttonOk
             // 
-            this.buttonOk.Location = new System.Drawing.Point(295, 253);
+            this.buttonOk.Location = new System.Drawing.Point(393, 311);
+            this.buttonOk.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(150, 43);
+            this.buttonOk.Size = new System.Drawing.Size(200, 53);
             this.buttonOk.TabIndex = 1;
             this.buttonOk.Text = "Выбрать";
             this.buttonOk.UseVisualStyleBackColor = true;
@@ -58,9 +60,10 @@
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(12, 253);
+            this.buttonCancel.Location = new System.Drawing.Point(16, 311);
+            this.buttonCancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(150, 43);
+            this.buttonCancel.Size = new System.Drawing.Size(200, 53);
             this.buttonCancel.TabIndex = 2;
             this.buttonCancel.Text = "Отмена";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -68,14 +71,15 @@
             // 
             // FormChooseAudience
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(850, 324);
+            this.ClientSize = new System.Drawing.Size(1133, 399);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOk);
             this.Controls.Add(this.listViewAudienceDescription);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "FormChooseAudience";
-            this.Text = "FormChooseAudience";
+            this.Text = "Выберите аудиторию";
             this.Load += new System.EventHandler(this.FormChooseAudience_Load);
             this.ResumeLayout(false);
 
