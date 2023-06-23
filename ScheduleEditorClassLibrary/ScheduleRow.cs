@@ -1,4 +1,5 @@
-﻿using ScheduleEditorClassLibrary;
+﻿using Newtonsoft.Json;
+using ScheduleEditorClassLibrary;
 using SpannedDataGridView;
 using System;
 using System.Collections.Generic;
@@ -126,6 +127,7 @@ namespace ScheduleEditorClassLibrary
             WeekDay = dayOfWeek;    
             ClassNumber = classNumber;
         }
+        [JsonConstructor]
         public ScheduleRow(RowTypes rowType, int classNumber, DayOfWeek dayOfWeek, SAcademicClass group1week1 = null, SAcademicClass group1week2 = null, SAcademicClass group2week1 = null, SAcademicClass group2week2 = null)
         {
             RowType = rowType;

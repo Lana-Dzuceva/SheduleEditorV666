@@ -24,6 +24,7 @@ namespace SheduleEditorV6
 {
     public partial class FormMain : Form
     {
+        string connectionString;
         FacultyGroups facultyGroups; // данные на входе
         Schedule schedule; // данные в процессе
         public List<Teacher> teachers; //учителя
@@ -40,9 +41,19 @@ namespace SheduleEditorV6
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
 
-            facultyGroups = JsonConvert.DeserializeObject<FacultyGroups>(File.ReadAllText(curDir + @"\..\..\..\schedule_in.json"));
+            //facultyGroups = JsonConvert.DeserializeObject<FacultyGroups>(File.ReadAllText(curDir + @"\..\..\..\schedule_in.json"));
+            connectionString = "server=localhost;database=db;user id=root;password=1234";
+            facultyGroups = new FacultyGroups();
+            facultyGroups.Fill(connectionString);
             teachers = JsonConvert.DeserializeObject<List<Teacher>>(File.ReadAllText(curDir + @"\..\..\..\teachers_prefs.json"));
-            schedule = new Schedule(facultyGroups.Groups.Select(group => group.Title).ToList());
+            if(File.Exists(Environment.CurrentDirectory + @"\..\..\..\schedule_temp.json"))
+            {
+                schedule = JsonConvert.DeserializeObject<Schedule>(File.ReadAllText(Environment.CurrentDirectory + @"\..\..\..\schedule_temp.json"));
+            }
+            else
+            {
+                schedule = new Schedule(facultyGroups.Groups.Select(group => group.Title).ToList());
+            }
             using (StreamReader file = new StreamReader(curDir + @"\..\..\..\audiences.json"))
             {
                 audiences = JsonConvert.DeserializeObject<List<Audience>>(file.ReadToEnd());
@@ -408,55 +419,17 @@ namespace SheduleEditorV6
         }
 
 
-        private void loadToolStripMenuItem_Click(object sender, EventArgs e)
+        private void loadDataToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //OpenFileDialog openFileDialog1 = new OpenFileDialog();
-
-            //openFileDialog1.Filter = "json files (*.json)|*.json|All files (*.*)|*.*";
-            //openFileDialog1.FilterIndex = 1;
-            //openFileDialog1.RestoreDirectory = true;
-
-            //if (openFileDialog1.ShowDialog() == DialogResult.OK)
-            //{
-            //    MessageBox.Show(openFileDialog1.FileName);
-            //}
+            facultyGroups.Fill(connectionString);
             MessageBox.Show("Вы успешно загрузили данные!");
         }
 
-        private void новоеРасписаниеToolStripMenuItem_Click(object sender, EventArgs e)
+        private void newScheduleToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            //openFileDialog1.Filter = "json files (*.json)|*.json|All files (*.*)|*.*";
-            //openFileDialog1.FilterIndex = 1;
-            //openFileDialog1.RestoreDirectory = true;
-            //openFileDialog1.AddExtension = true;
-            //openFileDialog1.Title = "Создайте файл";
-            ////CreateFi
-            //if (openFileDialog1.ShowDialog() == DialogResult.OK)
-            //{
-            //    MessageBox.Show(openFileDialog1.FileName);
-            //}
-            #region диалог
-            //SaveFileDialog saveFileDialog = new SaveFileDialog();
-
-            //// Настройка параметров диалогового окна
-            //saveFileDialog.Filter = "Текстовые файлы (*.txt)|*.txt|Все файлы (*.*)|*.*";
-            //saveFileDialog.Title = "Создать файл";
-            //saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-
-            //// Отображение диалогового окна и обработка результата
-            //if (saveFileDialog.ShowDialog() == DialogResult.OK)
-            //{
-            //    string filePath = saveFileDialog.FileName;
-            //    //В этом месте вы можете использовать filePath для создания файла или выполнения нужных действий
-            //    // например, можно использовать StreamWriter для записи в файл
-            //    using (StreamWriter writer = new StreamWriter(filePath))
-            //    {
-            //        writer.WriteLine("Пример текста");
-            //    }
-            //}
-            #endregion
-            MessageBox.Show("Это конечно можно, но не сейчас.");
+            schedule.Clear();
+            dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
+            MessageBox.Show("Это конечно можно и прямо сейчас.");
         }
 
         private void dataGridViewSchedule_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -485,6 +458,7 @@ namespace SheduleEditorV6
 
         private void UploadToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            // Когда-нибудь Стас напишет нормальную функцию отправки в БД!
             MessageBox.Show("Расписание отправлено в БД!");
         }
 

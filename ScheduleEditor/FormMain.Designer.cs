@@ -178,14 +178,14 @@
             this.новоеРасписаниеToolStripMenuItem.Name = "новоеРасписаниеToolStripMenuItem";
             this.новоеРасписаниеToolStripMenuItem.Size = new System.Drawing.Size(122, 20);
             this.новоеРасписаниеToolStripMenuItem.Text = "Новое расписание";
-            this.новоеРасписаниеToolStripMenuItem.Click += new System.EventHandler(this.новоеРасписаниеToolStripMenuItem_Click);
+            this.новоеРасписаниеToolStripMenuItem.Click += new System.EventHandler(this.newScheduleToolStripMenuItem_Click);
             // 
             // loadToolStripMenuItem
             // 
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
             this.loadToolStripMenuItem.Size = new System.Drawing.Size(117, 20);
             this.loadToolStripMenuItem.Text = "Загрузить данные";
-            this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
+            this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadDataToolStripMenuItem_Click);
             // 
             // UploadToolStripMenuItem
             // 

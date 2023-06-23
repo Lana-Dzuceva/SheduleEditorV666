@@ -288,5 +288,12 @@ namespace ScheduleEditorClassLibrary
             //    }
             //}
         }
+        public void Clear()
+        {
+            foreach (var group in Groups)
+            {
+                group.Rows.Clear();
+            }
+        }
     }
 }

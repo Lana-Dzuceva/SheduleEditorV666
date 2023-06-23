@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,15 @@ namespace ScheduleEditorClassLibrary
         public int ClassNumber { get; set; } // номер пары
 
         public SAcademicClass(int audience, DayOfWeek weekDay, int classNumber, AcademicClass academicClass) : base(academicClass)
+        {
+            Audience = audience;
+            WeekDay = weekDay;
+            ClassNumber = classNumber;
+        }
+        [JsonConstructor]
+        public SAcademicClass(int audience, DayOfWeek weekDay, int classNumber, 
+            string classTitle, Teacher teacher, int hours, ClassTypes type, SubGroups subGroup)
+            : base(classTitle, teacher, hours,  type,  subGroup)
         {
             Audience = audience;
             WeekDay = weekDay;
