@@ -56,6 +56,11 @@ namespace SheduleEditorV6
         public static void VisualizeRow(this DataGridView dataGrid, int ind, ScheduleRow scheduleRow)
         {
             ind *= 2;
+            for (int i = 0; i < 4; i++)
+            {
+                dataGrid[i, ind].Value =  "";
+                dataGrid[i, ind + 1].Value =  "";
+            }
             switch (scheduleRow?.RowType ?? RowTypes.Simple)
             {
                 case RowTypes.Simple:
@@ -103,10 +108,6 @@ namespace SheduleEditorV6
                 for (int r = 0; r < 4; r++)
                 {
                     ScheduleRow curRow = group[(DayOfWeek)(i + 1), r + 1];
-                    if (curRow != null)
-                    {
-                        int a = 0;
-                    }
                     dataGrid.VisualizeRow(i * 4 + r, curRow);
                 }
             }
@@ -122,6 +123,10 @@ namespace SheduleEditorV6
             dataGrid[3, ind].Style.BackColor = color;
             dataGrid[3, ind + 1].Style.BackColor = color;
         }
+        /// <summary>
+        /// убирает подсветку во всем datagrid
+        /// </summary>
+        /// <param name="dataGrid"></param>
         public static void Discolor(this DataGridView dataGrid)
         {
             for (int i = 0; i < dataGrid.RowCount; i++)
@@ -152,7 +157,6 @@ namespace SheduleEditorV6
                     ToTwoWeeks(dataGrid, row - row % 2);
                     dataGrid[0, row].Style.BackColor = colorDark;
                     dataGrid[3, row].Style.BackColor = colorDark;
-
                 }
                 else
                 {
@@ -162,23 +166,9 @@ namespace SheduleEditorV6
             }
             else
             {
-                //if(academicClass.SubGroup == SubGroups.First)
-                //{
                 if (academicClass.Hours <= 36) // раз в 2 недели
                 {
                     ToTwoGroupsAndTwoWeeks(dataGrid, row - row % 2);
-                    //if (academicClass.SubGroup == SubGroups.First && col < 2)
-                    //{
-                    //    dataGrid[0, row].Style.BackColor = colorDark;
-                    //    dataGrid[1, row].Style.BackColor = colorDark;
-                    //    //dataGrid[0, row].Style.BackColor = colorDark;
-                    //    //dataGrid[3, row].Style.BackColor = colorDark;
-                    //}
-                    //else if(academicClass.SubGroup == SubGroups.Second && col >= 2)
-                    //{
-                    //    dataGrid[2, row].Style.BackColor = colorDark;
-                    //    dataGrid[3, row].Style.BackColor = colorDark;
-                    //}
                     if (academicClass.SubGroup == SubGroups.First && col < 2 ||
                         academicClass.SubGroup == SubGroups.Second && col >= 2)
                     {
@@ -189,18 +179,6 @@ namespace SheduleEditorV6
                 else
                 {
                     ToTwoGrops(dataGrid, row - row % 2);
-                    //int anotherCol;
-                    //if (col > 1)
-                    //{
-                    //    anotherCol = 1 + 2 - col % 2;
-                    //}
-                    //else
-                    //{
-                    //    anotherCol = 1 - col;
-                    //}
-                    //dataGrid[col, row - row % 2].Style.BackColor = colorDark;
-                    //dataGrid[anotherCol, row - row % 2].Style.BackColor = colorDark;
-
                     if (academicClass.SubGroup == SubGroups.First && col < 2 ||
                         academicClass.SubGroup == SubGroups.Second && col >= 2)
                     {
@@ -208,11 +186,52 @@ namespace SheduleEditorV6
                         dataGrid[col + (col % 2 + 1) % 2, row - row % 2].Style.BackColor = colorDark;
                     }
                 }
-                //}
-                //else if(academicClass.SubGroup == SubGroups.Second)
-                //{
+            }
+        }
 
-                //}
+        public static void HighlightError(this DataGridView dataGrid, ScheduleError error)
+        {
+            Color colorError = Color.FromArgb(204, 102, 102);
+            colorError = Color.FromArgb(222, 62, 53);
+            colorError = Color.FromArgb(227, 67, 52);
+            colorError = Color.FromArgb(235, 110, 99);
+            //colorError = Color.Red;
+            var academicClass = error.ScheduleRow[error.col, error.row];
+            var row = ((int)error.ScheduleRow.WeekDay - 1) * 8 + (error.ScheduleRow.ClassNumber - 1) * 2 + error.row - 1;
+            var col = error.col;
+            if (error.ScheduleRow[error.col, error.row].Type == ClassTypes.Lecture)
+            {
+                if (academicClass.Hours <= 36) // раз в 2 недели
+                {
+                    dataGrid[0, row].Style.BackColor = colorError;
+                    dataGrid[3, row].Style.BackColor = colorError;
+                }
+                else
+                {
+                    dataGrid[0, row - row % 2].Style.BackColor = colorError;
+                    dataGrid[3, row - row % 2].Style.BackColor = colorError;
+                }
+            }
+            else
+            {
+                if (academicClass.Hours <= 36) // раз в 2 недели
+                {
+                    if (academicClass.SubGroup == SubGroups.First && col < 2 ||
+                        academicClass.SubGroup == SubGroups.Second && col >= 2)
+                    {
+                        dataGrid[col - col % 2, row].Style.BackColor = colorError;
+                        dataGrid[col + (col % 2 + 1) % 2, row].Style.BackColor = colorError;
+                    }
+                }
+                else
+                {
+                    if (academicClass.SubGroup == SubGroups.First && col < 2 ||
+                        academicClass.SubGroup == SubGroups.Second && col >= 2)
+                    {
+                        dataGrid[col - col % 2, row - row % 2].Style.BackColor = colorError;
+                        dataGrid[col + (col % 2 + 1) % 2, row - row % 2].Style.BackColor = colorError;
+                    }
+                }
             }
         }
     }

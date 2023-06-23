@@ -11,6 +11,14 @@ using SpannedDataGridView;
 using ScheduleEditorClassLibrary;
 using Newtonsoft.Json;
 using System.IO;
+using System.Runtime.InteropServices.ComTypes;
+using System.Reflection;
+//using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+//using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+//using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+//using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+//using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+//using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace SheduleEditorV6
 {
@@ -19,17 +27,21 @@ namespace SheduleEditorV6
         FacultyGroups facultyGroups; // данные на входе
         Schedule schedule; // данные в процессе
         public List<Teacher> teachers; //учителя
-        string activeGroupeTitle; 
+        string activeGroupeTitle;
         public List<Audience> audiences;
         string curDir = Environment.CurrentDirectory;
         List<ScheduleError> errors;
+        bool isFormLoaded;
+        ToolTip toolTipeqqq, toolTip;
+        string curToolTipText = "";
+
         public FormMain()
         {
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
-            
+
             facultyGroups = JsonConvert.DeserializeObject<FacultyGroups>(File.ReadAllText(curDir + @"\..\..\..\schedule_in.json"));
-            teachers = JsonConvert.DeserializeObject<List<Teacher>>(File.ReadAllText(curDir + @"\..\..\..\teachers1.json"));
+            teachers = JsonConvert.DeserializeObject<List<Teacher>>(File.ReadAllText(curDir + @"\..\..\..\teachers_prefs.json"));
             schedule = new Schedule(facultyGroups.Groups.Select(group => group.Title).ToList());
             using (StreamReader file = new StreamReader(curDir + @"\..\..\..\audiences.json"))
             {
@@ -39,30 +51,42 @@ namespace SheduleEditorV6
 
         private void FormMain_Load(object sender, EventArgs e)
         {
+            toolTip = new ToolTip(this.components);
+            toolTip.AutoPopDelay = 5000; // Задержка автоматического закрытия подсказки (5 секунд)
+            toolTip.InitialDelay = 500; // Задержка перед отображением подсказки (0,5 секунды)
+            toolTip.ReshowDelay = 500; // Задержка перед повторным отображением подсказки (0,5 секунды)
+                                       //toolTip.ShowAlways = true; // Подсказка будет отображаться всегда, даже если элемент не перекрыт
+
+            this.toolTipeqqq = new System.Windows.Forms.ToolTip(this.components);
+
+            errors = new List<ScheduleError>();
+            listViewErrors.Columns.Add("№");
             listViewErrors.Columns.Add("Тип ошибки");
-            listViewErrors.Columns.Add("Сведения");
-            listViewErrors.Columns.Add("Еще сведелния");
-            listViewErrors.Columns.Add("Какая-то цифра");
+            listViewErrors.Columns.Add("Группа");
+            listViewErrors.Columns.Add("Сообщение");
             listViewErrors.Font = new Font(FontFamily.GenericSansSerif, 12);
             for (int i = 0; i < 4; i++)
             {
-                listViewErrors.Columns[i].Width = 140;
+                listViewErrors.Columns[i].Width = 90;
             }
+            listViewErrors.Columns[1].Width = 260;
+            listViewErrors.Columns[3].Width += listViewErrors.Width - listViewErrors.Columns.Cast<ColumnHeader>().Sum(column => column.Width);
             listViewErrors.FullRowSelect = true;
             listViewErrors.MouseDoubleClick += new MouseEventHandler(listViewErrors_MouseDoubleClick);
             tabControlGroups.SelectedIndexChanged += new EventHandler(tabControlGroups_SelectedIndexChanged);
+
             BuildSchedule();
             BuildAndFillLessons();
             dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
-            
-            FillErrors();
+
+            UpdateErrors();
+            isFormLoaded = true;
+            toolTipeqqq.SetToolTip(tabControlGroups.SelectedTab.Controls[0] as ListView, "ненавижу всех");
+            toolTipeqqq.ShowAlways = true;
         }
 
         public void BuildSchedule()
         {
-            //dataGridViewSchedule.Height = this.Height - 40;
-            //dataGridViewSchedule.Width  = this.Width;
-            //dataGridViewSchedule.RowTemplate.Height = 23;
             for (int i = 0; i < 4; i++)
             {
                 dataGridViewSchedule.Columns.Add(new SpannedDataGridView.DataGridViewTextBoxColumnEx());
@@ -89,36 +113,7 @@ namespace SheduleEditorV6
             dataGridViewSchedule.DefaultCellStyle.SelectionForeColor = dataGridViewSchedule.DefaultCellStyle.ForeColor;
 
         }
-        #region
-        //public void BuildLessonsTabPages()
-        //{
-        //    TabPage tabPage;
-        //    for (int r = 0; r < 5; r++)
-        //    {
-        //        tabPage = new TabPage("hmm");
-        //        tabControlGroups.Controls.Add(tabPage);
-        //    }
 
-        //    for (int r = 0; r < tabControlGroups.Controls.Count; r++)
-        //    {
-        //        ListView listViewSubjects = new ListView();
-        //        listViewSubjects.View = View.Details;
-        //        //listViewSubjects.BackColor = Color.Red;
-        //        tabControlGroups.Controls[r].Controls.Add(listViewSubjects);
-        //        listViewSubjects.Dock = DockStyle.Fill;
-        //        listViewSubjects.Columns.Add("Дисциплина");
-        //        listViewSubjects.Columns.Add("Преподователь");
-        //        listViewSubjects.Columns.Add("Тип занятия");
-        //        listViewSubjects.Columns.Add("Кол-во часов");
-        //        listViewSubjects.Columns[0].Width = 220;
-        //        listViewSubjects.Columns[1].Width = 150;
-        //        listViewSubjects.Columns[2].Width = 150;
-        //        listViewSubjects.Columns[3].Width = 150;
-        //        listViewSubjects.Font = new Font(FontFamily.GenericSansSerif, 12);
-
-        //    }
-        //}
-        #endregion
         public TabPage MakeClassesTabPage(string title = "")
         {
             TabPage tabPage = new TabPage(title);
@@ -138,6 +133,7 @@ namespace SheduleEditorV6
             listViewSubjects.Columns[3].Width = 150;
             listViewSubjects.Columns[4].Width = 150;
             listViewSubjects.Font = new Font(FontFamily.GenericSansSerif, 12);
+            listViewSubjects.MouseMove += ListView1_MouseMove;
             tabPage.Controls.Add(listViewSubjects);
             return tabPage;
         }
@@ -155,9 +151,9 @@ namespace SheduleEditorV6
                 {
                     ListViewItem lvi = new ListViewItem(acadClass.ClassTitle);
                     lvi.SubItems.Add(acadClass.Teacher.ToString());
-                    lvi.SubItems.Add(acadClass.Type.ToString());
+                    lvi.SubItems.Add(acadClass.Type.GetDescription());
                     lvi.SubItems.Add(acadClass.Hours.ToString());
-                    lvi.SubItems.Add(acadClass.SubGroup.ToString());
+                    lvi.SubItems.Add(acadClass.SubGroup.GetDescription());
                     (tabPage.Controls[0] as ListView).Items.Add(lvi);
                     lvi.Tag = acadClass;
                 }
@@ -168,17 +164,26 @@ namespace SheduleEditorV6
             }
         }
 
-        public void FillErrors()
+        public void UpdateErrors()
         {
+            listViewErrors.Items.Clear();
             ListViewItem lvi;
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 1; i++)
             {
                 lvi = new ListViewItem("Error");
                 lvi.SubItems.Add("very");
                 lvi.SubItems.Add("bad");
                 lvi.SubItems.Add(i.ToString());
-                listViewErrors.ContextMenuStrip = new ContextMenuStrip();
-
+                listViewErrors.Items.Add(lvi);
+            }
+            for (int i = 0; i < errors.Count; i++)
+            {
+                lvi = new ListViewItem((i + 1).ToString());
+                lvi.SubItems.Add(errors[i].Type.GetDescription());
+                lvi.SubItems.Add(errors[i].GroupTitle);
+                lvi.SubItems.Add(errors[i].Message);
+                lvi.Tag = errors[i];
+                lvi.BackColor = Color.FromArgb(247, 193, 188);
                 listViewErrors.Items.Add(lvi);
             }
         }
@@ -215,21 +220,11 @@ namespace SheduleEditorV6
 
             File.WriteAllText("qqq.json", JsonConvert.SerializeObject(facultyGroups));
         }
-        //public void GenerateTeachers()
-        //{
-        //    Random random = new Random();
-        //    var teachers = new List<TeacherPreference>();
-        //    for (int i = 0; i < 30; i++)
-        //    {
-        //        var pref = new TeacherPreference($"Teacher {i}");
-        //        for (int r = 0; r < 3; r++)
-        //        {
-        //            pref.Preferences.Add(new Preference((WeekDays)random.Next(7), random.Next(1, 5)));
-        //        }
-        //        teachers.Add(pref);
-        //    }
-        //    File.WriteAllText("teachers2.json", JsonConvert.SerializeObject(teachers));
-        //}
+
+        void save()
+        {
+            File.WriteAllText(Environment.CurrentDirectory + @"\..\..\..\schedule_temp.json", JsonConvert.SerializeObject(schedule));
+        }
 
         private void TeacherPreferencesToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -241,16 +236,19 @@ namespace SheduleEditorV6
         {
             try
             {
-                //DataGridView.HitTestInfo info = .HitTest(e.X, e.Y);
-                //string aud = dataGridViewAudience[info.ColumnIndex, info.RowIndex].Value.ToString();
                 var lv = sender as ListView;
                 var lvi = lv.GetItemAt(e.X, e.Y);
-                lv.DoDragDrop(lvi.Tag, DragDropEffects.Move);
+                var res = lv.DoDragDrop(lvi.Tag, DragDropEffects.Move);
+                if (res != DragDropEffects.None)
+                {
+                    lv.Items.Remove(lvi);
+                }
             }
             catch (Exception)
             { }
             dataGridViewSchedule.Discolor();
             dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
+            checkErrors();
         }
 
         private void dataGridViewSchedule_DragEnter(object sender, DragEventArgs e)
@@ -264,26 +262,50 @@ namespace SheduleEditorV6
             if (info.RowIndex == -1) return;
         }
 
+        void checkErrors()
+        {
+            var newErrors = new List<ScheduleError>();
+            for (int i = 0; i < errors.Count; i++)
+            {
+                try
+                {
+                    var res = schedule.IsTeacherAvaible(errors[i].GroupTitle,
+                        ((int)errors[i].ScheduleRow.WeekDay - 1) * 8 + errors[i].row,
+                        errors[i].col, errors[i].ScheduleRow[errors[i].col, errors[i].row],
+                        teachers.Find(teacher => teacher.Name == errors[i].ScheduleRow[errors[i].col, errors[i].row].Teacher.Name));
+                    if (res == errors[i].Type)
+                    {
+                        newErrors.Add(errors[i]);
+                        dataGridViewSchedule.HighlightError(errors[i]);
+                    }
+                }
+                catch (Exception)
+                { }
+            }
+            errors = new List<ScheduleError>(newErrors);
+        }
         private void dataGridViewSchedule_DragDrop(object sender, DragEventArgs e)
         {
-            //var li = e.Data.GetData(typeof(ListViewItem)) as ListViewItem;
-            //var acadClass = e.Data.GetData(typeof(ListViewItem)) as ListViewItem;
-            //int a = 0;
-
+            if (e.Effect == DragDropEffects.None)
+            {
+                int q = 0;
+            }
             var info = dataGridViewSchedule.HitTest(e.X, e.Y);
             if (info.RowIndex == -1) return;
-            var res = schedule.IsTeacherAvaible(activeGroupeTitle, info.RowIndex - 2, info.ColumnIndex, e.Data.GetData(typeof(AcademicClass)) as AcademicClass);
-            //var res2 = MessageBox.Show("Препод занят. Все равно добавить?", "Предупреждение", MessageBoxButtons.YesNo);
-            if(res!= Results.TypeMismatch)
+            var resTeacher = schedule.IsTeacherAvaible(activeGroupeTitle, info.RowIndex - 2, info.ColumnIndex, e.Data.GetData(typeof(AcademicClass)) as AcademicClass,
+                teachers.Where(teacher => teacher.Name == (e.Data.GetData(typeof(AcademicClass)) as AcademicClass).Teacher.Name).First());
+            //var resAudience = MessageBox.Show("Препод занят. Все равно добавить?", "Предупреждение", MessageBoxButtons.YesNo);
+            if (resTeacher != Results.TypeMismatch)
             {
                 var f = new FormChooseAudience(this);
 
                 f.ShowDialog();
-                //while (f.i)
                 int aud;
-                if(f.DialogResult == DialogResult.OK )
+                Results resAudience = Results.Available;
+                if (f.DialogResult == DialogResult.OK)
                 {
                     aud = f.num;
+                    resAudience = schedule.IsAudienceAvaible(activeGroupeTitle, info.RowIndex - 2, info.ColumnIndex, e.Data.GetData(typeof(AcademicClass)) as AcademicClass, aud);
                 }
                 else
                 {
@@ -291,33 +313,64 @@ namespace SheduleEditorV6
                 }
 
                 schedule.PutData(activeGroupeTitle, info.RowIndex - 2, info.ColumnIndex, e.Data.GetData(typeof(AcademicClass)) as AcademicClass, aud);
+                if (resTeacher != Results.Available)
+                {
+                    var weekDay = (DayOfWeek)(info.RowIndex / 8 + 1);
+                    var сlassNumber = (info.RowIndex - 2 - ((int)weekDay - 1) * 8) / 2 + 1; // [1 - 4]
+                    errors.Add(new ScheduleError(resTeacher, activeGroupeTitle, schedule[activeGroupeTitle][weekDay, сlassNumber], info.ColumnIndex / 2 + 1, info.RowIndex % 2 + 1, $"Ошибка в {weekDay} на {сlassNumber} паре")); ;
+                    UpdateErrors();
+                }
+                if (resAudience != Results.Available)
+                {
+                    var weekDay = (DayOfWeek)(info.RowIndex / 8 + 1);
+                    var сlassNumber = (info.RowIndex - ((int)weekDay - 1) * 8) / 2 + 1; // [1 - 4]
+                    errors.Add(new ScheduleError(resAudience, activeGroupeTitle, schedule[activeGroupeTitle][weekDay, сlassNumber], info.ColumnIndex / 2 + 1, info.RowIndex % 2 + 1, $"Ошибка в {weekDay} на {сlassNumber} паре"));
+                    UpdateErrors();
+                }
+                checkErrors();
                 dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
+                save();
             }
-            listViewErrors.Items[1].SubItems[0].Text = $"r{info.RowIndex} c{info.ColumnIndex} res{res.ToString()}";
+            else
+            {
+                MessageBox.Show("Выбранная пара не относится к этой подгруппе");
+            }
+            listViewErrors.Items[0].SubItems[1].Text = $"r{info.RowIndex} c{info.ColumnIndex} resTeacher {resTeacher.ToString()}";
         }
 
         private void listViewErrors_MouseDown(object sender, MouseEventArgs e)
         {
-
+            //activeGroupeTitle = listViewErrors.GetItemAt(e.X, e.Y).SubItems[2].Text;
+            //dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
+            //tabControlGroups.SelectedTab = tabControlGroups.TabPages.Cast<TabPage>().FirstOrDefault(tab => tab.Text == activeGroupeTitle);
         }
 
         private void dataGridViewSchedule_DragOver(object sender, DragEventArgs e)
         {
             var info = dataGridViewSchedule.HitTest(e.X, e.Y);
             if (info.RowIndex == -1) return;
-            //get_row_col(e.X, e.Y);
-            //dataGridViewSchedule[info.ColumnIndex, info.RowIndex].Value = "hmm";
             listViewErrors.Items[0].SubItems[0].Text = $"row {info.RowIndex} col {info.ColumnIndex}";
             dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
+            // уберу весь текст для красивой подсветки
+            var row = info.RowIndex - 2 - info.RowIndex % 2;
+            dataGridViewSchedule[0, row].Value = "";
+            dataGridViewSchedule[0, row + 1].Value = "";
+            dataGridViewSchedule[1, row].Value = "";
+            dataGridViewSchedule[1, row + 1].Value = "";
+            dataGridViewSchedule[2, row].Value = "";
+            dataGridViewSchedule[2, row + 1].Value = "";
+            dataGridViewSchedule[3, row].Value = "";
+            dataGridViewSchedule[3, row + 1].Value = "";
             dataGridViewSchedule.HighlightRow(info.RowIndex - 2, info.ColumnIndex, e.Data.GetData(typeof(AcademicClass)) as AcademicClass);
         }
 
         private void dataGridViewSchedule_DragLeave(object sender, EventArgs e)
         {
-            dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
             dataGridViewSchedule.Discolor();
+            dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
+            checkErrors();
         }
-
+        #region моя функция get info
         //void get_row_col(int x, int y)
         //{
         //    var info = dataGridViewSchedule.HitTest(x, y);
@@ -328,24 +381,201 @@ namespace SheduleEditorV6
         //    listViewErrors.Items[1].SubItems[0].Text = $"row {row} col -6-{locationOnForm.Y}";
 
         //}
+        #endregion
         private void listViewErrors_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            var a = listViewErrors.FocusedItem;
+            //var cur_item = listViewErrors.FocusedItem;
+            //activeGroupeTitle = (cur_item.Tag as ScheduleError).GroupTitle;
+            //dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
+            activeGroupeTitle = listViewErrors.GetItemAt(e.X, e.Y).SubItems[2].Text;
+            dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
+            tabControlGroups.SelectedTab = tabControlGroups.TabPages.Cast<TabPage>().FirstOrDefault(tab => tab.Text == activeGroupeTitle);
+
         }
         private void tabControlGroups_SelectedIndexChanged(object sender, EventArgs e)
         {
             activeGroupeTitle = tabControlGroups.SelectedTab.Text;
             dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
-            //MessageBox.Show(activeGroupeTitle);
         }
 
         private void dataGridViewSchedule_MouseUp(object sender, MouseEventArgs e)
         {
             //var info = dataGridViewSchedule.HitTest(e.X, e.Y);
             //if (info.RowIndex == -1) return;
-            //var res = schedule.IsTeacherAvaible(activeGroupeTitle, info.RowIndex, info.ColumnIndex, e.Data.GetData(typeof(AcademicClass)) as AcademicClass);
-            //var res2 = MessageBox.Show("Препод занят. Все равно добавить?", "Предупреждение", MessageBoxButtons.YesNo);
-            //MessageBox.Show(res.ToString() + ' ' + res2.ToString());
+            //var resTeacher = schedule.IsTeacherAvaible(activeGroupeTitle, info.RowIndex, info.ColumnIndex, e.Data.GetData(typeof(AcademicClass)) as AcademicClass);
+            //var resAudience = MessageBox.Show("Препод занят. Все равно добавить?", "Предупреждение", MessageBoxButtons.YesNo);
+            //MessageBox.Show(resTeacher.ToString() + ' ' + resAudience.ToString());
         }
+
+
+        private void loadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //OpenFileDialog openFileDialog1 = new OpenFileDialog();
+
+            //openFileDialog1.Filter = "json files (*.json)|*.json|All files (*.*)|*.*";
+            //openFileDialog1.FilterIndex = 1;
+            //openFileDialog1.RestoreDirectory = true;
+
+            //if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            //{
+            //    MessageBox.Show(openFileDialog1.FileName);
+            //}
+            MessageBox.Show("Вы успешно загрузили данные!");
+        }
+
+        private void новоеРасписаниеToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            //openFileDialog1.Filter = "json files (*.json)|*.json|All files (*.*)|*.*";
+            //openFileDialog1.FilterIndex = 1;
+            //openFileDialog1.RestoreDirectory = true;
+            //openFileDialog1.AddExtension = true;
+            //openFileDialog1.Title = "Создайте файл";
+            ////CreateFi
+            //if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            //{
+            //    MessageBox.Show(openFileDialog1.FileName);
+            //}
+            #region диалог
+            //SaveFileDialog saveFileDialog = new SaveFileDialog();
+
+            //// Настройка параметров диалогового окна
+            //saveFileDialog.Filter = "Текстовые файлы (*.txt)|*.txt|Все файлы (*.*)|*.*";
+            //saveFileDialog.Title = "Создать файл";
+            //saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+            //// Отображение диалогового окна и обработка результата
+            //if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            //{
+            //    string filePath = saveFileDialog.FileName;
+            //    //В этом месте вы можете использовать filePath для создания файла или выполнения нужных действий
+            //    // например, можно использовать StreamWriter для записи в файл
+            //    using (StreamWriter writer = new StreamWriter(filePath))
+            //    {
+            //        writer.WriteLine("Пример текста");
+            //    }
+            //}
+            #endregion
+            MessageBox.Show("Это конечно можно, но не сейчас.");
+        }
+
+        private void dataGridViewSchedule_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            var cell = (sender as DataGridView).CurrentCell;
+            var row = cell.RowIndex;
+            var col = cell.ColumnIndex;
+            var weekDay = (DayOfWeek)(row / 8 + 1);
+            var сlassNumber = (row - ((int)weekDay - 1) * 8) / 2 + 1; // [1 - 4]
+            var acadClass = schedule[activeGroupeTitle][weekDay, сlassNumber][1 + (col < 2 ? 0 : 1), 1 + (row % 2)];
+            ListViewItem lvi = new ListViewItem(acadClass.ClassTitle);
+            lvi.SubItems.Add(acadClass.Teacher.ToString());
+            lvi.SubItems.Add(acadClass.Type.GetDescription());
+            lvi.SubItems.Add(acadClass.Hours.ToString());
+            lvi.SubItems.Add(acadClass.SubGroup.GetDescription());
+            lvi.Tag = acadClass;
+            (tabControlGroups.SelectedTab.Controls[0] as ListView).Items.Add(lvi);
+            schedule[activeGroupeTitle][weekDay, сlassNumber].ClearCell(1 + (col < 2 ? 0 : 1), 1 + (row % 2));
+            dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
+            checkErrors();
+        }
+
+        private void dataGridViewSchedule_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+        }
+
+        private void UploadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Расписание отправлено в БД!");
+        }
+
+        private void hmmToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var f = new FormSurprise();
+            f.Show();
+        }
+        #region another GetDescription
+        //public static string GetDescription<T>(this T enumerationValue)
+        //    where T : struct
+        //{
+        //    Type type = enumerationValue.GetType();
+        //    if (!type.IsEnum)
+        //    {
+        //        throw new ArgumentException("EnumerationValue must be of Enum type", "enumerationValue");
+        //    }
+
+        //    //Tries to find row DescriptionAttribute for row potential friendly name
+        //    //for the enum
+        //    MemberInfo[] memberInfo = type.GetMember(enumerationValue.ToString());
+        //    if (memberInfo != null && memberInfo.Length > 0)
+        //    {
+        //        object[] attrs = memberInfo[0].GetCustomAttributes(typeof(DescriptionAttribute), false);
+
+        //        if (attrs != null && attrs.Length > 0)
+        //        {
+        //            //Pull out the description value
+        //            return ((DescriptionAttribute)attrs[0]).Description;
+        //        }
+        //    }
+        //    //If we have no description attribute, just return the ToString of the enum
+        //    return enumerationValue.ToString();
+        //}
+        #endregion
+
+        private void ListView1_MouseMove(object sender, MouseEventArgs e)
+        {
+            // Получаем элемент, на котором находится курсор мыши
+            ListViewItem item = (tabControlGroups.SelectedTab.Controls[0] as ListView).GetItemAt(e.X, e.Y);
+            if (item != null && curToolTipText != item.SubItems[0].Text)
+            {
+                // Получаем значение первого SubItem
+                curToolTipText = item.SubItems[0].Text;
+                // Устанавливаем текст подсказки для элемента списка
+                //toolTipeqqq.SetToolTip((tabControlGroups.SelectedTab.Controls[0] as ListView), curToolTipText);
+                toolTipeqqq.Show(curToolTipText, (tabControlGroups.SelectedTab.Controls[0] as ListView));
+                toolTipeqqq.ShowAlways = true;
+            }
+            else
+            {
+                // Если курсор мыши не наведен на элемент списка, очищаем текст подсказки
+                //toolTipeqqq.SetToolTip((tabControlGroups.SelectedTab.Controls[0] as ListView), string.Empty);
+            }
+        }
+
+        #region не работающие события мыши
+        void listView_MouseHover(object sender, EventArgs e)
+        {
+            var lv = tabControlGroups.SelectedTab.Controls[0] as ListView;/*(sender as ListView).Get*/
+            ListViewItem item = lv.GetItemAt(Cursor.Position.X, Cursor.Position.Y);
+            if (item != null)
+            {
+                toolTipeqqq.SetToolTip(lv, item.SubItems[0].Text); //(lv, );
+            }
+        }
+
+        private void ListViewItem_MouseEnter(object sender, EventArgs e)
+        {
+            ListViewItem item = sender as ListViewItem;
+            if (item != null)
+            {
+                // Получаем значение первого SubItem
+                string subItemText = item.SubItems[0].Text;
+
+                // Устанавливаем текст подсказки для элемента списка
+                toolTip.SetToolTip(tabControlGroups.SelectedTab.Controls[0] as ListView, subItemText);
+            }
+        }
+
+        private void ListViewItem_MouseLeave(object sender, EventArgs e)
+        {
+            // Очищаем текст подсказки при покидании элемента списка
+            toolTip.SetToolTip(tabControlGroups.SelectedTab.Controls[0] as ListView, string.Empty);
+        }
+
+        private void ListView1_MouseLeave(object sender, EventArgs e)
+        {
+            // При покидании ListView очищаем текст подсказки
+            toolTip.SetToolTip((tabControlGroups.SelectedTab.Controls[0] as ListView), string.Empty);
+        }
+        #endregion
     }
 }

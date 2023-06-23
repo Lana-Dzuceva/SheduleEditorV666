@@ -15,6 +15,10 @@ namespace ScheduleEditorClassLibrary
             Name = name;
             Preferences = new List<TeacherPreference>();
         }
+        public bool IsAvaible(DayOfWeek dayOfWeek, int lessonNumber)
+        {
+            return Preferences.Where(pref => pref.WeekDay == dayOfWeek && pref.LessonNumber == lessonNumber).Count() == 1;
+        }
         public override string ToString()
         {
             return Name;

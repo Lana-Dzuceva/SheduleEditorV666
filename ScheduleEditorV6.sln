@@ -9,6 +9,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScheduleEditorClassLibrary"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScheduleEditor", "ScheduleEditor\ScheduleEditor.csproj", "{E0D4CDEF-8EF8-436B-8A0F-D313B01DF13A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2191AAEF-88F9-465D-88E3-02511F2A310F}"
+	ProjectSection(SolutionItems) = preProject
+		general_icon.ico = general_icon.ico
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
