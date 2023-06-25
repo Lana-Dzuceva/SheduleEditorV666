@@ -46,7 +46,7 @@ namespace SheduleEditorV6
             facultyGroups = new FacultyGroups();
             facultyGroups.Fill(connectionString);
             teachers = JsonConvert.DeserializeObject<List<Teacher>>(File.ReadAllText(curDir + @"\..\..\..\teachers_prefs.json"));
-            if(File.Exists(Environment.CurrentDirectory + @"\..\..\..\schedule_temp.json"))
+            if(File.Exists(Environment.CurrentDirectory + @"\..\..\..\schedule_temp.json") && false)
             {
                 schedule = JsonConvert.DeserializeObject<Schedule>(File.ReadAllText(Environment.CurrentDirectory + @"\..\..\..\schedule_temp.json"));
             }
