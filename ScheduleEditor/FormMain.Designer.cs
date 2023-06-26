@@ -58,7 +58,8 @@
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 24);
+            this.splitContainer1.Location = new System.Drawing.Point(0, 30);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -68,8 +69,9 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer1.Size = new System.Drawing.Size(800, 426);
-            this.splitContainer1.SplitterDistance = 441;
+            this.splitContainer1.Size = new System.Drawing.Size(1067, 524);
+            this.splitContainer1.SplitterDistance = 588;
+            this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 0;
             // 
             // dataGridViewSchedule
@@ -83,10 +85,11 @@
             this.dataGridViewSchedule.ColumnHeadersVisible = false;
             this.dataGridViewSchedule.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewSchedule.Location = new System.Drawing.Point(0, 0);
+            this.dataGridViewSchedule.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dataGridViewSchedule.Name = "dataGridViewSchedule";
             this.dataGridViewSchedule.ReadOnly = true;
             this.dataGridViewSchedule.RowHeadersWidth = 51;
-            this.dataGridViewSchedule.Size = new System.Drawing.Size(441, 426);
+            this.dataGridViewSchedule.Size = new System.Drawing.Size(588, 524);
             this.dataGridViewSchedule.TabIndex = 0;
             this.dataGridViewSchedule.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewSchedule_CellContentDoubleClick);
             this.dataGridViewSchedule.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewSchedule_CellMouseDoubleClick);
@@ -100,6 +103,7 @@
             // 
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.splitContainer2.Name = "splitContainer2";
             this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -110,17 +114,19 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.listViewErrors);
-            this.splitContainer2.Size = new System.Drawing.Size(355, 426);
-            this.splitContainer2.SplitterDistance = 288;
+            this.splitContainer2.Size = new System.Drawing.Size(474, 524);
+            this.splitContainer2.SplitterDistance = 354;
+            this.splitContainer2.SplitterWidth = 5;
             this.splitContainer2.TabIndex = 0;
             // 
             // tabControlGroups
             // 
             this.tabControlGroups.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlGroups.Location = new System.Drawing.Point(0, 0);
+            this.tabControlGroups.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabControlGroups.Name = "tabControlGroups";
             this.tabControlGroups.SelectedIndex = 0;
-            this.tabControlGroups.Size = new System.Drawing.Size(355, 288);
+            this.tabControlGroups.Size = new System.Drawing.Size(474, 354);
             this.tabControlGroups.TabIndex = 0;
             // 
             // listViewErrors
@@ -129,8 +135,9 @@
             this.listViewErrors.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewErrors.HideSelection = false;
             this.listViewErrors.Location = new System.Drawing.Point(0, 0);
+            this.listViewErrors.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.listViewErrors.Name = "listViewErrors";
-            this.listViewErrors.Size = new System.Drawing.Size(355, 134);
+            this.listViewErrors.Size = new System.Drawing.Size(474, 165);
             this.listViewErrors.TabIndex = 2;
             this.toolTip1.SetToolTip(this.listViewErrors, "zdjnv;zdkm");
             this.listViewErrors.UseCompatibleStateImageBehavior = false;
@@ -149,60 +156,61 @@
             this.UploadToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(800, 24);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(1067, 30);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // хммToolStripMenuItem
             // 
             this.хммToolStripMenuItem.Name = "хммToolStripMenuItem";
-            this.хммToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.хммToolStripMenuItem.Size = new System.Drawing.Size(54, 26);
             this.хммToolStripMenuItem.Text = "Хмм";
             this.хммToolStripMenuItem.Click += new System.EventHandler(this.hmmToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(12, 20);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(14, 26);
             // 
             // предпочтенияУчителейToolStripMenuItem
             // 
             this.предпочтенияУчителейToolStripMenuItem.Name = "предпочтенияУчителейToolStripMenuItem";
-            this.предпочтенияУчителейToolStripMenuItem.Size = new System.Drawing.Size(191, 20);
+            this.предпочтенияУчителейToolStripMenuItem.Size = new System.Drawing.Size(244, 26);
             this.предпочтенияУчителейToolStripMenuItem.Text = "Предпочтения преподавателей";
             this.предпочтенияУчителейToolStripMenuItem.Click += new System.EventHandler(this.TeacherPreferencesToolStripMenuItem_Click);
             // 
             // новоеРасписаниеToolStripMenuItem
             // 
             this.новоеРасписаниеToolStripMenuItem.Name = "новоеРасписаниеToolStripMenuItem";
-            this.новоеРасписаниеToolStripMenuItem.Size = new System.Drawing.Size(122, 20);
+            this.новоеРасписаниеToolStripMenuItem.Size = new System.Drawing.Size(155, 26);
             this.новоеРасписаниеToolStripMenuItem.Text = "Новое расписание";
             this.новоеРасписаниеToolStripMenuItem.Click += new System.EventHandler(this.newScheduleToolStripMenuItem_Click);
             // 
             // loadToolStripMenuItem
             // 
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(117, 20);
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(148, 26);
             this.loadToolStripMenuItem.Text = "Загрузить данные";
             this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadDataToolStripMenuItem_Click);
             // 
             // UploadToolStripMenuItem
             // 
             this.UploadToolStripMenuItem.Name = "UploadToolStripMenuItem";
-            this.UploadToolStripMenuItem.Size = new System.Drawing.Size(120, 20);
+            this.UploadToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
             this.UploadToolStripMenuItem.Text = "Выгрузить данные";
             this.UploadToolStripMenuItem.Click += new System.EventHandler(this.UploadToolStripMenuItem_Click);
             // 
             // FormMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1067, 554);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "FormMain";
             this.Text = "Редактор расписания";
             this.Load += new System.EventHandler(this.FormMain_Load);

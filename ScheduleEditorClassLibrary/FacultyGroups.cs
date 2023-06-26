@@ -28,6 +28,32 @@ namespace ScheduleEditorClassLibrary
             Groups.Add(group);
         }
 
+        public static List<Teacher> GetTeachers(string connectionString)
+        {
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            connection.Open();
+            string databaseName = connection.Database;
+            string query = $"SELECT surname, name, patronimyc FROM {databaseName}.employees";
+            MySqlCommand command = new MySqlCommand(query, connection);
+            var reader = command.ExecuteReader();
+            var teachers = new List<Teacher>();
+
+            string teacherName;
+            while (reader.Read())
+            {
+                var surname = reader.GetValue(0);
+                var name = reader.GetValue(1);
+                var patronimyc = reader.GetValue(2);
+
+                teacherName = string.Format("{0} {1} {2}", surname, name, patronimyc);
+                teachers.Add(new Teacher(teacherName));
+            }
+            reader.Close();
+            connection.Close();
+
+            return teachers;
+        }
+
         public void Fill(string connectionString)
         {
             MySqlConnectionStringBuilder builder = new MySqlConnectionStringBuilder(connectionString);

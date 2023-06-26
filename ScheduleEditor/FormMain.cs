@@ -42,11 +42,15 @@ namespace SheduleEditorV6
             this.WindowState = FormWindowState.Maximized;
 
             //facultyGroups = JsonConvert.DeserializeObject<FacultyGroups>(File.ReadAllText(curDir + @"\..\..\..\schedule_in.json"));
-            connectionString = "server=localhost;database=db;user id=root;password=1234";
+            connectionString = "server=localhost;database=db;user id=root;password=";
             facultyGroups = new FacultyGroups();
             facultyGroups.Fill(connectionString);
+            //var q = facultyGroups.Groups.Select(group => group.Classes.Select(class_ => class_.Teacher).ToList()).Where(teachers => teachers.Count > 0).SelectMany(x => x).ToHashSet().ToList();
+            //var teachers = FacultyGroups.GetTeachers(connectionString);
+            //File.WriteAllText(Environment.CurrentDirectory + @"\..\..\..\teachers_prefs.json", JsonConvert.SerializeObject(teachers));
+            var qq = 0;
             teachers = JsonConvert.DeserializeObject<List<Teacher>>(File.ReadAllText(curDir + @"\..\..\..\teachers_prefs.json"));
-            if(File.Exists(Environment.CurrentDirectory + @"\..\..\..\schedule_temp.json") && false)
+            if (File.Exists(Environment.CurrentDirectory + @"\..\..\..\schedule_temp.json") && false)
             {
                 schedule = JsonConvert.DeserializeObject<Schedule>(File.ReadAllText(Environment.CurrentDirectory + @"\..\..\..\schedule_temp.json"));
             }
