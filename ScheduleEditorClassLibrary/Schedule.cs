@@ -11,6 +11,8 @@ namespace ScheduleEditorClassLibrary
 {
     public class Schedule
     {
+        public string Year { get; set; }
+        public int Semester { get; set; }
         public List<SGroup> Groups { get; set; }
 
         public Schedule(List<string> groupTitles)

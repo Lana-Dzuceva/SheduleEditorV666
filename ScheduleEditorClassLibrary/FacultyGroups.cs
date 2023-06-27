@@ -10,6 +10,8 @@ namespace ScheduleEditorClassLibrary
 {
     public class FacultyGroups
     {
+        public string Year { get; set; }
+        public int Semester { get; set; }
         public List<Group> Groups { get; set; }
 
         public FacultyGroups()
