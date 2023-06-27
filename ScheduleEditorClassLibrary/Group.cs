@@ -51,7 +51,17 @@ namespace ScheduleEditorClassLibrary
                 AcademicClass academicClass =
                     new AcademicClass(classTitle, new Teacher(teacherName), hours, classType, SubGroups.First);
 
-                Classes.Add(academicClass);
+                if (academicClass.Hours > 72 && academicClass.Hours % 72 == 0)
+                {
+                    int count = academicClass.Hours / 72;
+                    academicClass.Hours /= count;
+                    for (int i = 0; i < count; i++)
+                    {
+                        Classes.Add(academicClass);
+                    }
+                }
+                else
+                    Classes.Add(academicClass);
             }
         }
 
