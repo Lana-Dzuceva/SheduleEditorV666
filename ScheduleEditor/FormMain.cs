@@ -35,14 +35,17 @@ namespace SheduleEditorV6
         bool isFormLoaded;
         ToolTip toolTipeqqq, toolTip;
         string curToolTipText = "";
-
+        string lastGroupTitle;
         public FormMain()
         {
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
-
+            if (File.Exists(Environment.CurrentDirectory + @"\..\..\..\curAudience.txt"))
+            {
+                lastGroupTitle = File.ReadAllText(Environment.CurrentDirectory + @"\..\..\..\curAudience.txt");
+            }
             //facultyGroups = JsonConvert.DeserializeObject<FacultyGroups>(File.ReadAllText(curDir + @"\..\..\..\schedule_in.json"));
-            connectionString = "server=localhost;database=db;user id=root;password=";
+            connectionString = "server=localhost;database=db;user id=root;password=1234";
             facultyGroups = new FacultyGroups();
             facultyGroups.Fill(connectionString);
             //var q = facultyGroups.Groups.Select(group => group.Classes.Select(class_ => class_.Teacher).ToList()).Where(teachers => teachers.Count > 0).SelectMany(x => x).ToHashSet().ToList();
@@ -50,7 +53,7 @@ namespace SheduleEditorV6
             //File.WriteAllText(Environment.CurrentDirectory + @"\..\..\..\teachers_prefs.json", JsonConvert.SerializeObject(teachers));
             var qq = 0;
             teachers = JsonConvert.DeserializeObject<List<Teacher>>(File.ReadAllText(curDir + @"\..\..\..\teachers_prefs.json"));
-            if (File.Exists(Environment.CurrentDirectory + @"\..\..\..\schedule_temp.json") && false)
+            if (File.Exists(Environment.CurrentDirectory + @"\..\..\..\schedule_temp.json"))
             {
                 schedule = JsonConvert.DeserializeObject<Schedule>(File.ReadAllText(Environment.CurrentDirectory + @"\..\..\..\schedule_temp.json"));
             }
@@ -96,7 +99,7 @@ namespace SheduleEditorV6
 
             UpdateErrors();
             isFormLoaded = true;
-            toolTipeqqq.SetToolTip(tabControlGroups.SelectedTab.Controls[0] as ListView, "ненавижу всех");
+            toolTipeqqq.SetToolTip(tabControlGroups.SelectedTab.Controls[0] as ListView, "???");
             toolTipeqqq.ShowAlways = true;
         }
 
@@ -148,12 +151,25 @@ namespace SheduleEditorV6
             listViewSubjects.Columns[3].Width = 150;
             listViewSubjects.Columns[4].Width = 150;
             listViewSubjects.Font = new Font(FontFamily.GenericSansSerif, 12);
-            listViewSubjects.MouseMove += ListView1_MouseMove;
+            listViewSubjects.MouseMove += ListViewSubjects_MouseMove;
             tabPage.Controls.Add(listViewSubjects);
             return tabPage;
         }
+        bool IsAcademicClassUsed(AcademicClass academicClass, SGroup group)
+        {
+            foreach (var row in group.Rows)
+            {
+                if (row[1, 1] == academicClass ||
+                    row.CountOfWeeks == 2 && row[1, 2] == academicClass ||
+                    row.CountOfGroups == 2 && row[2, 1] == academicClass ||
+                    row.CountOfWeeks == 2 && row.CountOfGroups == 2 && row[2, 2] == academicClass)
+                    return true;
+            }
+            return false;
+        }
         public void BuildAndFillLessons()
         {
+            var lastSessionGroup = schedule[lastGroupTitle];
             TabPage tabPage;
             foreach (var group in facultyGroups.Groups)
             {
@@ -164,6 +180,8 @@ namespace SheduleEditorV6
                 tabPage = MakeClassesTabPage(group.Title);
                 foreach (var acadClass in group.Classes)
                 {
+                    if (lastGroupTitle == group.Title && IsAcademicClassUsed(acadClass, lastSessionGroup))
+                        continue;
                     ListViewItem lvi = new ListViewItem(acadClass.ClassTitle);
                     lvi.SubItems.Add(acadClass.Teacher.ToString());
                     lvi.SubItems.Add(acadClass.Type.GetDescription());
@@ -450,6 +468,7 @@ namespace SheduleEditorV6
             lvi.SubItems.Add(acadClass.Hours.ToString());
             lvi.SubItems.Add(acadClass.SubGroup.GetDescription());
             lvi.Tag = acadClass;
+
             (tabControlGroups.SelectedTab.Controls[0] as ListView).Items.Add(lvi);
             schedule[activeGroupeTitle][weekDay, сlassNumber].ClearCell(1 + (col < 2 ? 0 : 1), 1 + (row % 2));
             dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
@@ -499,7 +518,7 @@ namespace SheduleEditorV6
         //}
         #endregion
 
-        private void ListView1_MouseMove(object sender, MouseEventArgs e)
+        private void ListViewSubjects_MouseMove(object sender, MouseEventArgs e)
         {
             // Получаем элемент, на котором находится курсор мыши
             ListViewItem item = (tabControlGroups.SelectedTab.Controls[0] as ListView).GetItemAt(e.X, e.Y);
@@ -547,6 +566,11 @@ namespace SheduleEditorV6
         {
             // Очищаем текст подсказки при покидании элемента списка
             toolTip.SetToolTip(tabControlGroups.SelectedTab.Controls[0] as ListView, string.Empty);
+        }
+
+        private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            File.WriteAllText(Environment.CurrentDirectory + @"\..\..\..\curAudience.txt", activeGroupeTitle);
         }
 
         private void ListView1_MouseLeave(object sender, EventArgs e)
