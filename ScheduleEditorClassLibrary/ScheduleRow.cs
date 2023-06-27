@@ -34,7 +34,7 @@ namespace ScheduleEditorClassLibrary
         SAcademicClass group2week2;
         void setRowType(SAcademicClass academicClass)
         {
-            if (academicClass == null)
+            if (academicClass is null)
             {
                 RowType = RowTypes.Simple;
                 return;
@@ -143,6 +143,13 @@ namespace ScheduleEditorClassLibrary
             //items["group2week1"] = group2week1;
             //items["group2week2"] = group2week2;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="group">номер группы (1 или 2)</param>
+        /// <param name="week">номер недели (1 или 2)</param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         public AcademicClass this[int group, int week]
         {
             get
@@ -205,10 +212,10 @@ namespace ScheduleEditorClassLibrary
                         group2week2 = null;
                 }
             }
-            if (group1week1 == null &&
-                group1week2 == null &&
-                group2week1 == null &&
-                group2week2 == null)
+            if (group1week1 is null &&
+                group1week2 is null &&
+                group2week1 is null &&
+                group2week2 is null)
             {
                 RowType = RowTypes.Simple;
             }

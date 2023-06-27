@@ -34,5 +34,17 @@ namespace ScheduleEditorClassLibrary
             Type = @class.Type;
             SubGroup = @class.SubGroup;
         }
+        public static bool operator ==(AcademicClass academicClass1, AcademicClass academicClass2)
+        {
+            return academicClass1.ClassTitle == academicClass2.ClassTitle &&
+                academicClass1.Teacher == academicClass2.Teacher &&
+                academicClass1.Hours == academicClass2.Hours &&
+                academicClass1.Type == academicClass2.Type &&
+                academicClass1.SubGroup == academicClass2.SubGroup; 
+        }
+        public static bool operator !=(AcademicClass academicClass1, AcademicClass academicClass2)
+        {
+            return !(academicClass1 == academicClass2);
+        }
     }
 }
