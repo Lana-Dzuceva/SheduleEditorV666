@@ -22,47 +22,27 @@ namespace SheduleEditorV6
             this.formMain = formMain;
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
-            dataGridViewTable.RowTemplate.Height = 100;
-            for (int i = 0; i < 7; i++)
-            {
-                dataGridViewTable.Columns.Add(new SpannedDataGridView.DataGridViewTextBoxColumnEx());
-                
-            }
-            dataGridViewTable.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
-            dataGridViewTable.RowCount = 4;
-            dataGridViewTable.ColumnHeadersHeight = 40;
-            dataGridViewTable.DefaultCellStyle.SelectionBackColor = dataGridViewTable.DefaultCellStyle.BackColor;
-            dataGridViewTable.DefaultCellStyle.SelectionForeColor = dataGridViewTable.DefaultCellStyle.ForeColor;
-            dataGridViewTable.MouseDoubleClick += new MouseEventHandler(dataGridViewTable_MouseDoubleClick);
-            string[] weekDays = { "Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вск" };
-            for (int i = 0; i < 7; i++)
-            {
-                dataGridViewTable.Columns[i].HeaderCell.Value = weekDays[i];
-                for (int r = 0; r < dataGridViewTable.RowCount; r++)
-                {
-                    dataGridViewTable[i, r].Tag = new List<string>();
-                    dataGridViewTable[i, r].Value = "";
-                }
-            }
-            for (int i = 0; i < dataGridViewTable.RowCount; i++)
-            {
-                dataGridViewTable.Rows[i].HeaderCell.Value = (i + 1).ToString();
-            }
-            teachers = JsonConvert.DeserializeObject<List<Teacher>>(File.ReadAllText(Environment.CurrentDirectory + @"\..\..\..\teachers_prefs.json"));
-            foreach (var teacher in teachers)
-            {
-                listViewTeachers.Items.Add(new ListViewItem(teacher.Name));
-                foreach (var pref in teacher.Preferences)
-                {
-                    (dataGridViewTable[((int)pref.WeekDay + 7 - 1) % 7, pref.LessonNumber - 1].Tag as List<string>).Add(teacher.Name);
-                }
-            }
-            UpdateDGV();
         }
 
 
         public void UpdateDGV()
         {
+            // изменяю тэги
+            for (int i = 0; i < 7; i++)
+            {
+                for (int r = 0; r < dataGridViewTable.RowCount; r++)
+                {
+                    (dataGridViewTable[i, r].Tag as List<string>).Clear();
+                }
+            }
+            foreach (var teacher in teachers)
+            {
+                foreach (var pref in teacher.Preferences)
+                {
+                    (dataGridViewTable[((int)pref.WeekDay + 7 - 1) % 7, pref.LessonNumber - 1].Tag as List<string>).Add(teacher.Name);
+                }
+            }
+            // изменяю datagrid
             for (int i = 0; i < dataGridViewTable.ColumnCount; i++)
             {
                 for (int r = 0; r < dataGridViewTable.RowCount; r++)
@@ -98,8 +78,42 @@ namespace SheduleEditorV6
         }
         private void FormTeacherPreferences_Load(object sender, EventArgs e)
         {
-            //hmm();
             listViewTeachers.Items.Cast<List<ListViewItem>>();
+            dataGridViewTable.RowTemplate.Height = 150;
+            int w = dataGridViewTable.Width - dataGridViewTable.RowHeadersWidth;
+            for (int i = 0; i < 7; i++)
+            {
+                dataGridViewTable.Columns.Add(new SpannedDataGridView.DataGridViewTextBoxColumnEx());
+                dataGridViewTable.Columns[i].Width = (int)(w / 7.0);
+            }
+            dataGridViewTable.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            dataGridViewTable.RowCount = 4;
+            dataGridViewTable.ColumnHeadersHeight = 50;
+            dataGridViewTable.DefaultCellStyle.SelectionBackColor = dataGridViewTable.DefaultCellStyle.BackColor;
+            dataGridViewTable.DefaultCellStyle.SelectionForeColor = dataGridViewTable.DefaultCellStyle.ForeColor;
+            dataGridViewTable.MouseDoubleClick += new MouseEventHandler(dataGridViewTable_MouseDoubleClick);
+            string[] weekDays = { "Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вск" };
+            for (int i = 0; i < 7; i++)
+            {
+                dataGridViewTable.Columns[i].HeaderCell.Value = weekDays[i];
+                for (int r = 0; r < dataGridViewTable.RowCount; r++)
+                {
+                    dataGridViewTable[i, r].Tag = new List<string>();
+                    dataGridViewTable[i, r].Value = "";
+                }
+            }
+            var h = dataGridViewTable.Height - dataGridViewTable.ColumnHeadersHeight;
+            for (int i = 0; i < dataGridViewTable.RowCount; i++)
+            {
+                dataGridViewTable.Rows[i].HeaderCell.Value = (i + 1).ToString();
+                dataGridViewTable.Rows[i].Height = (int)(h * 1.0 / dataGridViewTable.RowCount);
+            }
+            teachers = JsonConvert.DeserializeObject<List<Teacher>>(File.ReadAllText(Environment.CurrentDirectory + @"\..\..\..\teachers_prefs.json"));
+            foreach (var teacher in teachers)
+            {
+                listViewTeachers.Items.Add(new ListViewItem(teacher.Name));
+            }
+            UpdateDGV();
         }
 
         private void dataGridViewTable_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -112,6 +126,25 @@ namespace SheduleEditorV6
         private void FormTeacherPreferences_FormClosing(object sender, FormClosingEventArgs e)
         {
             formMain.teachers = teachers;
+            formMain.checkErrors();
+        }
+
+        private void buttonAddAllPrefs_Click(object sender, EventArgs e)
+        {
+            var selectedTeacher = listViewTeachers.SelectedItems[0].Text;
+            //var prefs = teachers.Find(teacher => teacher.Name == selectedTeacher).Preferences;
+            //prefs.Clear();
+            var newPrefs = new List<TeacherPreference>();
+            for (int i = 1; i < 6; i++)
+            {
+                for (int r = 1; r < 5; r++)
+                {
+                    newPrefs.Add(new TeacherPreference((DayOfWeek)i, r));
+                }
+            }
+            teachers.Find(teacher => teacher.Name == selectedTeacher).Preferences = newPrefs;
+            UpdateDGV();
+            Save();
         }
     }
 }
