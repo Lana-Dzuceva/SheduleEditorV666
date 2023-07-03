@@ -43,13 +43,9 @@ namespace SheduleEditorV6
             {
                 lastGroupTitle = File.ReadAllText(Environment.CurrentDirectory + @"\..\..\..\curAudience.txt");
             }
-            //facultyGroups = JsonConvert.DeserializeObject<FacultyGroups>(File.ReadAllText(curDir + @"\..\..\..\schedule_in.json"));
             connectionString = "server=localhost;database=db;user id=root;password=1234";
             facultyGroups = new FacultyGroups();
             facultyGroups.Fill(connectionString);
-            //var q = facultyGroups.Groups.Select(group => group.Classes.Select(class_ => class_.Teacher).ToList()).Where(teachers => teachers.Count > 0).SelectMany(x => x).ToHashSet().ToList();
-            //var teachers = FacultyGroups.GetTeachers(connectionString);
-            //File.WriteAllText(Environment.CurrentDirectory + @"\..\..\..\teachers_prefs.json", JsonConvert.SerializeObject(teachers));
             teachers = JsonConvert.DeserializeObject<List<Teacher>>(File.ReadAllText(curDir + @"\..\..\..\teachers_prefs.json"));
             if (File.Exists(Environment.CurrentDirectory + @"\..\..\..\schedule_temp.json"))
             {
@@ -280,10 +276,6 @@ namespace SheduleEditorV6
 
         private void dataGridViewSchedule_DragEnter(object sender, DragEventArgs e)
         {
-            //if (e.Data.GetDataPresent(DataFormats.Text))
-            //    e.Effect = DragDropEffects.Copy;
-            //else
-            //    e.Effect = DragDropEffects.None;
             e.Effect = DragDropEffects.Move;
             var info = dataGridViewSchedule.HitTest(e.X, e.Y);
             if (info.RowIndex == -1) return;
@@ -320,7 +312,6 @@ namespace SheduleEditorV6
             if (info.RowIndex == -1) return;
             var resTeacher = schedule.IsTeacherAvaible(activeGroupeTitle, info.RowIndex - 2, info.ColumnIndex, e.Data.GetData(typeof(AcademicClass)) as AcademicClass,
                 teachers.Where(teacher => teacher.Name == (e.Data.GetData(typeof(AcademicClass)) as AcademicClass).Teacher.Name).First());
-            //var resAudience = MessageBox.Show("Препод занят. Все равно добавить?", "Предупреждение", MessageBoxButtons.YesNo);
             if (resTeacher != Results.TypeMismatch)
             {
                 var f = new FormChooseAudience(this);
@@ -364,12 +355,7 @@ namespace SheduleEditorV6
             //listViewErrors.Items[0].SubItems[1].Text = $"r{info.RowIndex} c{info.ColumnIndex} resTeacher {resTeacher.ToString()}";
         }
 
-        private void listViewErrors_MouseDown(object sender, MouseEventArgs e)
-        {
-            //activeGroupeTitle = listViewErrors.GetItemAt(e.X, e.Y).SubItems[2].Text;
-            //dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
-            //tabControlGroups.SelectedTab = tabControlGroups.TabPages.Cast<TabPage>().FirstOrDefault(tab => tab.Text == activeGroupeTitle);
-        }
+        
 
         private void dataGridViewSchedule_DragOver(object sender, DragEventArgs e)
         {
@@ -410,9 +396,6 @@ namespace SheduleEditorV6
         #endregion
         private void listViewErrors_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            //var cur_item = listViewErrors.FocusedItem;
-            //activeGroupeTitle = (cur_item.Tag as ScheduleError).GroupTitle;
-            //dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
             activeGroupeTitle = listViewErrors.GetItemAt(e.X, e.Y).SubItems[2].Text;
             dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
             tabControlGroups.SelectedTab = tabControlGroups.TabPages.Cast<TabPage>().FirstOrDefault(tab => tab.Text == activeGroupeTitle);
@@ -424,15 +407,7 @@ namespace SheduleEditorV6
             dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
         }
 
-        private void dataGridViewSchedule_MouseUp(object sender, MouseEventArgs e)
-        {
-            //var info = dataGridViewSchedule.HitTest(e.X, e.Y);
-            //if (info.RowIndex == -1) return;
-            //var resTeacher = schedule.IsTeacherAvaible(activeGroupeTitle, info.RowIndex, info.ColumnIndex, e.Data.GetData(typeof(AcademicClass)) as AcademicClass);
-            //var resAudience = MessageBox.Show("Препод занят. Все равно добавить?", "Предупреждение", MessageBoxButtons.YesNo);
-            //MessageBox.Show(resTeacher.ToString() + ' ' + resAudience.ToString());
-        }
-
+       
 
         private void loadDataToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -457,15 +432,7 @@ namespace SheduleEditorV6
             var acadClass = schedule[activeGroupeTitle][weekDay, сlassNumber][1 + (col < 2 ? 0 : 1), 1 + (row % 2)];
             facultyGroups[activeGroupeTitle].Add(acadClass);
             FillTabPage(tabControlGroups.SelectedTab, facultyGroups[activeGroupeTitle]);
-            
-            //ListViewItem lvi = new ListViewItem(acadClass.ClassTitle);
-            //lvi.SubItems.Add(acadClass.Teacher.ToString());
-            //lvi.SubItems.Add(acadClass.Type.GetDescription());
-            //lvi.SubItems.Add(acadClass.Hours.ToString());
-            //lvi.SubItems.Add(acadClass.SubGroup.GetDescription());
-            //lvi.Tag = acadClass;
-
-            //(tabControlGroups.SelectedTab.Controls[0] as ListView).Items.Add(lvi);
+          
             schedule[activeGroupeTitle][weekDay, сlassNumber].ClearCell(1 + (col < 2 ? 0 : 1), 1 + (row % 2));
             dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
             checkErrors();
@@ -474,7 +441,7 @@ namespace SheduleEditorV6
 
         private void UploadToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // Когда-нибудь Стас напишет нормальную функцию отправки в БД!
+            // Когда-нибудь Стас напишет нормальную функцию отправки в БД
             MessageBox.Show("Расписание отправлено в БД!");
         }
 
@@ -530,47 +497,5 @@ namespace SheduleEditorV6
                 //toolTipeqqq.SetToolTip((tabControlGroups.SelectedTab.Controls[0] as ListView), string.Empty);
             }
         }
-
-        #region не работающие события мыши
-        void listView_MouseHover(object sender, EventArgs e)
-        {
-            var lv = tabControlGroups.SelectedTab.Controls[0] as ListView;/*(sender as ListView).Get*/
-            ListViewItem item = lv.GetItemAt(Cursor.Position.X, Cursor.Position.Y);
-            if (item != null)
-            {
-                toolTipeqqq.SetToolTip(lv, item.SubItems[0].Text); //(lv, );
-            }
-        }
-
-        private void ListViewItem_MouseEnter(object sender, EventArgs e)
-        {
-            ListViewItem item = sender as ListViewItem;
-            if (item != null)
-            {
-                // Получаем значение первого SubItem
-                string subItemText = item.SubItems[0].Text;
-
-                // Устанавливаем текст подсказки для элемента списка
-                toolTip.SetToolTip(tabControlGroups.SelectedTab.Controls[0] as ListView, subItemText);
-            }
-        }
-
-        private void ListViewItem_MouseLeave(object sender, EventArgs e)
-        {
-            // Очищаем текст подсказки при покидании элемента списка
-            toolTip.SetToolTip(tabControlGroups.SelectedTab.Controls[0] as ListView, string.Empty);
-        }
-
-        private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            File.WriteAllText(Environment.CurrentDirectory + @"\..\..\..\curAudience.txt", activeGroupeTitle);
-        }
-
-        private void ListView1_MouseLeave(object sender, EventArgs e)
-        {
-            // При покидании ListView очищаем текст подсказки
-            toolTip.SetToolTip((tabControlGroups.SelectedTab.Controls[0] as ListView), string.Empty);
-        }
-        #endregion
     }
 }
