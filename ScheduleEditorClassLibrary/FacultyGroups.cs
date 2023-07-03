@@ -30,6 +30,10 @@ namespace ScheduleEditorClassLibrary
             Groups.Add(group);
         }
 
+        public Group this[string title]
+        {
+            get { return Groups.Find(group => group.Title == title); }
+        }
         public static List<Teacher> GetTeachers(string connectionString)
         {
             MySqlConnection connection = new MySqlConnection(connectionString);

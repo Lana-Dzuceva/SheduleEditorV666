@@ -114,14 +114,7 @@ namespace ScheduleEditorClassLibrary
             }
         }
 
-        //public Dictionary<string, ScheduleAcademicClass> Items
-        //{
-        //    get
-        //    {
-        //        return items;
-        //    }
-        //}
-
+    
         public ScheduleRow(DayOfWeek dayOfWeek, int classNumber)
         {
             WeekDay = dayOfWeek;    
@@ -133,11 +126,16 @@ namespace ScheduleEditorClassLibrary
             RowType = rowType;
             ClassNumber = classNumber;
             WeekDay = dayOfWeek;
-            Group1week1 = group1week1;
-            Group1week2 = group1week2;
-            Group2week1 = group2week1;
-            Group2week2 = group2week2;
-
+            if(!(group1week1 is null))
+                Group1week1 = group1week1;
+            if (!(group1week2 is null))
+                Group1week2 = group1week2;
+            if (!(group2week1 is null))
+                Group2week1 = group2week1;
+            if (!(group2week2 is null))
+                Group2week2 = group2week2;
+            if(group1week1 is null && group1week2 is null && group2week1 is null && group2week2 is null)
+                Group1week1 = group1week1;
             //items["group1week1"] = group1week1;
             //items["group1week2"] = group1week2;
             //items["group2week1"] = group2week1;
