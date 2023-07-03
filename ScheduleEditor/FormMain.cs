@@ -32,7 +32,6 @@ namespace SheduleEditorV6
         public List<Audience> audiences;
         string curDir = Environment.CurrentDirectory;
         List<ScheduleError> errors;
-        bool isFormLoaded;
         ToolTip toolTipeqqq, toolTip;
         string curToolTipText = "";
         string lastGroupTitle;
@@ -51,7 +50,6 @@ namespace SheduleEditorV6
             //var q = facultyGroups.Groups.Select(group => group.Classes.Select(class_ => class_.Teacher).ToList()).Where(teachers => teachers.Count > 0).SelectMany(x => x).ToHashSet().ToList();
             //var teachers = FacultyGroups.GetTeachers(connectionString);
             //File.WriteAllText(Environment.CurrentDirectory + @"\..\..\..\teachers_prefs.json", JsonConvert.SerializeObject(teachers));
-            var qq = 0;
             teachers = JsonConvert.DeserializeObject<List<Teacher>>(File.ReadAllText(curDir + @"\..\..\..\teachers_prefs.json"));
             if (File.Exists(Environment.CurrentDirectory + @"\..\..\..\schedule_temp.json"))
             {
@@ -98,7 +96,6 @@ namespace SheduleEditorV6
             dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
 
             UpdateErrors();
-            isFormLoaded = true;
             toolTipeqqq.SetToolTip(tabControlGroups.SelectedTab.Controls[0] as ListView, "???");
             toolTipeqqq.ShowAlways = true;
         }
@@ -157,9 +154,10 @@ namespace SheduleEditorV6
         }
         bool IsAcademicClassUsed(AcademicClass academicClass, SGroup group)
         {
+            return false; // потому что так надо
             foreach (var row in group.Rows)
             {
-                if (row[1, 1] == academicClass ||
+                if (!(row[1, 1] is null) && row[1, 1] == academicClass ||
                     row.CountOfWeeks == 2 && row[1, 2] == academicClass ||
                     row.CountOfGroups == 2 && row[2, 1] == academicClass ||
                     row.CountOfWeeks == 2 && row.CountOfGroups == 2 && row[2, 2] == academicClass)
@@ -167,9 +165,24 @@ namespace SheduleEditorV6
             }
             return false;
         }
-        public void BuildAndFillLessons()
+        void FillTabPage(TabPage tabPage, Group group)
         {
-            var lastSessionGroup = schedule[lastGroupTitle];
+            (tabPage.Controls[0] as ListView).Items.Clear();
+            foreach (var acadClass in group.Classes)
+            {
+                if (lastGroupTitle == group.Title && IsAcademicClassUsed(acadClass, schedule[lastGroupTitle]))
+                    continue;
+                ListViewItem lvi = new ListViewItem(acadClass.ClassTitle);
+                lvi.SubItems.Add(acadClass.Teacher.ToString());
+                lvi.SubItems.Add(acadClass.Type.GetDescription());
+                lvi.SubItems.Add(acadClass.Hours.ToString());
+                lvi.SubItems.Add(acadClass.SubGroup.GetDescription());
+                (tabPage.Controls[0] as ListView).Items.Add(lvi);
+                lvi.Tag = acadClass;
+            }
+        }
+        void BuildAndFillLessons()
+        {
             TabPage tabPage;
             foreach (var group in facultyGroups.Groups)
             {
@@ -178,18 +191,7 @@ namespace SheduleEditorV6
                     activeGroupeTitle = group.Title;
                 }
                 tabPage = MakeClassesTabPage(group.Title);
-                foreach (var acadClass in group.Classes)
-                {
-                    if (lastGroupTitle == group.Title && IsAcademicClassUsed(acadClass, lastSessionGroup))
-                        continue;
-                    ListViewItem lvi = new ListViewItem(acadClass.ClassTitle);
-                    lvi.SubItems.Add(acadClass.Teacher.ToString());
-                    lvi.SubItems.Add(acadClass.Type.GetDescription());
-                    lvi.SubItems.Add(acadClass.Hours.ToString());
-                    lvi.SubItems.Add(acadClass.SubGroup.GetDescription());
-                    (tabPage.Controls[0] as ListView).Items.Add(lvi);
-                    lvi.Tag = acadClass;
-                }
+                FillTabPage(tabPage, group);
                 (tabPage.Controls[0] as ListView).MouseDown += new System.Windows.Forms.MouseEventHandler(ListViewItem_MouseDown);
                 (tabPage.Controls[0] as ListView).MultiSelect = false;
                 (tabPage.Controls[0] as ListView).FullRowSelect = true;
@@ -201,14 +203,6 @@ namespace SheduleEditorV6
         {
             listViewErrors.Items.Clear();
             ListViewItem lvi;
-            for (int i = 0; i < 1; i++)
-            {
-                lvi = new ListViewItem("Error");
-                lvi.SubItems.Add("very");
-                lvi.SubItems.Add("bad");
-                lvi.SubItems.Add(i.ToString());
-                listViewErrors.Items.Add(lvi);
-            }
             for (int i = 0; i < errors.Count; i++)
             {
                 lvi = new ListViewItem((i + 1).ToString());
@@ -219,10 +213,6 @@ namespace SheduleEditorV6
                 lvi.BackColor = Color.FromArgb(247, 193, 188);
                 listViewErrors.Items.Add(lvi);
             }
-        }
-        public void DrawSchedule()
-        {
-
         }
         public void GenerateData()
         {
@@ -274,13 +264,17 @@ namespace SheduleEditorV6
                 var res = lv.DoDragDrop(lvi.Tag, DragDropEffects.Move);
                 if (res != DragDropEffects.None)
                 {
-                    lv.Items.Remove(lvi);
+                    //lv.Items.Remove(lvi);
+                    facultyGroups[activeGroupeTitle].Classes.Remove(lvi.Tag as AcademicClass);
+                    //facultyGroups[activeGroupeTitle].Classes.Find()
+                    
+                    FillTabPage(tabControlGroups.SelectedTab, facultyGroups[activeGroupeTitle]);
                 }
             }
             catch (Exception)
             { }
             dataGridViewSchedule.Discolor();
-            dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
+            //dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
             checkErrors();
         }
 
@@ -295,7 +289,7 @@ namespace SheduleEditorV6
             if (info.RowIndex == -1) return;
         }
 
-        void checkErrors()
+        public void checkErrors()
         {
             var newErrors = new List<ScheduleError>();
             for (int i = 0; i < errors.Count; i++)
@@ -321,7 +315,6 @@ namespace SheduleEditorV6
         {
             if (e.Effect == DragDropEffects.None)
             {
-                int q = 0;
             }
             var info = dataGridViewSchedule.HitTest(e.X, e.Y);
             if (info.RowIndex == -1) return;
@@ -368,7 +361,7 @@ namespace SheduleEditorV6
             {
                 MessageBox.Show("Выбранная пара не относится к этой подгруппе");
             }
-            listViewErrors.Items[0].SubItems[1].Text = $"r{info.RowIndex} c{info.ColumnIndex} resTeacher {resTeacher.ToString()}";
+            //listViewErrors.Items[0].SubItems[1].Text = $"r{info.RowIndex} c{info.ColumnIndex} resTeacher {resTeacher.ToString()}";
         }
 
         private void listViewErrors_MouseDown(object sender, MouseEventArgs e)
@@ -382,7 +375,7 @@ namespace SheduleEditorV6
         {
             var info = dataGridViewSchedule.HitTest(e.X, e.Y);
             if (info.RowIndex == -1) return;
-            listViewErrors.Items[0].SubItems[0].Text = $"row {info.RowIndex} col {info.ColumnIndex}";
+            //listViewErrors.Items[0].SubItems[0].Text = $"row {info.RowIndex} col {info.ColumnIndex}";
             dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
             // уберу весь текст для красивой подсветки
             var row = info.RowIndex - 2 - info.RowIndex % 2;
@@ -462,21 +455,21 @@ namespace SheduleEditorV6
             var weekDay = (DayOfWeek)(row / 8 + 1);
             var сlassNumber = (row - ((int)weekDay - 1) * 8) / 2 + 1; // [1 - 4]
             var acadClass = schedule[activeGroupeTitle][weekDay, сlassNumber][1 + (col < 2 ? 0 : 1), 1 + (row % 2)];
-            ListViewItem lvi = new ListViewItem(acadClass.ClassTitle);
-            lvi.SubItems.Add(acadClass.Teacher.ToString());
-            lvi.SubItems.Add(acadClass.Type.GetDescription());
-            lvi.SubItems.Add(acadClass.Hours.ToString());
-            lvi.SubItems.Add(acadClass.SubGroup.GetDescription());
-            lvi.Tag = acadClass;
+            facultyGroups[activeGroupeTitle].Add(acadClass);
+            FillTabPage(tabControlGroups.SelectedTab, facultyGroups[activeGroupeTitle]);
+            
+            //ListViewItem lvi = new ListViewItem(acadClass.ClassTitle);
+            //lvi.SubItems.Add(acadClass.Teacher.ToString());
+            //lvi.SubItems.Add(acadClass.Type.GetDescription());
+            //lvi.SubItems.Add(acadClass.Hours.ToString());
+            //lvi.SubItems.Add(acadClass.SubGroup.GetDescription());
+            //lvi.Tag = acadClass;
 
-            (tabControlGroups.SelectedTab.Controls[0] as ListView).Items.Add(lvi);
+            //(tabControlGroups.SelectedTab.Controls[0] as ListView).Items.Add(lvi);
             schedule[activeGroupeTitle][weekDay, сlassNumber].ClearCell(1 + (col < 2 ? 0 : 1), 1 + (row % 2));
             dataGridViewSchedule.UpdateDataGrid(schedule[activeGroupeTitle]);
             checkErrors();
-        }
-
-        private void dataGridViewSchedule_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
+            save();
         }
 
         private void UploadToolStripMenuItem_Click(object sender, EventArgs e)
