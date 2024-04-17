@@ -10,8 +10,9 @@
 
 Ссылка на примеры нагрузок https://drive.google.com/drive/folders/1OELA1-BAcgs5N_xQ3bhJ3C4V6xo4In_h?usp=share_link
 
-Удачи тому, кто это будет дописывать!
-
+Удачи тому, кто это будет дописывать!  
+[текст курсовой](https://docs.google.com/document/d/1Q_Km2EpJW0rAAb5PvkEqGTUU2BWhVJm1w1m3jaGLW_w/edit?usp=drive_link)  
+[презентация](https://docs.google.com/presentation/d/1li_ks47YpEityU5h0A0ovJNTUtPCitxSa3iC0DAWSRw/edit?usp=drive_link)  
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠋⠛⢶⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣤⣤⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⡆⠀⠀⠉⠻⠷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⡾⠋⢡⣀⠈⠙⣷⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
